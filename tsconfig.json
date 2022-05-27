@@ -21,8 +21,7 @@
     "src/**/*",
     "config/**/*",
     ".umirc.ts",
-    "typings.d.ts",
-    "public/modernizr.min.js"
+    "typings.d.ts"
   ],
   "exclude": [
     "node_modules",
