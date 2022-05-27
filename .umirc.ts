@@ -4,10 +4,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: [
-    { path: '/', component: '@/pages/Home' },
-    { path: '/dashboard', component: '@/pages/Dashboard' },
-  ],
+  routes: [{ path: '/', component: '@/pages/Home' }],
   fastRefresh: {},
   title: 'HAYEK - Stablecoin & Forex Protocol',
 });
