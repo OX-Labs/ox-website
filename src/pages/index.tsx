@@ -1,200 +1,51 @@
-import { createChart } from 'lightweight-charts';
-import React, {
-  createContext,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect } from 'react';
+import KCharts from '@/components/KCharts';
+import { useWeb3React } from '@web3-react/core';
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { Row, Col, Skeleton, Tabs, Button } from 'antd';
+const { TabPane } = Tabs;
+const Page = () => {
+  // library	当前连接的library
+  // deactivate	断开连接的方法
+  // chainId	当前连接的链id
+  // account	当前连接的钱包账户地址
+  // active	当前连接的状态，是否连接
+  const { library, deactivate, chainId, account, active, activate, error } =
+    useWeb3React();
 
-const Context = createContext();
-
-const initialData = [
-  { time: '2018-10-11', value: 52.89 },
-  { time: '2018-10-12', value: 51.65 },
-  { time: '2018-10-13', value: 51.56 },
-  { time: '2018-10-14', value: 50.19 },
-  { time: '2018-10-15', value: 51.86 },
-  { time: '2018-10-16', value: 51.25 },
-];
-const currentDate = new Date(initialData[initialData.length - 1].time);
-
-export const App = (props) => {
-  const {} = props;
-  const backgroundColor: '#000000', lineColor: '#2962FF', textColor: 'black';
-  const [chartLayoutOptions, setChartLayoutOptions] = useState({});
-  // The following variables illustrate how a series could be updated.
-  const series1 = useRef(null);
-  const [started, setStarted] = useState(false);
-
-  // The purpose of this effect is purely to show how a series could
-  // be updated using the `reference` passed to the `Series` component.
+  const injected = new InjectedConnector({
+    supportedChainIds: [56],
+  });
   useEffect(() => {
-    if (series1.current === null) {
-      return;
-    }
-
-    if (started) {
-      const interval = setInterval(() => {
-        currentDate.setDate(currentDate.getDate() + 1);
-        const next = {
-          time: currentDate.toISOString().slice(0, 10),
-          value: 53 - 2 * Math.random(),
-        };
-        series1.current.update(next);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [started]);
-
-  useEffect(() => {
-    setChartLayoutOptions({
-      background: {
-        color: backgroundColor,
-      },
-      textColor,
-    });
-  }, [backgroundColor, textColor]);
-
+    activate(injected);
+  }, []);
   return (
     <>
-      <button type="button" onClick={() => setStarted((current) => !current)}>
-        {started ? 'Stop updating' : 'Start updating series'}
-      </button>
-      <Chart layout={chartLayoutOptions}>
-        <Series
-          ref={series1}
-          type={'line'}
-          data={initialData}
-          color={lineColor}
-        />
-      </Chart>
+      <Row gutter={16} style={{ padding: '50px' }}>
+        <Col className="gutter-row" span={12}>
+          <h1>K线区域</h1>
+          <KCharts />
+          <h1>其他K线区域</h1>
+          <KCharts />
+        </Col>
+        <Col className="gutter-row" span={6}>
+          <Row gutter={16}>
+            <h1>订单薄区域</h1>
+            <Col className="gutter-row" span={24}>
+              <Skeleton avatar paragraph={{ rows: 14 }} />
+            </Col>
+            <h1>最近交易区域</h1>
+            <Col className="gutter-row" span={24}>
+              <Skeleton avatar paragraph={{ rows: 4 }} />
+            </Col>
+          </Row>
+        </Col>
+        <Col className="gutter-row" span={6}>
+          <h1>交易区域</h1>
+          <Skeleton avatar paragraph={{ rows: 10 }} />
+        </Col>
+      </Row>
     </>
   );
 };
-
-export function Chart(props) {
-  const [container, setContainer] = useState(false);
-  const handleRef = useCallback((ref) => setContainer(ref), []);
-  return (
-    <div ref={handleRef}>
-      {container && <ChartContainer {...props} container={container} />}
-    </div>
-  );
-}
-
-export const ChartContainer = forwardRef((props, ref) => {
-  const { children, container, layout, ...rest } = props;
-
-  const chartApiRef = useRef({
-    api() {
-      if (!this._api) {
-        this._api = createChart(container, {
-          ...rest,
-          layout,
-          width: container.clientWidth,
-          height: 300,
-        });
-        this._api.timeScale().fitContent();
-      }
-      return this._api;
-    },
-    free() {
-      if (this._api) {
-        this._api.remove();
-      }
-    },
-  });
-
-  useLayoutEffect(() => {
-    const currentRef = chartApiRef.current;
-    const chart = currentRef.api();
-
-    const handleResize = () => {
-      chart.applyOptions({
-        ...rest,
-        width: container.clientWidth,
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      chart.remove();
-    };
-  }, []);
-
-  useLayoutEffect(() => {
-    const currentRef = chartApiRef.current;
-    currentRef.api();
-  }, []);
-
-  useLayoutEffect(() => {
-    const currentRef = chartApiRef.current;
-    currentRef.api().applyOptions(rest);
-  }, []);
-
-  useImperativeHandle(ref, () => chartApiRef.current.api(), []);
-
-  useEffect(() => {
-    const currentRef = chartApiRef.current;
-    currentRef.api().applyOptions({ layout });
-  }, [layout]);
-
-  return (
-    <Context.Provider value={chartApiRef.current}>
-      {props.children}
-    </Context.Provider>
-  );
-});
-ChartContainer.displayName = 'ChartContainer';
-
-export const Series = forwardRef((props, ref) => {
-  const parent = useContext(Context);
-  const context = useRef({
-    api() {
-      if (!this._api) {
-        const { children, data, type, ...rest } = props;
-        this._api =
-          type === 'line'
-            ? parent.api().addLineSeries(rest)
-            : parent.api().addAreaSeries(rest);
-        this._api.setData(data);
-      }
-      return this._api;
-    },
-    free() {
-      if (this._api) {
-        parent.free();
-      }
-    },
-  });
-
-  useLayoutEffect(() => {
-    const currentRef = context.current;
-    currentRef.api();
-
-    return () => currentRef.free();
-  }, []);
-
-  useLayoutEffect(() => {
-    const currentRef = context.current;
-    const { children, data, ...rest } = props;
-    currentRef.api().applyOptions(rest);
-  });
-
-  useImperativeHandle(ref, () => context.current.api(), []);
-
-  return (
-    <Context.Provider value={context.current}>
-      {props.children}
-    </Context.Provider>
-  );
-});
-Series.displayName = 'Series';
-
-export default App;
+export default Page;

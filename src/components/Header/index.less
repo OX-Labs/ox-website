@@ -1,0 +1,116 @@
+.header {
+  height: 110px;
+  z-index: 5;
+  width: 100%;
+  position: fixed;
+  padding: 0 69.8px 0 70px;
+  background: url('~@/assets/background/menuBackground.png');
+  background-size: 100% 100%;
+  overflow: hidden;
+
+  .wrap {
+    height: 110px;
+    margin: 0 auto;
+    max-width: 1280px;
+    display: flex;
+    align-items: center;
+
+    .menu {
+      flex: 1 1;
+      display: flex;
+      justify-content: end;
+      margin-right: 17px;
+
+      .menuItem {
+        height: 28px;
+        flex-grow: 0;
+        padding: 0 15px;
+        text-shadow: 0 0 3px #54ccff;
+        -webkit-text-stroke: 0.2px #54ccff;
+        font-family: NotoSansTC;
+        font-size: 19.6px;
+        letter-spacing: 3.14px;
+        text-align: left;
+        color: #ffffff;
+
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .wallet {
+      // width: 224px;
+      // height: 48px;
+      // position: relative;
+      // box-shadow: 0 0 3px 0 #dedede;
+      // border: solid 4px #202020;
+      // border-radius: 30px;
+      // background-image: linear-gradient(102deg, #404040 0%, #202020 100%);
+      width: auto;
+      transition: width 1s;
+      display: flex;
+      border: 1.2px solid #ffffff;
+      border-radius: 10px;
+      padding: 0 10px;
+
+      .icon {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+      }
+
+      .connect {
+        text-align: center;
+        cursor: pointer;
+        line-height: 40px;
+        font-size: 20px;
+        padding-left: 10px;
+        color: #ffffff;
+      }
+    }
+
+    .mobileMenu {
+      flex: 1;
+      text-align: right;
+    }
+  }
+}
+
+.dropdownMenu {
+  width: 160px;
+  box-shadow: 0px 0px 3px 1px #7b61ff;
+  border-radius: 0px 0px 20px 20px;
+  border: 0px solid #9932ff;
+  overflow: hidden;
+
+  .menuItem {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-family: Noto Sans TC-Regular, Noto Sans TC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 15px;
+    letter-spacing: 2px;
+    padding: 11px 17px;
+    background: #202020;
+    border-bottom: 1px solid #505050;
+
+    img {
+      margin-right: 5px;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: #9932ff;
+    }
+  }
+}
