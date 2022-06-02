@@ -31562,91 +31562,198 @@
           e
         );
       })(tf),
-      mf =
-        (na.TabPane,
-        () => {
-          var t = Object(Jl['b'])(),
-            e =
-              (t.library,
-              t.deactivate,
-              t.chainId,
-              t.account,
-              t.active,
-              t.activate),
-            n = (t.error, new vf({ supportedChainIds: [56] }));
-          return (
-            Object(s['useEffect'])(() => {
-              e(n);
-            }, []),
-            Object(Ul['jsx'])(Ul['Fragment'], {
-              children: Object(Ul['jsxs'])(P, {
-                gutter: 16,
-                style: { padding: '50px' },
-                children: [
-                  Object(Ul['jsxs'])(at, {
-                    className: 'gutter-row',
-                    span: 12,
+      mf = n('RKie'),
+      yf = n.n(mf),
+      gf = na.TabPane,
+      bf = () => {
+        var t = Object(Jl['b'])(),
+          e =
+            (t.library,
+            t.deactivate,
+            t.chainId,
+            t.account,
+            t.active,
+            t.activate),
+          n = (t.error, new vf({ supportedChainIds: [56] }));
+        return (
+          Object(s['useEffect'])(() => {
+            e(n);
+          }, []),
+          Object(Ul['jsx'])(Ul['Fragment'], {
+            children: Object(Ul['jsxs'])(P, {
+              gutter: 16,
+              children: [
+                Object(Ul['jsx'])(at, {
+                  className: 'gutter-row',
+                  span: 15,
+                  style: { borderRight: '1px solid rgb(37, 41, 48)' },
+                  children: Object(Ul['jsxs'])(P, {
+                    gutter: 16,
                     children: [
-                      Object(Ul['jsx'])('h1', {
-                        children: 'K\u7ebf\u533a\u57df',
-                      }),
-                      Object(Ul['jsx'])($l, {}),
-                      Object(Ul['jsx'])('h1', {
-                        children: '\u5176\u4ed6K\u7ebf\u533a\u57df',
-                      }),
-                      Object(Ul['jsx'])($l, {}),
-                    ],
-                  }),
-                  Object(Ul['jsx'])(at, {
-                    className: 'gutter-row',
-                    span: 6,
-                    children: Object(Ul['jsxs'])(P, {
-                      gutter: 16,
-                      children: [
-                        Object(Ul['jsx'])('h1', {
-                          children: '\u8ba2\u5355\u8584\u533a\u57df',
-                        }),
-                        Object(Ul['jsx'])(at, {
-                          className: 'gutter-row',
-                          span: 24,
-                          children: Object(Ul['jsx'])(tt, {
-                            avatar: !0,
-                            paragraph: { rows: 14 },
+                      Object(Ul['jsxs'])(at, {
+                        className: 'gutter-row',
+                        span: 24,
+                        style: { borderBottom: '1px solid rgb(37, 41, 48)' },
+                        children: [
+                          Object(Ul['jsx'])('h1', {
+                            className: yf.a.t1,
+                            children: 'ACY/USDH',
                           }),
-                        }),
-                        Object(Ul['jsx'])('h1', {
-                          children: '\u6700\u8fd1\u4ea4\u6613\u533a\u57df',
-                        }),
-                        Object(Ul['jsx'])(at, {
-                          className: 'gutter-row',
-                          span: 24,
-                          children: Object(Ul['jsx'])(tt, {
+                          Object(Ul['jsx'])($l, {}),
+                        ],
+                      }),
+                      Object(Ul['jsxs'])(at, {
+                        className: 'gutter-row',
+                        span: 24,
+                        children: [
+                          Object(Ul['jsxs'])('div', {
+                            className: yf.a.t1,
+                            children: [
+                              Object(Ul['jsx'])('span', {
+                                children: 'Open Orders(0)',
+                              }),
+                              '\xa0\xa0\xa0',
+                              Object(Ul['jsx'])('span', {
+                                children: 'Open History',
+                              }),
+                              '\xa0\xa0\xa0',
+                              Object(Ul['jsx'])('span', {
+                                children: 'Trade History',
+                              }),
+                              '\xa0\xa0\xa0',
+                              Object(Ul['jsx'])('span', { children: 'Funds' }),
+                              '\xa0\xa0\xa0',
+                              Object(Ul['jsx'])('span', {
+                                children: 'Positic',
+                              }),
+                              '\xa0\xa0\xa0',
+                            ],
+                          }),
+                          Object(Ul['jsx'])(tt, {
                             avatar: !0,
                             paragraph: { rows: 4 },
                           }),
-                        }),
-                      ],
-                    }),
-                  }),
-                  Object(Ul['jsxs'])(at, {
-                    className: 'gutter-row',
-                    span: 6,
-                    children: [
-                      Object(Ul['jsx'])('h1', {
-                        children: '\u4ea4\u6613\u533a\u57df',
-                      }),
-                      Object(Ul['jsx'])(tt, {
-                        avatar: !0,
-                        paragraph: { rows: 10 },
+                        ],
                       }),
                     ],
                   }),
-                ],
-              }),
-            })
-          );
-        });
-    e['default'] = mf;
+                }),
+                Object(Ul['jsx'])(at, {
+                  className: 'gutter-row',
+                  span: 4,
+                  style: { borderRight: '1px solid rgb(37, 41, 48)' },
+                  children: Object(Ul['jsxs'])(P, {
+                    gutter: 16,
+                    children: [
+                      Object(Ul['jsx'])('h1', {
+                        className: yf.a.t1,
+                        children: 'Order Book',
+                      }),
+                      Object(Ul['jsx'])(at, {
+                        className: 'gutter-row',
+                        span: 24,
+                        style: { borderBottom: '1px solid rgb(37, 41, 48)' },
+                        children: Object(Ul['jsx'])(tt, {
+                          avatar: !0,
+                          paragraph: { rows: 14 },
+                        }),
+                      }),
+                      Object(Ul['jsx'])('h1', {
+                        className: yf.a.t1,
+                        children: 'Market Trades',
+                      }),
+                      Object(Ul['jsx'])(at, {
+                        className: 'gutter-row',
+                        span: 24,
+                        children: Object(Ul['jsx'])(tt, {
+                          avatar: !0,
+                          paragraph: { rows: 4 },
+                        }),
+                      }),
+                    ],
+                  }),
+                }),
+                Object(Ul['jsx'])(at, {
+                  className: 'gutter-row',
+                  span: 5,
+                  children: Object(Ul['jsxs'])(
+                    na,
+                    {
+                      type: 'card',
+                      children: [
+                        Object(Ul['jsx'])(
+                          gf,
+                          {
+                            tab: 'BUY',
+                            children: Object(Ul['jsxs'])(
+                              na,
+                              {
+                                defaultActiveKey: '1',
+                                children: [
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'MARKET', children: 'MARKET' },
+                                    '1',
+                                  ),
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'LIMIT', children: 'LIMIT' },
+                                    '2',
+                                  ),
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'ADVANCED', children: 'ADVANCED' },
+                                    '3',
+                                  ),
+                                ],
+                              },
+                              'c1',
+                            ),
+                          },
+                          '1',
+                        ),
+                        Object(Ul['jsx'])(
+                          gf,
+                          {
+                            tab: 'SELL',
+                            children: Object(Ul['jsxs'])(
+                              na,
+                              {
+                                defaultActiveKey: '1',
+                                children: [
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'MARKET', children: 'MARKET' },
+                                    '1',
+                                  ),
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'LIMIT', children: 'LIMIT' },
+                                    '2',
+                                  ),
+                                  Object(Ul['jsx'])(
+                                    gf,
+                                    { tab: 'ADVANCED', children: 'ADVANCED' },
+                                    '3',
+                                  ),
+                                ],
+                              },
+                              'c2',
+                            ),
+                          },
+                          '2',
+                        ),
+                      ],
+                    },
+                    'm1',
+                  ),
+                }),
+              ],
+            }),
+          })
+        );
+      };
+    e['default'] = bf;
   },
   QkVE: function (t, e, n) {
     var r = n('EpBk');
@@ -31771,6 +31878,9 @@
           return 'String' == i(t) ? o.call(t, '') : Object(t);
         }
       : Object;
+  },
+  RKie: function (t, e, n) {
+    t.exports = { t1: 't1___2ghmX' };
   },
   RN6c: function (t, e, n) {
     var r = n('2oRo');
@@ -31982,6 +32092,9 @@
         },
       },
     );
+  },
+  'T+dw': function (t, e) {
+    t.exports = { background: '#010101' };
   },
   T63A: function (t, e, n) {
     var r = n('I+eb'),
@@ -43861,9 +43974,9 @@
       return Math.log10 ? Math.log10(t) : Math.log(t) / Math.LN10;
     }
     const qt = {};
-    for (let ii = 0; ii < 10; ii++) qt[String(ii)] = String(ii);
-    for (let ii = 0; ii < 26; ii++)
-      qt[String.fromCharCode(65 + ii)] = String(10 + ii);
+    for (let ai = 0; ai < 10; ai++) qt[String(ai)] = String(ai);
+    for (let ai = 0; ai < 26; ai++)
+      qt[String.fromCharCode(65 + ai)] = String(10 + ai);
     const Ht = Math.floor(Wt(Vt));
     function Gt(t) {
       (t = t.toUpperCase()), (t = t.substring(4) + t.substring(0, 2) + '00');
@@ -48472,30 +48585,36 @@
         return this.jsonRpcFetchFunc(t, e);
       }
     }
-    var Zr = n('nKUr'),
-      Qr = H.Header,
-      ti = H.Footer,
-      ei = (H.Sider, H.Content);
-    function ni(t) {
+    var Zr = n('T+dw'),
+      Qr = n.n(Zr),
+      ti = n('nKUr'),
+      ei = H.Header,
+      ni = H.Footer,
+      ri = (H.Sider, H.Content);
+    function ii(t) {
       var e = new Xr(t);
       return (e.pollingInterval = 8e3), e;
     }
-    var ri = (t) =>
-      Object(Zr['jsx'])(G['a'], {
-        getLibrary: ni,
-        children: Object(Zr['jsxs'])(H, {
-          style: { background: '#000000' },
+    var oi = (t) =>
+      Object(ti['jsx'])(G['a'], {
+        getLibrary: ii,
+        children: Object(ti['jsxs'])(H, {
+          style: { background: Qr.a.background },
           children: [
-            Object(Zr['jsx'])(Qr, {
-              children: Object(Zr['jsx'])('img', {
+            Object(ti['jsx'])(ei, {
+              style: {
+                background: Qr.a.background,
+                borderBottom: '1px solid rgb(37, 41, 48)',
+              },
+              children: Object(ti['jsx'])('img', {
                 width: 50,
                 src: '/logo.svg',
               }),
             }),
-            Object(Zr['jsx'])(ei, { children: t.children }),
-            Object(Zr['jsx'])(ti, {
+            Object(ti['jsx'])(ri, { children: t.children }),
+            Object(ti['jsx'])(ni, {
               style: {
-                background: '#000000',
+                background: Qr.a.background,
                 textAlign: 'center',
                 color: 'rgba(255,255,255,0.7)',
               },
@@ -48504,7 +48623,7 @@
           ],
         }),
       });
-    e['default'] = ri;
+    e['default'] = oi;
   },
   m92n: function (t, e, n) {
     var r = n('glrk');
@@ -53141,7 +53260,7 @@
           routes: [
             {
               path: '/',
-              title: 'Crypto J',
+              title: 'OX EXCHANGE',
               component: n('QeBL').default,
               exact: !0,
             },

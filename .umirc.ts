@@ -5,7 +5,9 @@ export default defineConfig({
     type: 'none',
   },
   theme: {
-    // "primary-color": "#010101",
+    'primary-color': '#ffc000',
+    'text-color': '#ffffff', // 主文本色
+    'tabs-card-head-background': '#0B1C2C',
   },
   routes: [
     {
@@ -14,7 +16,7 @@ export default defineConfig({
       routes: [
         {
           path: '/',
-          title: 'Crypto J',
+          title: 'OX EXCHANGE',
           component: '@/pages/index',
         },
       ],

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { Layout } from 'antd';
+import defaultSettings from '@/defaultSettings';
 // import Header from '@/components/Header';
 // import Footer from '@/components/Footer';
 const { Header, Footer, Sider, Content } = Layout;
@@ -14,9 +15,14 @@ const BasicLayout = (props) => {
   // console.log('process.env',process.env);
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Layout style={{ background: '#000000' }}>
+      <Layout style={{ background: defaultSettings.background }}>
         {/* <Header /> */}
-        <Header>
+        <Header
+          style={{
+            background: defaultSettings.background,
+            borderBottom: '1px solid rgb(37, 41, 48)',
+          }}
+        >
           {/* <Skeleton rows={1} /> */}
           <img width={50} src="/logo.svg" />
         </Header>
@@ -24,7 +30,7 @@ const BasicLayout = (props) => {
         {/* <Footer /> */}
         <Footer
           style={{
-            background: '#000000',
+            background: defaultSettings.background,
             textAlign: 'center',
             color: 'rgba(255,255,255,0.7)',
           }}
