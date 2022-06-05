@@ -10,7 +10,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
+const upColor = '#2BA23A';
+const downColor = '#D61533';
 const Context = createContext();
 
 const initialData = [
@@ -133,7 +134,7 @@ export const ChartContainer = forwardRef((props, ref) => {
           ...rest,
           layout,
           width: container.clientWidth,
-          height: 300,
+          height: 650,
           grid: {
             vertLines: {
               visible: true,
@@ -220,6 +221,13 @@ export const Series = forwardRef((props, ref) => {
             ? parent.api().addCandlestickSeries(rest)
             : parent.api().addAreaSeries(rest);
         this._api.setData(data);
+        this._api.applyOptions({
+          upColor: upColor,
+          wickUpColor: upColor,
+          downColor: 'rgba(0,0,0,0)',
+          borderDownColor: downColor,
+          wickDownColor: downColor,
+        });
       }
       return this._api;
     },

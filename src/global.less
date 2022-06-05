@@ -3,6 +3,7 @@ body {
   background: #010101;
   overflow-x: hidden;
   color: @primaryFontColor;
+  font-family: 'Karla', sans-serif;
 }
 h1,
 h2,
@@ -12,3 +13,13 @@ h5,
 h6 {
   color: @primaryFontColor;
 }
+
+// tabs
+.ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  border: 0;
+}
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  background: #212112;
+}
+// tabs

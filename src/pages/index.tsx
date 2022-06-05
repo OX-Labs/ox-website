@@ -71,32 +71,9 @@ const Page = () => {
         </Col>
         <Col className="gutter-row" span={5}>
           <Tabs key="m1" type="card">
-            <TabPane tab="BUY" key="1">
-              <Tabs key="c1" defaultActiveKey="1">
-                <TabPane tab="MARKET" key="1">
-                  MARKET
-                </TabPane>
-                <TabPane tab="LIMIT" key="2">
-                  LIMIT
-                </TabPane>
-                <TabPane tab="ADVANCED" key="3">
-                  ADVANCED
-                </TabPane>
-              </Tabs>
-            </TabPane>
-            <TabPane tab="SELL" key="2">
-              <Tabs key="c2" defaultActiveKey="1">
-                <TabPane tab="MARKET" key="1">
-                  MARKET
-                </TabPane>
-                <TabPane tab="LIMIT" key="2">
-                  LIMIT
-                </TabPane>
-                <TabPane tab="ADVANCED" key="3">
-                  ADVANCED
-                </TabPane>
-              </Tabs>
-            </TabPane>
+            <TabPane tab="BUY" key="1"></TabPane>
+            <TabPane tab="SELL" key="2"></TabPane>
+            <TabPane tab="ADVANCED" key="3"></TabPane>
           </Tabs>
         </Col>
       </Row>
