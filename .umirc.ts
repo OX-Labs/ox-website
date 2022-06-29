@@ -17,7 +17,7 @@ export default defineConfig({
         {
           path: '/',
           title: 'OX EXCHANGE',
-          component: '@/pages/index',
+          component: '@/pages/test',
         },
         {
           path: '/t',
