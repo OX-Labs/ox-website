@@ -19,6 +19,11 @@ export default defineConfig({
           title: 'OX EXCHANGE',
           component: '@/pages/index',
         },
+        {
+          path: '/t',
+          title: 'OX EXCHANGE',
+          component: '@/pages/test',
+        },
       ],
     },
   ],

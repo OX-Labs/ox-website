@@ -134,7 +134,7 @@ export const ChartContainer = forwardRef((props, ref) => {
           ...rest,
           layout,
           width: container.clientWidth,
-          height: 650,
+          height: 500,
           grid: {
             vertLines: {
               visible: true,

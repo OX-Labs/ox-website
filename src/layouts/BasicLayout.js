@@ -36,6 +36,7 @@ const BasicLayout = (props) => {
                 style={{
                   borderBottom: '1px solid rgb(37, 41, 48)',
                   background: defaultSettings.background,
+                  position: 'relative',
                 }}
               >
                 <OxPageTabs />
