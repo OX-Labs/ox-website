@@ -2,8 +2,12 @@ import styles from './index.less';
 const ODI = () => {
   return (
     <div className={styles.odi}>
-      <input />
-      <input />
+      <div>
+        <input />
+      </div>
+      <div>
+        <input />
+      </div>
     </div>
   );
 };

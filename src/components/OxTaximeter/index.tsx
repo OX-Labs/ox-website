@@ -7,8 +7,9 @@ const KpBigInput = (props: any) => {
   return (
     <div className={styles.kb} {...rest}>
       <div className={styles.areaInput}>
-        <div className={styles.price}>{title || ''}</div>
-        <span>{token || ''}</span>
+        {title && <div className={styles.price}>{title}</div>}
+
+        {token && <span>{token}</span>}
       </div>
     </div>
   );

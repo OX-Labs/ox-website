@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Table, Slider, Checkbox, Button } from 'antd';
+import { Select, Table, Slider, Checkbox, Button, Switch } from 'antd';
 import _ from 'lodash';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import KCharts from '@/components/KCharts';
@@ -9,7 +9,8 @@ import OxBigInput from '@/components/OxBigInput';
 import OxTaximeter from '@/components/OxTaximeter';
 import OxTradingBot from '@/components/OxTradingBot';
 import OxDragWrap from '@/components/OxDragWrap';
-
+import OxDoubleInput from '@/components/OxDoubleInput';
+import OxInfo from '@/components/OxInfo';
 const { Option } = Select;
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -28,7 +29,7 @@ export default class BoundedLayout extends React.PureComponent {
   }
   onPutItem = (item) => {
     // this.setState(prevState => {
-    //   let layout=prevState.layout;debugger
+    //   let layout=prevState.layout;
     //   layout.splice(item, 1);
     //   return {
     //     layout:layout
@@ -57,10 +58,115 @@ export default class BoundedLayout extends React.PureComponent {
               <>
                 <OxDragWrap>
                   <OxTabs>
-                    <div tab="Tab 1" key="1">
-                      aaa
+                    <div tab="BUY" key="1">
+                      <div style={{ padding: '16px' }}>
+                        <OxTaximeter title="Available" token="0 USDT" />
+                        <OxBigInput title="Price" token="USDT" />
+                        <OxBigInput title="Amount" token="BTC" />
+                        <OxTaximeter title="Volume" token="-- USDT" />
+                        <Slider
+                          marks={{
+                            1: '1x',
+                            2: '2x',
+                            3: '3x',
+                            4: '4x',
+                            5: '5x',
+                          }}
+                          step={0.1}
+                          min={1}
+                          max={5}
+                        />
+                        <Switch /> &nbsp;&nbsp;TP/SL
+                        <OxDoubleInput />
+                        <p>
+                          <Button
+                            style={{ width: '100%', margin: '15px auto' }}
+                            type="primary"
+                          >
+                            Login
+                          </Button>
+                        </p>
+                        <OxInfo title="Assets">
+                          <OxTaximeter title="USDTAvailable:" token="0 USDT" />
+                          <OxTaximeter title="BTCAvailable:" token="0 BTC" />
+                        </OxInfo>
+                        <OxInfo title="Currency Introduction">
+                          <p>Bitcoin</p>
+                          <OxTaximeter
+                            title="Release Tiem:"
+                            token="2008-10-31"
+                          />
+                          <OxTaximeter
+                            title="Release Amount:"
+                            token="21,000,000 BTC"
+                          />
+                          <OxTaximeter
+                            title="In Circulation:"
+                            token="18,567,718 BTC"
+                          />
+                          <OxTaximeter
+                            title="Link:"
+                            token="https://bitcoin.org/en/"
+                          />
+                          {/* <OxTaximeter title="Bitcoin was the first cryptocurrency to successfully record transactions on a secure, decentralized blockchain-based network. Invented in 2008 by an unknown person or group of people using the name Satoshi Nakamoto, and started in 2009 when its implementation was released as open-source software. Nakamoto set a monetary policy based on artificial scarcity at bitcoin's inception that the total number of bitcoins could never exceed 21 million. Bitcoin is the largest cryptocurrency measured by market capitalization and amount of data stored on its blockchain. " /> */}
+                        </OxInfo>
+                      </div>
                     </div>
-                    <div tab="Tab 2" key="2">
+                    <div tab="SELL" key="2">
+                      <div style={{ padding: '16px' }}>
+                        <OxTaximeter title="Available" token="0 USDT" />
+                        <OxBigInput title="Price" token="USDT" />
+                        <OxBigInput title="Amount" token="BTC" />
+                        <OxTaximeter title="Volume" token="-- USDT" />
+                        <Slider
+                          marks={{
+                            1: '1x',
+                            2: '2x',
+                            3: '3x',
+                            4: '4x',
+                            5: '5x',
+                          }}
+                          step={0.1}
+                          min={1}
+                          max={5}
+                        />
+                        <Switch /> &nbsp;&nbsp;TP/SL
+                        <OxDoubleInput />
+                        <p>
+                          <Button
+                            style={{ width: '100%', margin: '15px auto' }}
+                            type="primary"
+                          >
+                            Login
+                          </Button>
+                        </p>
+                        <OxInfo title="Assets">
+                          <OxTaximeter title="USDTAvailable:" token="0 USDT" />
+                          <OxTaximeter title="BTCAvailable:" token="0 BTC" />
+                        </OxInfo>
+                        <OxInfo title="Currency Introduction">
+                          <p>Bitcoin</p>
+                          <OxTaximeter
+                            title="Release Tiem:"
+                            token="2008-10-31"
+                          />
+                          <OxTaximeter
+                            title="Release Amount:"
+                            token="21,000,000 BTC"
+                          />
+                          <OxTaximeter
+                            title="In Circulation:"
+                            token="18,567,718 BTC"
+                          />
+                          <OxTaximeter
+                            title="Link:"
+                            token="https://bitcoin.org/en/"
+                          />
+                          {/* <OxTaximeter title="Bitcoin was the first cryptocurrency to successfully record transactions on a secure, decentralized blockchain-based network. Invented in 2008 by an unknown person or group of people using the name Satoshi Nakamoto, and started in 2009 when its implementation was released as open-source software. Nakamoto set a monetary policy based on artificial scarcity at bitcoin's inception that the total number of bitcoins could never exceed 21 million. Bitcoin is the largest cryptocurrency measured by market capitalization and amount of data stored on its blockchain. " /> */}
+                        </OxInfo>
+                      </div>
+                    </div>
+                    <div tab="ADVANCED" key="3">
                       bbb
                     </div>
                   </OxTabs>
@@ -71,40 +177,6 @@ export default class BoundedLayout extends React.PureComponent {
                     &times;
                   </div>
                 </OxDragWrap>
-                <div style={{ padding: '16px' }}>
-                  <OxTaximeter title="Available" token="0 USDT" />
-                  <OxBigInput title="Price" token="USDT" />
-                  <OxBigInput title="Amount" token="BTC" />
-                  <OxTaximeter title="Volume" token="-- USDT" />
-                  <Slider
-                    marks={{ 1: '1x', 2: '2x', 3: '3x', 4: '4x', 5: '5x' }}
-                    step={0.1}
-                    min={1}
-                    max={5}
-                  />
-                  <Checkbox>TP/SL</Checkbox>
-                  <div>
-                    <input />
-                    <input />
-                  </div>
-
-                  <p>
-                    <Button
-                      style={{ width: '100%', margin: '15px auto' }}
-                      type="primary"
-                    >
-                      Login
-                    </Button>
-                  </p>
-                  {/* <Select defaultValue="lucy">
-      <Option value="jack">Jack</Option>
-      <Option value="lucy">Lucy</Option>
-      <Option value="disabled" disabled>
-        Disabled
-      </Option>
-      <Option value="Yiminghe">yiminghe</Option>
-    </Select> */}
-                </div>
               </>
             )}
             {i == 4 && (
@@ -188,7 +260,7 @@ export default class BoundedLayout extends React.PureComponent {
     //     i: i.toString()
     //   };
     // });
-    // debugger;
+    // ;
     let ly = [
       { x: 0, y: 0, w: 2, h: 14, i: '0' },
       { x: 2, y: 0, w: 2, h: 14, i: '1' },

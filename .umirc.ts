@@ -5,7 +5,7 @@ export default defineConfig({
     type: 'none',
   },
   theme: {
-    'primary-color': '#ffc000',
+    'primary-color': '#0030D4',
     'text-color': '#ffffff', // 主文本色
     'tabs-card-head-background': '#0B1C2C',
   },
