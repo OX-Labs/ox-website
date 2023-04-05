@@ -1,0 +1,87 @@
+.drawer {
+    .title {
+      display: flex;
+      justify-content: space-between;
+      color: #999999;
+      font-size: 0.875rem;
+    }
+  
+    hr {
+      border: none;
+      height: 1px;
+      flex-shrink: 0;
+      background-color: #323232;
+    }
+
+    .tokenselector {
+      .search {
+        margin-top: 12px;
+        font-family: "Karla", sans-serif;
+        :global {
+          .ant-input {
+            background-color: #0e1118;
+            text-align: left;
+          }
+        }
+      }
+
+      // .coinList {
+      //   display: flex;
+      //   justify-content: center;  
+      //   align-items: center;
+      // }
+
+      .textCenter {
+        font-family: "Karla", sans-serif;
+        justify-content: center;
+        display: flex;
+        padding: 24px;
+      }
+
+      .buttonContainer {
+        display: flex;
+        justify-content: center;  
+        align-items: center;
+
+        .buttonCenter {
+          background: transparent; 
+          border-color: #323232;
+          color:#999999;
+          width: 50%;
+          align-items: center;  
+        }
+      }
+
+      
+    }
+  
+    :global {
+      .ant-drawer-content-wrapper {
+        height: 100% !important;
+      }
+  
+      .ant-drawer-wrapper-body {
+        background-color: #0e1118;
+      }
+  
+      .ant-drawer-header {
+        border: 0;
+        background-color: #0e1118;
+      }
+  
+      .ant-drawer-header-title {
+        flex-direction: row-reverse;
+      }
+  
+      .ant-drawer-title,
+      .ant-drawer-close {
+        color: #ffffff;
+        text-align: left;
+      }
+
+      .ant-drawer-body {
+        overflow: hidden;
+      }
+
+    }
+  }
