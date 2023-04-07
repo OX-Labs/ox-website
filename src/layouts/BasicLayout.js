@@ -18,7 +18,6 @@ const BasicLayout = (props) => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Layout>
-        <TopBar />
         <Content>
           <Layout>
             <Sider
@@ -29,10 +28,10 @@ const BasicLayout = (props) => {
                 minHeight: '100vh',
               }}
             >
-              <img width={50} src="/logo.svg" />
+              <img width={50} src="/logo.svg" style={{marginTop: 20}} />
             </Sider>
             <Layout style={{ background: defaultSettings.background }}>
-              <div
+              {/* <div
                 style={{
                   borderBottom: '1px solid rgb(37, 41, 48)',
                   background: defaultSettings.background,
@@ -48,10 +47,11 @@ const BasicLayout = (props) => {
                 }}
               >
                 <Skeleton rows={1} paragraph={false} />
-              </div>
+              </div> */}
+              <TopBar />
               <Content>{props.children}</Content>
               {/* <Footer /> */}
-              <Footer
+              {/* <Footer
                 style={{
                   background: defaultSettings.background,
                   color: 'rgba(255,255,255,0.7)',
@@ -61,11 +61,10 @@ const BasicLayout = (props) => {
                   padding: '0 30px',
                 }}
               >
-                {/* coingecko 获取数据 */}
                 <span>&nbsp; BTC 30000 +2%</span>
                 <span>&nbsp; | &nbsp;</span>
                 <span>ETH 1800 +1%</span>
-              </Footer>
+              </Footer> */}
             </Layout>
           </Layout>
         </Content>

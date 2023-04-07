@@ -51,7 +51,9 @@ const currentDate = new Date(initialData[initialData.length - 1].time);
 
 export const App = (props) => {
   const {} = props;
-  const backgroundColor: '#010101', lineColor: '#2962FF', textColor: 'black';
+  const backgroundColor = '#010101'
+  const lineColor = '#2962FF'
+  const textColor = 'black';
   const [chartLayoutOptions, setChartLayoutOptions] = useState({
     backgroundColor: '#FAEBD7',
     textColor: '#696969',

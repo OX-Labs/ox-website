@@ -14,16 +14,16 @@ export default defineConfig({
       path: '/',
       component: '../layouts/BasicLayout',
       routes: [
+        // {
+        //   path: '/',
+        //   title: 'OX EXCHANGE',
+        //   component: '@/pages/test',
+        // },
         {
           path: '/',
           title: 'OX EXCHANGE',
-          component: '@/pages/test',
-        },
-        {
-          path: '/t',
-          title: 'OX EXCHANGE',
-          component: '@/pages/test',
-        },
+          component: '@/pages/Trade'
+        }
       ],
     },
   ],
