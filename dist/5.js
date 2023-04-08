@@ -1,4 +1,1 @@
-(window['webpackJsonp'] = window['webpackJsonp'] || []).push([
-  [5],
-  { 4: function (n, w) {} },
-]);
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[5],{3:function(n,w){}}]);
