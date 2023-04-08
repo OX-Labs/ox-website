@@ -77,7 +77,7 @@ const TokenSelectorDrawer = ({ onCancel, visible, setVisible, onCoinClick, coinL
   const setTokenAsFav = token => {
     setFavTokenList(prevState => {
       const prevFavTokenList = [...prevState];
-      if (localStorage.getItem('token').includes(token.address)) {
+      if (localStorage.getItem('token')?.includes(token.address)) {
         var tokens = prevFavTokenList.filter(value => value.address != token.address);
         localStorage.setItem('token', JSON.stringify(tokens.map(e => e.address)));
         localStorage.setItem('tokens_symbol', JSON.stringify(tokens.map(e => e.symbol)));
