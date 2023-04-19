@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import Sankey from "./Sankey";
 import SankeyTag from "./SankeyTag";
 
-export default function SankeyGraph() {
+export default function SankeyGraph(props) {
+  const { token0, token1 } = props
+
   const data = {
     nodes: [
-      { name: "WETH", value: 7 },
+      { name: token0.symbol, value: 7 },
       { name: "WMATIC", value: 1 },
       { name: "WBTC", value: 1 },
       { name: "USDT", value: 2 },
-      { name: "USDC", value: 3 }
+      { name: token1.symbol, value: 3 }
     ],
 
     links: [

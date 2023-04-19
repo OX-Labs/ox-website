@@ -120,3 +120,15 @@ export const useChainId = () => {
   }
   return { chainId };
 }
+
+export function sortAddress(text) {
+  // 转为string
+  text = text + "";
+  const length = text.length;
+  if (text.length > 10) {
+    return text.substring(0, 4) + "..." + text.substring(length - 4, length);
+  }
+  else {
+    return text;
+  }
+}

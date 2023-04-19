@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { Button, Input, Layout, Skeleton } from 'antd';
 import TopBar from '@/components/TopBar';
-import OxPageTabs from '@/components/OxPageTabs';
 import defaultSettings from '@/defaultSettings';
-// import Header from '@/components/Header';
-// import Footer from '@/components/Footer';
+
 const { Header, Footer, Sider, Content } = Layout;
 function getLibrary(provider) {
   const library = new Web3Provider(provider);
@@ -14,13 +11,12 @@ function getLibrary(provider) {
   return library;
 }
 const BasicLayout = (props) => {
-  // console.log('process.env',process.env);
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Layout>
         <Content>
           <Layout>
-            <Sider
+            {/* <Sider
               width={60}
               style={{
                 background: defaultSettings.background,
@@ -29,7 +25,7 @@ const BasicLayout = (props) => {
               }}
             >
               <img width={50} src="/logo.svg" style={{marginTop: 20}} />
-            </Sider>
+            </Sider> */}
             <Layout style={{ background: defaultSettings.background }}>
               {/* <div
                 style={{

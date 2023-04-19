@@ -1,17 +1,21 @@
 import { Space } from 'antd';
 import { HomeOutlined, SettingFilled } from '@ant-design/icons';
-import { SearchButton } from '@/components/OxButton';
+import OxConnectWallet from '../OxConnectWallet'
+import Logo from '@/assets/logo.svg'
 import styles from './index.less';
 
 const TopBar = () => {
   return (
     <div className={styles.warp}>
-      <div></div>
+      <div>
+        <img width={180} src={Logo} style={{margin: '-15px 0'}} />
+      </div>
       {/* <SearchButton /> */}
       <div>
         <Space>
-          <HomeOutlined />
-          <SettingFilled />
+          {/* <HomeOutlined />
+          <SettingFilled /> */}
+          <OxConnectWallet />
         </Space>
       </div>
     </div>

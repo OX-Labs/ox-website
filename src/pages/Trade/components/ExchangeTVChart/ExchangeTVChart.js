@@ -39,14 +39,7 @@ const StyledSelect = styled(Radio.Group)`
   }
 `;
 
-// const client = Binance();
-////// End of price source
-const PRICE_LINE_TEXT_WIDTH = 15;
-const timezoneOffset = -new Date().getTimezoneOffset() * 60;
-const BinancePriceApi = 'https://api.acy.finance/polygon-test';
-const OptionsPriceApi = 'https://options.acy.finance/api';
 const TradePriceApi = 'https://stats.acy.finance/api/rates/candles';
-const DEFAULT_PERIOD = "4h";
 
 const getSeriesOptions = () => ({
   // https://github.com/tradingview/lightweight-charts/blob/master/docs/area-series.md
@@ -133,7 +126,6 @@ export default function ExchangeTVChart(props) {
     fromToken,
     toToken,
     chainId,
-    onChangePrice
   } = props
 
   if (!chartTokenSymbol) {
@@ -144,13 +136,8 @@ export default function ExchangeTVChart(props) {
   const [currentSeries, setCurrentSeries] = useState();
   const [period, setPeriod] = useState('5m');
   const [hoveredCandlestick, setHoveredCandlestick] = useState();
-  const [curPrice, setCurPrice] = useState();
-  const [priceChangePercentDelta, setPriceChangePercentDelta] = useState();
-  const [deltaIsMinus, setDeltaIsMinus] = useState();
   const [chartInited, setChartInited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  const isTick = pageName == "Powers";
 
   const symbol = chartTokenSymbol || "BTC";
   const marketName = symbol + "_USD";
@@ -173,7 +160,6 @@ export default function ExchangeTVChart(props) {
   }, [currentChart, period]);
 
   // Binance data source
-  const [lastCandle, setLastCandle] = useState({})
   const cleaner = useRef()
   useEffect(() => {
     if (!currentSeries)
@@ -182,7 +168,6 @@ export default function ExchangeTVChart(props) {
     setIsLoading(true)
     currentSeries.setData([]);
 
-    const pairName = `${fromToken}${toToken}`;
 
     if (cleaner.current) {
       // unsubscribe from previous subscription
@@ -190,61 +175,22 @@ export default function ExchangeTVChart(props) {
       // clear chart candles
       currentSeries.setData([]);
     }
-
-    // if (isTick) {
-    //   // subscribe to websocket for the future price update
-    //   const clean = client.ws.candles(pairName, period, (res) => {
-    //     const candleData = {
-    //       time: res.startTime / 1000,   // make it in seconds
-    //       open: res.open,
-    //       high: res.high,
-    //       low: res.low,
-    //       close: res.close
-    //     }
-    //     currentSeries.update(candleData)
-    //     setLastCandle(candleData);
-
-    //     const ticks = currentSeries.Kn?.Bt?.Xr;
-    //     if (ticks && period != '1m' && period != '1w') {
-    //       getDeltaPriceChange(ticks)
-    //     }
-    //   });
-    //   cleaner.current = clean;
-    // }
     
     let sti;
     const fetchPrevAndSubscribe = async () => {
       // before subscribe to websocket, should prefill the chart with existing history, this can be fetched with normal REST request
       // SHOULD DO THIS BEFORE SUBSCRIBE, HOWEVER MOVING SUBSCRIBE TO AFTER THIS BLOCK OF CODE WILL CAUSE THE SUBSCRIPTION GOES ON FOREVER
       // REACT BUG?
-      let responseToTokenData;
 
       let responsePairData = [];
       let responseFromTokenData;
-      if (pageName == "StableCoin") {
-        responseFromTokenData = await axios.get(`${BinancePriceApi}/api/cexPrices/binanceHistoricalPrice?symbol=${toToken}USDT&interval=${period}`,)
-          .then((res) => res.data);
-        if (toToken != "USDT") {
-          responseToTokenData = await axios.get(`${BinancePriceApi}/api/cexPrices/binanceHistoricalPrice?symbol=${toToken}USDT&interval=${period}`,)
-            .then((res) => res.data)
-        }
-      } else if (pageName == "Option") {
-        responseFromTokenData = await axios.get(`${OptionsPriceApi}/option?chainId=${chainId}&symbol=${chartTokenSymbol}&period=${period}`)
-          .then((res) => res.data);
-      } else if (pageName == "Futures") {
-        responseFromTokenData = await axios.get(`${OptionsPriceApi}/futures?chainId=${chainId}&symbol=${chartTokenSymbol}&period=${period}`)
-          .then((res) => res.data);
-      } else if(pageName == "Trade") {
-        console.log("see trade token0", fromToken, toToken, chainId)
+      if(pageName == "Trade") {
         responseFromTokenData = await axios.get(`${TradePriceApi}?token0=${fromToken}&token1=${toToken}&chainId=${chainId}&period=${period}`)
-          .then((res) => res.data);
-      } else {
-        responseFromTokenData = await axios.get(`${BinancePriceApi}/api/cexPrices/binanceHistoricalPrice?symbol=${fromToken}USDT&interval=${period}`,)
           .then((res) => res.data);
       }
 
       for (let i = 0; i < responseFromTokenData.length; i++) {
-        if (pageName == "Option" || pageName == "Futures" || pageName == "Trade") {
+        if (pageName == "Trade") {
           responsePairData.push({
             time: responseFromTokenData[i].timestamp,
             open: responseFromTokenData[i].o,
@@ -252,53 +198,20 @@ export default function ExchangeTVChart(props) {
             low: responseFromTokenData[i].l,
             close: responseFromTokenData[i].c,
           })
-        } else if (toToken != "USDT") {
-          responsePairData.push({
-            time: responseFromTokenData[i].time,
-            open: responseFromTokenData[i].open / responseToTokenData[i].open,
-            high: responseFromTokenData[i].high / responseToTokenData[i].high,
-            low: responseFromTokenData[i].low / responseToTokenData[i].low,
-            close: responseFromTokenData[i].close / responseToTokenData[i].close,
-          })
         } else {
           responsePairData = responseFromTokenData
         }
       }
 
       // Binance data is independent of chain, so here we can fill in any chain name
-      if (responsePairData && responsePairData[0].time) {
+      if (responsePairData && responsePairData[0]?.time) {
         currentSeries.setData(responsePairData);
         setIsLoading(false)
-      }
 
-      if (pageName == "Option" || pageName == "Futures") {
-        let from = responsePairData[responsePairData.length - 1].time
-        sti = setInterval(() => {
-          axios.get(`${OptionsPriceApi}/${pageName.toLowerCase()}?chainId=${chainId}&symbol=${chartTokenSymbol}&period=1m&from=${from}`)
-            .then((res) => {
-              for (let i = 0; i < res.data.length; i++) {
-                if (res.data[i].timestamp > from) {
-                  currentSeries.update({
-                    time: res.data[i].timestamp,
-                    open: res.data[i].o,
-                    high: res.data[i].h,
-                    low: res.data[i].l,
-                    close: res.data[i].c,
-                  })
-                  from = res.data[i].timestamp
-                }
-              }
-            });
-        }, 60000);
-      }
-
-      if (!isTick) {
-        getDeltaPriceChange(responsePairData)
-      }
-
-      if (!chartInited) {
-        scaleChart();
-        setChartInited(true);
+        if (!chartInited) {
+          scaleChart();
+          setChartInited(true);
+        }
       }
     }
 
@@ -306,42 +219,6 @@ export default function ExchangeTVChart(props) {
 
     return () => clearInterval(sti)
   }, [currentSeries, fromToken, toToken, period, chainId])
-  ///// end of binance data source
-
-  const getDeltaPriceChange = (data) => {
-    let timeNow = getCurrentTimestamp()
-    let latestTick; let yesterday;
-    let forwardArr = 86400 / CHART_PERIODS[period]
-    let arrIndex = 999 - forwardArr
-    if (!isTick) {
-      latestTick = data[data.length - 1].open;
-      yesterday = data[data.length - 1 - forwardArr].open;
-    }
-    if (isTick) {
-      latestTick = data[data.length - 1]?.St[0];
-      yesterday = data[data.length - 1 - forwardArr]?.St[0];
-    }
-
-    let deltaPercent = ((latestTick - yesterday) / yesterday * 100).toString();
-    if (deltaPercent && deltaPercent[0] == "-") {
-      setDeltaIsMinus(true)
-      let negativeCurrentPrice = latestTick
-      let negativePriceChangePercent = deltaPercent.substring(1)
-      setCurPrice(parseFloat(negativeCurrentPrice).toFixed(2))
-      setPriceChangePercentDelta(parseFloat(negativePriceChangePercent).toFixed(3))
-      onChangePrice && onChangePrice(parseFloat(negativeCurrentPrice).toFixed(2), "-" + parseFloat(negativePriceChangePercent).toFixed(3));
-
-    }
-    else {
-      setDeltaIsMinus(false)
-      let positiveCurrentPrice = latestTick
-      let positivePricechangePercent = deltaPercent
-      setCurPrice(parseFloat(positiveCurrentPrice).toFixed(2))
-      setPriceChangePercentDelta(parseFloat(positivePricechangePercent).toFixed(3))
-      onChangePrice && onChangePrice(parseFloat(positiveCurrentPrice).toFixed(2), "+" + parseFloat(positivePricechangePercent).toFixed(3));
-
-    }
-  }
 
   // 设置chart的鼠标移动时的回调函数。evt是event的意思。
   const onCrosshairMove = useCallback(

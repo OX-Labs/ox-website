@@ -11,7 +11,6 @@ import styles from "./styles.less";
 const { AcyTabPane } = AcyTabs;
 
 const TokenSelectorDrawer = ({ onCancel, visible, setVisible, onCoinClick, coinList, placement = 'right', pageName, setFavTokens }) => {
-  const { account, library } = useWeb3React();
   const chainId = useChainId()
 
   const tokenlist = coinList ? coinList : mockTokenList
@@ -99,7 +98,7 @@ const TokenSelectorDrawer = ({ onCancel, visible, setVisible, onCoinClick, coinL
       className={styles.drawer}
       onClose={onCancel}
       visible={visible}
-      width={550}
+      width={400}
     >
       <div className={styles.tokenselector}>
         <div className={styles.search}>

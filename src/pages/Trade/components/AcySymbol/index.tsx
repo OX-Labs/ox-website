@@ -5,6 +5,8 @@ const AcySymbol = (props: any) => {
   const {
     activeToken0,
     activeToken1,
+    onSelectToken0,
+    onSelectToken1,
     latestPricePercentage,
     showChart,
     setShowChart,
@@ -22,16 +24,18 @@ const AcySymbol = (props: any) => {
           borderBottom: ' 1px solid #22252e'
         }}>
           <div className={styles.title}>
-            {activeToken0}
+            {activeToken0.symbol}
             <SwapOutlined
-              // onClick={()=>{setVisible(true)}}
+              onClick={()=>{
+                onSelectToken0(activeToken1)
+                onSelectToken1(activeToken0)
+              }}
               style={{ fontSize: '20px', color: '#ffffff', marginLeft: 10 }}
             />
           </div>
           {/* </Dropdown> */}
-          <div className={styles.title} style={{ marginLeft: -5 }}>
-            {/* {Number.parseFloat(latestPrice).toFixed(3)} */}
-            {activeToken1}
+          <div className={styles.title} style={{ marginLeft: -5, color: '#ffffffa6' }}>
+            {activeToken1.symbol}
           </div>
           <div style={{ marginLeft: '20px' }} className={styles.item}>
             <div>24h Change</div>
@@ -51,11 +55,6 @@ const AcySymbol = (props: any) => {
           <div className={styles.item}>
             <div>24h Volume(USDT)</div>
             <span>$ 4,598,774,444.16</span>
-          </div>
-          <div className={styles.item}>
-            <div>Funding / Countdown</div>
-            <span style={{ color: '#eb5c20' }}>-0.0126% </span>
-            <span>/ 07:35:28</span>
           </div>
         </div>
         {showChart ?

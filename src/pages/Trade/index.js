@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import ComponentTabs from './components/ComponentTabs'
 import SankeyGraph from './components/SankeyGraph'
-import { TradeHistoryTable, PoolsActivityTable } from './components/TableComponents'
+import { PairsTable } from './components/TableComponents'
 import AcySymbolNav from './components/AcySymbolNav'
 import AcySymbol from './components/AcySymbol'
 import ExchangeTVChart from './components/ExchangeTVChart/ExchangeTVChart'
@@ -18,48 +18,31 @@ const Trade = props => {
   const chainId = 137;
   const { account, library } = useWeb3React();
 
-  const [tableContent, setTableContent] = useState('Trade History')
-  const [tradeHistory, setTradeHistory] = useState([])
-  const [activeToken0, setActiveToken0] = useState({ symbol: "USDT", address: "0xc2132d05d31c914a87c6611c10748aeb04b58e8f" })
-  const [activeToken1, setActiveToken1] = useState({ symbol: "USDC", address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174" })
+  const [tableContent, setTableContent] = useState('Routes')
+  const [topVolumePairs, setTopVolumePairs] = useState([])
+  const [activeToken0, setActiveToken0] = useState({"address": "0x70535f31070b83bc945fc2c0641658b140fb2a81", "symbol": "BNB"})
+  const [activeToken1, setActiveToken1] = useState({"address": "0x9c9e5fd8bbc25984b178fdce6117defa39d2db39", "symbol": "BUSD"})
   const [showChart, setShowChart] = useState(true)
   const [favTokens, setFavTokens] = useState(JSON.parse(localStorage.getItem('tokens_symbol')))
 
-  const test_poolsActivity = [
-    {
-      type: 'remove',
-      token: 'BONE',
-      tokenAmount: '22.11',
-      poolAmount: '0.0125323',
-      token_value: '$21.49',
-    },
-    {
-      type: 'add',
-      token: 'USDC',
-      tokenAmount: '99.99',
-      poolAmount: '0.0046699',
-      token_value: '$8',
-    },
-    {
-      type: 'add',
-      token: 'SYN',
-      tokenAmount: '4.427',
-      poolAmount: '3.7',
-      token_value: '$6346',
-    },
-  ]
-
-  useEffect(() => {
-    const getTradeHistory = async () => {
-      let address0 = activeToken0.address < activeToken1.address ? activeToken0.address : activeToken1.address
-      let address1 = activeToken0.address < activeToken1.address ? activeToken1.address : activeToken0.address
-      let history = await axios.get(`${apiUrlPrefix}/rates?token0=${address0}&token1=${address1}&chainId=${chainId}`)
-        .then((res) => res.data.rates)
-        .catch((e) => [])
-      setTradeHistory(history)
+  useEffect(async () => {
+    let pairlist = await axios.get(`${apiUrlPrefix}/tokens-overview?chainId=${chainId}&orderBy=topvolume`).then(res => res.data).catch(e => { })
+    let pairs = []
+    for (let i = 0; i < pairlist.length; i++) {
+      pairs.push({
+        name: pairlist[i].token0.replace('Wrapped ', 'W').replace('(PoS)', '') + '/' + pairlist[i].token1.replace('Wrapped ', 'W').replace('(PoS)', ''),
+        address0: pairlist[i].token0Address,
+        address1: pairlist[i].token1Address,
+        price: (pairlist[i].token0Price / pairlist[i].token1Price).toPrecision(2),
+        price_24h: pairlist[i].priceVariation,
+        volume: parseFloat(pairlist[i].volumeUSD).toFixed(2),
+        swaps: pairlist[i].txCount,
+        liquidity: pairlist[i].liquidity,
+        exchange: pairlist[i].exchange,
+      })
     }
-    getTradeHistory()
-  }, [activeToken0, activeToken1])
+    setTopVolumePairs(pairs)
+  }, [])
 
   return (
     <div className={styles.main}>
@@ -76,8 +59,10 @@ const Trade = props => {
               }}
             />
             <AcySymbol
-              activeToken0={activeToken0.symbol}
-              activeToken1={activeToken1.symbol}
+              activeToken0={activeToken0}
+              activeToken1={activeToken1}
+              onSelectToken0={token => { setActiveToken0(token); }}
+              onSelectToken1={token => { setActiveToken1(token); }}
               latestPricePercentage={1}
               showChart={showChart}
               setShowChart={() => setShowChart(!showChart)}
@@ -102,23 +87,17 @@ const Trade = props => {
             <div className={styles.chartTokenSelectorTab}>
               <ComponentTabs
                 option={tableContent}
-                options={['Routes', 'Trade History', 'Pools Activity']}
+                options={['Routes', 'Volume']}
                 onChange={item => { setTableContent(item) }}
               />
             </div>
-            <div className={`${styles.colItem} ${styles.priceChart}`} style={{ padding: '10px', width: '100%', borderTop: '0.75px solid #333333' }}>
+            <div className={`${styles.colItem} ${styles.priceChart}`} style={{ padding: '10px', width: '100%', borderTop: '0.75px solid #333333', textAlign: 'center' }}>
               <div className={styles.positionsTable}>
                 {tableContent == 'Routes' && (
-                  <SankeyGraph />
+                  <SankeyGraph token0={activeToken0} token1={activeToken1} />
                 )}
-                {tableContent == 'Trade History' && (
-                  <TradeHistoryTable
-                    dataSource={tradeHistory}
-                    token0={activeToken0.address < activeToken1.address ? activeToken0.symbol : activeToken1.symbol}
-                    token1={activeToken0.address < activeToken1.address ? activeToken1.symbol : activeToken0.symbol} />
-                )}
-                {tableContent == 'Pools Activity' && (
-                  <PoolsActivityTable dataSource={test_poolsActivity} pool="ETH" />
+                {tableContent == 'Volume' && (
+                  <PairsTable dataSource={topVolumePairs} />
                 )}
               </div>
             </div>
