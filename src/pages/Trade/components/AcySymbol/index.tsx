@@ -66,15 +66,6 @@ const AcySymbol = (props: any) => {
           </div>
         }
       </div>
-      {/* <TokenSelectorDrawer 
-        placement="left" 
-        onCancel={onCancel} 
-        width={400} 
-        visible={visible} 
-        setVisible={setVisible}
-        onCoinClick={onClickCoin} 
-        coinList={coinList}
-        setFavTokens={setFavTokens}/> */}
     </>
   );
 };

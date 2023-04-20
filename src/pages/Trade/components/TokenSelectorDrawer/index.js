@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Input, Icon, Drawer, Button } from "antd";
-import { useWeb3React } from '@web3-react/core';
-import { useChainId } from '@/utils';
 import mockTokenList from '@/constants/mockTokenList.json'
 import AcyCoinItem from "../AcyCoinItem";
 import AcyTabs from '../AcyTabs';
@@ -10,8 +8,7 @@ import styles from "./styles.less";
 
 const { AcyTabPane } = AcyTabs;
 
-const TokenSelectorDrawer = ({ onCancel, visible, setVisible, onCoinClick, coinList, placement = 'right', pageName, setFavTokens }) => {
-  const chainId = useChainId()
+const TokenSelectorDrawer = ({ chainId, onCancel, visible, onCoinClick, coinList, placement = 'right', setFavTokens }) => {
 
   const tokenlist = coinList ? coinList : mockTokenList
 
@@ -59,9 +56,7 @@ const TokenSelectorDrawer = ({ onCancel, visible, setVisible, onCoinClick, coinL
       setHasMore(true)
       filterTokenList = filterTokenList.slice(0, 20)
     }
-    setRenderTokenList(
-      filterTokenList
-    );
+    setRenderTokenList(filterTokenList)
   };
 
   const loadMore = () => {

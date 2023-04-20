@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
+import { useChainId } from '@/utils';
 import ComponentTabs from './components/ComponentTabs'
 import SankeyGraph from './components/SankeyGraph'
 import { PairsTable } from './components/TableComponents'
@@ -14,9 +15,8 @@ const apiUrlPrefix = "https://stats.acy.finance/api"
 
 const Trade = props => {
 
-  // test on polygon
-  const chainId = 137;
-  const { account, library } = useWeb3React();
+  const { account, library } = useWeb3React()
+  const { chainId }= useChainId()
 
   const [tableContent, setTableContent] = useState('Routes')
   const [topVolumePairs, setTopVolumePairs] = useState([])

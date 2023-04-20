@@ -326,6 +326,7 @@ export default function TradeComponent(props) {
         onCancel={()=>{setVisible(false)}}
         onCoinClick={onCoinClick}
         setFavTokens={setFavTokens}
+        chainId={chainId}
       />
 
     </div>
