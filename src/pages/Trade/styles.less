@@ -4,6 +4,7 @@
     margin-bottom: 20px;
     font-weight: 400;
     font-family: "Karla", sans-serif;
+    background: #0e1118;
   }
   
   .rowFlexContainer {
@@ -12,6 +13,7 @@
     margin: auto;
     flex-wrap: wrap;
     justify-content: space-between;
+    border: solid 5px black;
   
     .bottomWrapper {
       display: flex;
@@ -24,15 +26,17 @@
     .rowFlexContainer {
       min-width: 310px;
       flex-wrap: nowrap;
+      border: solid 5px black;
     }
     .priceChart {
       order: 1;
       flex: 2;
+      border: 5px solid black;
     }
     .swapComponent {
       order: 2;
       flex: 1;
-      border-left: 0.75px solid #333333;
+      border: 5px solid black;
     }
   }
   
@@ -47,10 +51,11 @@
     }
     .priceChart {
       order: 2;
+      border: 5px solid black;
     }
     .swapComponent {
       order: 1;
-      border-left: 0.75px solid #333333;
+      border: 5px solid black;
     }
   }
   

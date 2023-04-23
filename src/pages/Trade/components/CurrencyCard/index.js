@@ -94,9 +94,6 @@ const CurrencyCard = ({
             </span>
           </button>
         </div>
-        {rest.bonus && rest.bonus != 0
-          ? <div className={classname(styles.cua_group, styles.bonus)}>{rest.bonus > 0 ? "+" + rest.bonus : rest.bonus}</div>
-          : null}
         <div className={styles.cua_bottomContainer}>
           <div className={styles.cua_blanace}
             onClick={onClickTitle}

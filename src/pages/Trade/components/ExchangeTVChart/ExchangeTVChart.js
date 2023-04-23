@@ -24,7 +24,7 @@ const StyledSelect = styled(Radio.Group)`
   .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
     color: #ffffff;
     box-shadow: 0 0 0 0 black;
-    border-color: #333333;
+    border-color: black ;
     background-color: #29292c !important;
   }
   .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover{

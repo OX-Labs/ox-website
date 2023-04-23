@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { useChainId } from '@/utils';
-import ComponentTabs from './components/ComponentTabs'
 import SankeyGraph from './components/SankeyGraph'
 import { PairsTable } from './components/TableComponents'
 import AcySymbolNav from './components/AcySymbolNav'
 import AcySymbol from './components/AcySymbol'
 import ExchangeTVChart from './components/ExchangeTVChart/ExchangeTVChart'
 import TradeComponent from './components/TradeComponent'
+import OxTabs from '@/components/OxTabs'
 import styles from './styles.less'
 
 const apiUrlPrefix = "https://stats.acy.finance/api"
@@ -16,12 +16,11 @@ const apiUrlPrefix = "https://stats.acy.finance/api"
 const Trade = props => {
 
   const { account, library } = useWeb3React()
-  const { chainId }= useChainId()
+  const { chainId } = useChainId()
 
-  const [tableContent, setTableContent] = useState('Routes')
   const [topVolumePairs, setTopVolumePairs] = useState([])
-  const [activeToken0, setActiveToken0] = useState({"address": "0x70535f31070b83bc945fc2c0641658b140fb2a81", "symbol": "BNB"})
-  const [activeToken1, setActiveToken1] = useState({"address": "0x9c9e5fd8bbc25984b178fdce6117defa39d2db39", "symbol": "BUSD"})
+  const [activeToken0, setActiveToken0] = useState({ "address": "0x70535f31070b83bc945fc2c0641658b140fb2a81", "symbol": "BNB" })
+  const [activeToken1, setActiveToken1] = useState({ "address": "0x9c9e5fd8bbc25984b178fdce6117defa39d2db39", "symbol": "BUSD" })
   const [showChart, setShowChart] = useState(true)
   const [favTokens, setFavTokens] = useState(JSON.parse(localStorage.getItem('tokens_symbol')))
 
@@ -48,10 +47,10 @@ const Trade = props => {
     <div className={styles.main}>
       <div className={styles.rowFlexContainer}>
         <div className={`${styles.colItem} ${styles.priceChart}`}>
-          <div>
+          <div style={{ borderBottom: '10px solid black' }}>
             <AcySymbolNav data={favTokens}
               onChange={item => {
-                let idx = JSON.parse(localStorage.getItem('tokens_symbol')).findIndex(ele=>ele==item)
+                let idx = JSON.parse(localStorage.getItem('tokens_symbol')).findIndex(ele => ele == item)
                 setActiveToken0({
                   symbol: item,
                   address: JSON.parse(localStorage.getItem('token'))[idx],
@@ -68,7 +67,7 @@ const Trade = props => {
               setShowChart={() => setShowChart(!showChart)}
             />
 
-            <div style={{ borderTop: '0.75px solid #333333' }}>
+            <div style={{ borderTop: '1px solid black' }}>
               {showChart &&
                 <div>
                   <ExchangeTVChart
@@ -84,23 +83,14 @@ const Trade = props => {
           </div>
 
           <div className={styles.bottomWrapper}>
-            <div className={styles.chartTokenSelectorTab}>
-              <ComponentTabs
-                option={tableContent}
-                options={['Routes', 'Volume']}
-                onChange={item => { setTableContent(item) }}
-              />
-            </div>
-            <div className={`${styles.colItem} ${styles.priceChart}`} style={{ padding: '10px', width: '100%', borderTop: '0.75px solid #333333', textAlign: 'center' }}>
-              <div className={styles.positionsTable}>
-                {tableContent == 'Routes' && (
-                  <SankeyGraph token0={activeToken0} token1={activeToken1} />
-                )}
-                {tableContent == 'Volume' && (
-                  <PairsTable dataSource={topVolumePairs} />
-                )}
+            <OxTabs>
+              <div tab="Routes" key="1" style={{ textAlign: 'center', paddingTop: 20 }}>
+                <SankeyGraph token0={activeToken0} token1={activeToken1} />
               </div>
-            </div>
+              <div tab="Volume" key="2">
+                <PairsTable dataSource={topVolumePairs} />
+              </div>
+            </OxTabs>
           </div>
         </div>
         <div className={`${styles.colItem} ${styles.swapComponent}`}>

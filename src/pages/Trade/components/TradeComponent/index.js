@@ -32,18 +32,13 @@ export default function TradeComponent(props) {
   const [token1Balance, setToken1Balance] = useState('0');
   const [token0Amount, setToken0Amount] = useState('');
   const [token1Amount, setToken1Amount] = useState('');
-  const [bonus0, setBonus0] = useState(null);
-  const [bonus1, setBonus1] = useState(null);
   const [token0BalanceShow, setToken0BalanceShow] = useState(false);
   const [token1BalanceShow, setToken1BalanceShow] = useState(false);
-  const [exactIn, setExactIn] = useState(true);
   const [showDescription, setShowDescription] = useState(false);
   const [slippageTolerance, setSlippageTolerance] = useState(INITIAL_ALLOWED_SLIPPAGE / 100);
   const [inputSlippageTol, setInputSlippageTol] = useState(INITIAL_ALLOWED_SLIPPAGE / 100);
   const [slippageError, setSlippageError] = useState('');
   const [deadline, setDeadline] = useState(0);
-  const [swapButtonContent, setSwapButtonContent] = useState('Connect to Wallet');
-  const [swapButtonState, setSwapButtonState] = useState(false);
 
   useEffect(() => {
     if (!tokenlist) return
@@ -53,35 +48,12 @@ export default function TradeComponent(props) {
     setToken1Balance('0');
     setToken0Amount('');
     setToken1Amount('');
-    setBonus0(null);
-    setBonus1(null);
     setToken0BalanceShow(false);
     setToken1BalanceShow(false);
     setSlippageTolerance(INITIAL_ALLOWED_SLIPPAGE / 100);
     setInputSlippageTol(INITIAL_ALLOWED_SLIPPAGE / 100);
     setSlippageError('');
     setDeadline();
-    setExactIn(true);
-    // setNeedApprove(false);
-    // setApproveAmount('0');
-    // setApproveButtonStatus(true);
-    // setSwapBreakdown();
-    setSwapButtonState(false);
-    setSwapButtonContent('Connect to Wallet');
-    // setSwapStatus();
-    // setPair();
-    // setRoute();
-    // setTrade();
-    // setSlippageAdjustedAmount();
-    // setMinAmountOut();
-    // setMaxAmountIn();
-    // setWethContract();
-    // setWrappedAmount();
-    // setShowSpinner(false);
-    // setMethodName();
-    // setIsUseArb(false);
-    // setMidTokenAddress();
-    // setPoolExist(true);
     setShowDescription(false);
   }, [chainId])
 
@@ -121,19 +93,12 @@ export default function TradeComponent(props) {
   useEffect(async () => {
     // console.log("t0change")
     await t0Changed(token0Amount);
-  }, [token0, token1, slippageTolerance, exactIn, chainId, library, account]);
+  }, [token0, token1, slippageTolerance, chainId, library, account]);
 
   useEffect(async () => {
     // console.log("t1change")
     await t1Changed(token1Amount);
-  }, [token0, token1, slippageTolerance, exactIn, chainId, library, account]);
-
-  useEffect(() => {
-    if (account == undefined) {
-      setSwapButtonState(false);
-      setSwapButtonContent('Connect to Wallet');
-    }
-  }, [account]);
+  }, [token0, token1, slippageTolerance, chainId, library, account]);
 
   const onCoinClick = async token => {
     setVisible(false)
@@ -151,65 +116,34 @@ export default function TradeComponent(props) {
   const connectWalletByLocalStorage = useConnectWallet();
 
   const onConfirmationClick = () => {
-    if (account == undefined) {
+    if (!account) {
       connectWalletByLocalStorage();
     } else {
-    //   setSwapButtonState(false);
-    //   setSwapButtonContent(<>Processing <Icon type="loading" /></>)
-    //   swap(
-    //     {
-    //       ...token0,
-    //       amount: token0Amount,
-    //     },
-    //     {
-    //       ...token1,
-    //       amount: token1Amount,
-    //     },
-    //     slippageTolerance * 100,
-    //     exactIn,
-    //     chainId,
-    //     library,
-    //     account,
-    //     pair,
-    //     route,
-    //     trade,
-    //     slippageAdjustedAmount,
-    //     minAmountOut,
-    //     maxAmountIn,
-    //     wethContract,
-    //     wrappedAmount,
-    //     deadline,
-    //     setSwapStatus,
-    //     setSwapButtonContent,
-    //     setSwapButtonState,
-    //     swapCallback,
-    //     methodName,
-    //     isUseArb,
-    //     midTokenAddress,
-    //     poolExist
-    //   );
+
     }
   }
 
+  const getPrimaryText = () => {
+    if (!account) {
+      return 'Connect Wallet'
+    }
+    return 'Trade'
+  }
+
   return (
-    <div className={styles.sc}>
+    <div>
       <CurrencyCard
         title={token0BalanceShow && `Balance: ${parseFloat(token0Balance).toFixed(3)}`}
         coin={(token0 && token0) || 'Select'}
         logoURI={token0 && token0.logoURI}
         token={token0Amount}
-        bonus={!exactIn && bonus0}
         showBalance={token0BalanceShow}
         onChoseToken={() => {
           setVisible(true);
           setBefore(true);
         }}
-        onChangeToken={e => {
-          setShowDescription(true);
-          setExactIn(true);
-        }}
+        onChangeToken={e => {setShowDescription(true)}}
       />
-
       <div
         className={styles.arrow}
         disabled={isLockedToken1}
@@ -233,16 +167,12 @@ export default function TradeComponent(props) {
         coin={(token1 && token1) || 'Select'}
         logoURI={token1 && token1.logoURI}
         token={token1Amount}
-        bonus={exactIn && bonus1}
         showBalance={token1BalanceShow}
         onChoseToken={() => {
           setVisible(true);
           setBefore(false);
         }}
-        onChangeToken={e => {
-          setShowDescription(true)
-          setExactIn(false);
-        }}
+        onChangeToken={e => {setShowDescription(true)}}
         isLocked={isLockedToken1}
       />
 
@@ -306,19 +236,12 @@ export default function TradeComponent(props) {
       <div className={styles.centerButton}>
         <ComponentButton
           style={{ marginTop: '25px' }}
-          disabled={!swapButtonState}
+          disabled={account && (token0Amount == '' || token1Amount == '')}
           onClick={onConfirmationClick}
         >
-          {swapButtonContent}
+          {getPrimaryText()}
         </ComponentButton>
       </div>
-
-
-      <DetailBox
-        pair_name='DAImond'
-        token_address='0x712ce0de2401e632d75e307ed8325774daaa3c51'
-        pair_address='0x52384e314d18aa160bca9ecf45d03b6f80f9557f'
-      />
 
       <TokenSelectorDrawer
         width={400}
