@@ -192,7 +192,7 @@ export default function TradeComponent(props) {
                 />
                 <Button
                   type="primary"
-                  style={{ marginLeft: '10px', background: '#2e3032', borderColor: 'transparent' }}
+                  style={{ marginLeft: '10px', background: '#0b0d11', borderColor: '#212429', borderRadius: 5 }}
                   onClick={() => {
                     if (isNaN(inputSlippageTol)) {
                       setSlippageError('Please input valid slippage value!');
@@ -236,7 +236,7 @@ export default function TradeComponent(props) {
       <div className={styles.centerButton}>
         <ComponentButton
           style={{ marginTop: '25px' }}
-          disabled={account && (token0Amount == '' || token1Amount == '')}
+          // disabled={account && (token0Amount == '' || token1Amount == '')}
           onClick={onConfirmationClick}
         >
           {getPrimaryText()}

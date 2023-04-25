@@ -1,0 +1,210 @@
+import R from 'ramda'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+
+// Defaults
+import * as util from './defaults/util'
+import * as getters from './defaults/getters'
+
+// Components
+import TradingUIParent from './components/TradingUIParent'
+import TradingUIHeader from './components/TradingUIHeader'
+import TradingUIContentWrapper from './components/TradingUIContentWrapper'
+import TradingUIStickyContent from './components/TradingUIStickyContent'
+import TradingUITableHead from './components/TradingUITableHead'
+import TradingUITableHeading from './components/TradingUITableHeading'
+import TradingUIScrollingContent from './components/TradingUIScrollingContent'
+import TradingUIOrderTable from './components/TradingUIOrderTable'
+import TradingUIOrder from './components/TradingUIOrder'
+import PrettySize from './components/PrettySize'
+import PrettyPrice from './components/PrettyPrice'
+import PrettyAmount from './components/PrettyAmount'
+import Spread from './components/Spread'
+import Spinner from './components/Spinner'
+
+// Normalize Array to have first and last methods
+Array.prototype.first = function () { return this[0] } // eslint-disable-line no-extend-native
+Array.prototype.last = function () { return this[this.length - 1] } // eslint-disable-line no-extend-native
+
+const unsafePropNames = [
+  'asks', 'bids', 'showSizeBar',
+  'sizeLabel', 'priceLabel', 'amountLabel', 'onClickOrder',
+  'sizeBarMaxWidth', 'sizeBarMaxSize', 'sizeBarUnitSize',
+  'getSize', 'getPrice', 'getPosition', 'getAmount',
+  'sizeFormat', 'priceFormat', 'amountFormat', 'spreadFormat',
+  'renderSize', 'renderPrice', 'renderAmount'
+]
+
+class OrderBook extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = { hasOrders: false, hasCentered: false }
+    this.scroller = null
+    this.centerSpread = this.centerSpread.bind(this)
+    this.centerSpreadOnResize = this.centerSpreadOnResize.bind(this)
+    window.addEventListener('resize', this.centerSpreadOnResize)
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    if (!nextState.hasOrders && util.hasReceivedOrderBook(nextProps)) {
+      return this.setState({hasOrders: true})
+    }
+    if (this.scroller && nextState.hasOrders && !nextState.hasCentered) {
+      return this.setState({hasCentered: true}, this.centerSpread)
+    }
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.centerSpreadOnResize)
+  }
+
+  centerSpread () {
+    this.scroller.scrollTop = (this.scroller.scrollHeight - this.scroller.clientHeight) / 2
+  }
+
+  centerSpreadOnResize () {
+    if (!this.state.hasCentered) {
+      return this.centerSpread()
+    }
+  }
+
+  render () {
+    const {
+      asks, bids, showSizeBar,
+      sizeLabel, priceLabel, amountLabel, onClickOrder,
+      sizeBarMaxWidth, sizeBarMaxSize, sizeBarUnitSize,
+      getSize, getPrice, getPosition, getAmount,
+      sizeFormat, priceFormat, amountFormat, spreadFormat,
+      renderSize, renderPrice, renderAmount
+    } = this.props
+    const safeProps = R.omit(unsafePropNames, this.props)
+    const visibleAsks = asks.reverse()
+    const visibleBids = bids
+    const spread = this.state.hasOrders ? getPrice(visibleAsks.last()) - getPrice(visibleBids.first()) : undefined
+    const dataConfigs = [
+      {propName: 'size', format: sizeFormat, getter: getSize, renderer: renderSize},
+      {propName: 'price', format: priceFormat, getter: getPrice, renderer: renderPrice},
+      {propName: 'amount', format: amountFormat, getter: getAmount, renderer: renderAmount}
+    ]
+    return (
+      <TradingUIParent {...safeProps}>
+        {/* UI HEADER */}
+        <TradingUIHeader>Order Book</TradingUIHeader>
+        <TradingUIContentWrapper>
+          <TradingUIStickyContent>
+            {/* TABLE COLUMN HEADERS */}
+            <TradingUITableHead>
+              {/* {showSizeBar ? <TradingUITableHeading style={{width: sizeBarMaxWidth}} /> : null} */}
+              <TradingUITableHeading>{sizeLabel}</TradingUITableHeading>
+              <TradingUITableHeading>{priceLabel}</TradingUITableHeading>
+              <TradingUITableHeading>{amountLabel}</TradingUITableHeading>
+            </TradingUITableHead>
+          </TradingUIStickyContent>
+          <TradingUIScrollingContent scrollerRef={c => { this.scroller = ReactDOM.findDOMNode(c) }} >
+            {/* ASKS TABLE */}
+            <TradingUIOrderTable
+              // showSizeBar={showSizeBar}
+              headerLabels={[sizeLabel, priceLabel, amountLabel]}
+            >
+              {visibleAsks.map(order =>
+                <TradingUIOrder
+                  key={getPrice(order)}
+                  side='sell'
+                  order={order}
+                  size={getSize(order)}
+                  // onClick={onClickOrder}
+                  dataConfigs={dataConfigs}
+                  showSizeBar={showSizeBar}
+                  sizeBarMaxSize={sizeBarMaxSize}
+                  sizeBarUnitSize={sizeBarUnitSize}
+                  sizeBarMaxWidth={sizeBarMaxWidth}
+                />
+              )}
+            </TradingUIOrderTable>
+            {/* SPREAD MARKER */}
+            <Spread
+              spread={spread}
+              className={!this.state.hasOrders ? 'hide' : ''}
+              label='USD SPREAD'
+              format={spreadFormat}
+              onClick={this.centerSpread}
+            />
+            {/* BIDS TABLE */}
+            <TradingUIOrderTable
+              style={{marginBottom: '6em'}}
+              showSizeBar={showSizeBar}
+              headerLabels={[sizeLabel, priceLabel, amountLabel]}
+            >
+              {visibleBids.map(order =>
+                <TradingUIOrder
+                  key={getPrice(order)}
+                  side='buy'
+                  order={order}
+                  size={getSize(order)}
+                  onClick={onClickOrder}
+                  dataConfigs={dataConfigs}
+                  showSizeBar={showSizeBar}
+                  sizeBarMaxSize={sizeBarMaxSize}
+                  sizeBarUnitSize={sizeBarUnitSize}
+                  sizeBarMaxWidth={sizeBarMaxWidth}
+                />
+              )}
+            </TradingUIOrderTable>
+            {/* LOADING SPINNER */}
+            <Spinner hide={this.state.hasOrders} />
+          </TradingUIScrollingContent>
+        </TradingUIContentWrapper>
+      </TradingUIParent>
+    )
+  }
+}
+
+OrderBook.propTypes = {
+  asks: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  bids: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  sizeBarMaxWidth: PropTypes.number,
+  sizeBarMaxSize: PropTypes.number,
+  sizeBarUnitSize: PropTypes.number,
+  showSizeBar: PropTypes.bool,
+  sizeLabel: PropTypes.string,
+  priceLabel: PropTypes.string,
+  amountLabel: PropTypes.string,
+  getSize: PropTypes.func,
+  getPrice: PropTypes.func,
+  getPosition: PropTypes.func,
+  getAmount: PropTypes.func,
+  sizeFormat: PropTypes.string,
+  priceFormat: PropTypes.string,
+  amountFormat: PropTypes.string,
+  spreadFormat: PropTypes.string,
+  renderSize: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+  renderPrice: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+  renderAmount: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+  onClickOrder: PropTypes.func
+}
+
+OrderBook.defaultProps = {
+  asks: [],
+  bids: [],
+  showSizeBar: true,
+  sizeBarMaxWidth: 50,
+  sizeBarMaxSize: 1000,
+  sizeBarUnitSize: 50,
+  sizeLabel: 'Market Size',
+  priceLabel: 'Price (USD)',
+  amountLabel: 'Amount',
+  getSize: getters.getSize,
+  getPrice: getters.getPrice,
+  getPosition: getters.getPosition,
+  getAmount: getters.getAmount,
+  sizeFormat: '0.00000000',
+  priceFormat: '00.00',
+  amountFormat: '0.000',
+  spreadFormat: '0.00',
+  renderSize: PrettySize,
+  renderPrice: PrettyPrice,
+  renderAmount: PrettyAmount
+}
+
+export default OrderBook

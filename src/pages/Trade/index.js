@@ -9,7 +9,9 @@ import AcySymbol from './components/AcySymbol'
 import ExchangeTVChart from './components/ExchangeTVChart/ExchangeTVChart'
 import TradeComponent from './components/TradeComponent'
 import OxTabs from '@/components/OxTabs'
+import OrderBook from '@/components/OxOrderbook/OrderBook.js';
 import styles from './styles.less'
+import { random } from 'lodash';
 
 const apiUrlPrefix = "https://stats.acy.finance/api"
 
@@ -42,6 +44,63 @@ const Trade = props => {
     }
     setTopVolumePairs(pairs)
   }, [])
+
+  const book = {
+    asks: [
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+    ],
+    bids: [
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+      {size: random(90,100,true), price: random(27380, 27480, true), amount: random(1,30,true)},
+    ]
+  }
 
   return (
     <div className={styles.main}>
@@ -92,6 +151,9 @@ const Trade = props => {
               </div>
             </OxTabs>
           </div>
+        </div>
+        <div className={`${styles.colItem} ${styles.swapComponent}`}>
+          <OrderBook asks={book.asks} bids={book.bids} />
         </div>
         <div className={`${styles.colItem} ${styles.swapComponent}`}>
           <div className={styles.trade} style={{ padding: '10px', border: 'none' }}>
