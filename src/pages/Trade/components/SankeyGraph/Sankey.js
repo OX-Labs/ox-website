@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import * as d3sankey from 'd3-sankey';
 
 const size = {
-  width: 1000,
+  width: 800,
   height: 400
 };
 

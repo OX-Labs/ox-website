@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Space, Menu } from 'antd';
+import { Space, Menu, Segmented } from 'antd';
 import { history } from 'umi'
 import OxConnectWallet from '../OxConnectWallet'
 import Logo from '@/assets/logo_icon.svg'
@@ -75,7 +75,13 @@ const TopBar = () => {
       <div>
         <img width={30} src={Logo} style={{ margin: '-15px 0' }} />
       </div>
-      <div style={{ width: 800 }}>
+      <div className={styles.segmented} style={{ width: 200, borderRadius: 5, border: '1px solid #333333' }}>
+        <Segmented 
+        options={['Dex','Zex','Wallet']} 
+        block
+        />
+      </div>
+      <div style={{ width: 1000 }}>
         <Menu theme="dark" style={{ background: 'transparent' }} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
       </div>
       <div>

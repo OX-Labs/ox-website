@@ -21,7 +21,7 @@ const Trade = props => {
   const { chainId } = useChainId()
 
   const [topVolumePairs, setTopVolumePairs] = useState([])
-  const [activeToken0, setActiveToken0] = useState({ "address": "0x70535f31070b83bc945fc2c0641658b140fb2a81", "symbol": "BNB" })
+  const [activeToken0, setActiveToken0] = useState({ "address": "0xeCDCB5B88F8e3C15f95c720C51c71c9E2080525d", "symbol": "BNB" })
   const [activeToken1, setActiveToken1] = useState({ "address": "0x9c9e5fd8bbc25984b178fdce6117defa39d2db39", "symbol": "BUSD" })
   const [showChart, setShowChart] = useState(true)
   const [favTokens, setFavTokens] = useState(JSON.parse(localStorage.getItem('tokens_symbol')))

@@ -6,3 +6,32 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.segmented {
+  :global {
+    .ant-segmented {
+      color: white;
+    }
+
+    .ant-segmented-item-selected {
+      color: white;
+      background: #0030d4;
+    }
+
+    .ant-segmented:not(.ant-segmented-disabled):hover,
+    .ant-segmented:not(.ant-segmented-disabled):focus {
+      color: white;
+      background: transparent;
+    }
+
+    .ant-segmented-thumb {
+      color: white;
+      background: #0030d4;
+    }
+
+    .ant-segmented-item:hover,
+    .ant-segmented-item:focus {
+      color: white;
+    }
+  }
+}
