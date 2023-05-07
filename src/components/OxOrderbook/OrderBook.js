@@ -31,7 +31,7 @@ const unsafePropNames = [
   'asks', 'bids', 'showSizeBar',
   'sizeLabel', 'priceLabel', 'amountLabel', 'onClickOrder',
   'sizeBarMaxWidth', 'sizeBarMaxSize', 'sizeBarUnitSize',
-  'getSize', 'getPrice', 'getPosition', 'getAmount',
+  'getSize', 'getPrice', 'getAmount',
   'sizeFormat', 'priceFormat', 'amountFormat', 'spreadFormat',
   'renderSize', 'renderPrice', 'renderAmount'
 ]
@@ -74,7 +74,7 @@ class OrderBook extends React.Component {
       asks, bids, showSizeBar,
       sizeLabel, priceLabel, amountLabel, onClickOrder,
       sizeBarMaxWidth, sizeBarMaxSize, sizeBarUnitSize,
-      getSize, getPrice, getPosition, getAmount,
+      getSize, getPrice, getAmount,
       sizeFormat, priceFormat, amountFormat, spreadFormat,
       renderSize, renderPrice, renderAmount
     } = this.props
@@ -172,7 +172,6 @@ OrderBook.propTypes = {
   amountLabel: PropTypes.string,
   getSize: PropTypes.func,
   getPrice: PropTypes.func,
-  getPosition: PropTypes.func,
   getAmount: PropTypes.func,
   sizeFormat: PropTypes.string,
   priceFormat: PropTypes.string,
@@ -196,7 +195,6 @@ OrderBook.defaultProps = {
   amountLabel: 'Amount',
   getSize: getters.getSize,
   getPrice: getters.getPrice,
-  getPosition: getters.getPosition,
   getAmount: getters.getAmount,
   sizeFormat: '0.00000000',
   priceFormat: '00.00',
