@@ -3,7 +3,7 @@ import { Button, Input, Icon } from 'antd';
 import { SwapOutlined } from '@ant-design/icons'
 import { getUserTokenBalance } from '@/utils'
 import { getTokens, INITIAL_ALLOWED_SLIPPAGE } from '@/constants/trade';
-import { useConnectWallet } from '@/utils/ConnectWallet';
+import { useConnectWallet } from '@/components/ConnectWallet';
 import styles from './styles.less';
 import CurrencyCard from '../CurrencyCard';
 import DetailBox from '../DetailBox';

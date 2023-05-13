@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { format as formatDateFn } from "date-fns";
 import { useWeb3React } from '@web3-react/core';
+import { BigNumber } from '@ethersproject/bignumber';
 import { formatUnits, parseUnits } from '@ethersproject/units';
 import { Token, ETHER } from '@acyswap/sdk';
 import { getAddress } from '@ethersproject/address';
@@ -24,6 +25,16 @@ export const CHART_PERIODS = {
   "4h": 60 * 60 * 4,
   "1d": 60 * 60 * 24,
   "1w": 60 * 60 * 24 * 7
+}
+
+export class CustomError {
+  getErrorText() {
+    return this.errorText;
+  }
+
+  constructor(errorText) {
+    this.errorText = errorText;
+  }
 }
 
 export function formatDateTime(time) {
@@ -130,5 +141,87 @@ export function sortAddress(text) {
   }
   else {
     return text;
+  }
+}
+
+// 给官方演示站点用，用于关闭真实开发环境不需要使用的特性
+export function isAntdPro() {
+  return window.location.hostname === 'preview.pro.ant.design';
+}
+
+// return token allowance in BigNumber
+export async function getAllowance(tokenAddress, owner, spender, library, account) {
+  const tokenContract = getContract(tokenAddress, ERC20ABI, library, account);
+  const allowance = await tokenContract.allowance(owner, spender);
+  return allowance;
+}
+
+// return gas with 10% added margin in BigNumber
+export function calculateGasMargin(value) {
+  return value.mul(BigNumber.from(10000).add(BigNumber.from(1000))).div(BigNumber.from(10000));
+}
+
+// approve an ERC-20 token
+export async function approveNew(tokenAddress, requiredAmount, spenderAddress, library, account) {
+  if (requiredAmount === '0') {
+    console.log('Unncessary call to approve');
+    return true;
+  }
+
+  let allowance = await getAllowance(
+    tokenAddress,
+    account, // owner
+    spenderAddress, //spender
+    library, // provider
+    account // active account
+  );
+
+  if (allowance.lt(BigNumber.from(requiredAmount))) {
+    let tokenContract = getContract(tokenAddress, ERC20ABI, library, account);
+    let useExact = false;
+    // try to get max allowance
+    let estimatedGas = await tokenContract.estimateGas['approve'](spenderAddress, MaxUint256).catch(
+      async () => {
+        // general fallback for tokens who restrict approval amounts
+        useExact = true;
+        let result = await tokenContract.estimateGas.approve(
+          spenderAddress,
+          requiredAmount.raw.toString()
+        );
+        return result;
+      }
+    );
+    
+    let res = await tokenContract
+      .approve(spenderAddress, useExact ? requiredAmount.raw.toString() : MaxUint256, {
+        gasLimit: calculateGasMargin(estimatedGas),
+      })
+      .catch(() => {
+        return false;
+      });
+
+    if (res == false) {
+      return false;
+    }
+
+    let flag = false;
+
+    while (1) {
+      let newAllowance = await getAllowance(
+        tokenAddress,
+        account, // owner
+        spenderAddress, //spender
+        library, // provider
+        account // active account
+      );
+
+      if (newAllowance.gte(BigNumber.from(requiredAmount))) {
+        flag = true;
+        break;
+      }
+    }
+    if (flag) return true;
+  } else {
+    return true;
   }
 }

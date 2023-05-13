@@ -29,7 +29,7 @@ const Trade = props => {
   useEffect(async () => {
     let pairlist = await axios.get(`${apiUrlPrefix}/tokens-overview?chainId=${chainId}&orderBy=topvolume`).then(res => res.data).catch(e => { })
     let pairs = []
-    for (let i = 0; i < pairlist.length; i++) {
+    for (let i = 0; i < pairlist?.length; i++) {
       pairs.push({
         name: pairlist[i].token0.replace('Wrapped ', 'W').replace('(PoS)', '') + '/' + pairlist[i].token1.replace('Wrapped ', 'W').replace('(PoS)', ''),
         address0: pairlist[i].token0Address,
@@ -142,10 +142,10 @@ const Trade = props => {
           </div>
 
           <div className={styles.bottomWrapper}>
-            <OxTabs>
-              <div tab="Routes" key="1" style={{ textAlign: 'center', paddingTop: 20 }}>
+            <OxTabs single>
+              {/* <div tab="Routes" key="1" style={{ textAlign: 'center', paddingTop: 20 }}>
                 <SankeyGraph token0={activeToken0} token1={activeToken1} />
-              </div>
+              </div> */}
               <div tab="Volume" key="2">
                 <PairsTable dataSource={topVolumePairs} />
               </div>

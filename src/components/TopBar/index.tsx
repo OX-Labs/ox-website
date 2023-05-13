@@ -31,14 +31,12 @@ const TopBar = () => {
       ],
     },
     {
-      label: 'Trade',
+      label: <div onClick={()=>{window.location.href = '/trade'}}>Trade</div>,
       key: 'trade',
-      children: [],
     },
     {
-      label: 'Grow',
-      key: 'grow',
-      children: [],
+      label: <div onClick={()=>{window.location.href = '/launchpad'}}>Launchpad</div>,
+      key: 'launchpad',
     },
     {
       label: 'Build',
@@ -64,20 +62,17 @@ const TopBar = () => {
 
   const onClick = (e: any) => {
     setCurrent(e.key)
-    // history.push('/' + e.keyPath.reverse().join('/'), {
-    //   state: {
-    //   }
-    // })
+    window.location.href = '/' + e.keyPath.reverse().join('/')
   }
 
   return (
     <div className={styles.warp}>
       <div>
         <img width={30} src={Logo} style={{ margin: '-15px 0' }} />
-      </div>
-      <div className={styles.segmented} style={{ width: 200, borderRadius: 5, border: '1px solid #333333' }}>
+      </div> 
+      <div className={styles.segmented} style={{ width: 300, borderRadius: 5, border: '1px solid #333333' }}>
         <Segmented 
-        options={['Dex','Zex','Wallet']} 
+        options={['Exchange','Investment','Wallet']} 
         block
         />
       </div>

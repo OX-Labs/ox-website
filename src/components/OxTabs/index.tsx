@@ -3,17 +3,25 @@ import { useState, useEffect } from 'react';
 import styles from './index.less';
 const KpTabs = (props) => {
   useEffect(() => {
-    const { children } = props;
+    const { children, single } = props;
 
     setTabs((data) => {
       let newData = [];
-      children.map((item, index) => {
+      if(single) {
         newData.push({
-          name: item.props.tab,
-          checked: index == 0,
-          render: item,
+          name: children.props.tab,
+          checked: true,
+          render: children,
         });
-      });
+      } else {
+        children?.map((item, index) => {
+          newData.push({
+            name: item.props.tab,
+            checked: index == 0,
+            render: item,
+          });
+        });
+      }
       return newData;
     });
   }, [props.children]);

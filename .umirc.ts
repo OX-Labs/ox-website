@@ -25,9 +25,19 @@ export default defineConfig({
           component: '@/pages/Trade'
         },
         {
+          path: '/trade',
+          title: 'OX EXCHANGE',
+          component: '@/pages/Trade'
+        },
+        {
           path: '/mm',
           title: 'Market Making',
           component: '@/pages/MM'
+        },
+        {
+          path: '/launchpad',
+          title: 'Launchpad',
+          component: '@/pages/LaunchPad'
         }
       ],
     },

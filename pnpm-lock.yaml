@@ -36,12 +36,16 @@ specifiers:
   fortmatic: ^2.4.0
   glamor: ^2.20.40
   glamorous: ^5.0.0
+  hash: ^0.2.1
+  jquery: ^3.7.0
   lightweight-charts: ^3.8.0
   lint-staged: ^10.0.7
   lodash: ^4.17.21
+  moment: ^2.29.4
   numeral: ^2.0.6
   prettier: ^2.2.0
   prop-types: ^15.8.1
+  qs: ^6.11.1
   ramda: 0.23.0
   react: 17.x
   react-dom: 17.x
@@ -52,6 +56,7 @@ specifiers:
   tiny-invariant: ^1.3.1
   typescript: ^4.1.2
   umi: ^3.5.24
+  umi-request: ^1.4.0
   yorkie: ^2.0.0
 
 dependencies:
@@ -86,10 +91,14 @@ dependencies:
   fortmatic: 2.4.0
   glamor: 2.20.40
   glamorous: 5.0.0_glamor@2.20.40
+  hash: 0.2.1
+  jquery: 3.7.0
   lightweight-charts: 3.8.0
   lodash: 4.17.21
+  moment: 2.29.4
   numeral: 2.0.6
   prop-types: 15.8.1
+  qs: 6.11.1
   ramda: 0.23.0
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -99,6 +108,7 @@ dependencies:
   styled-components: 5.3.9_v5ja746gkdtknuc6tj46sve3be
   tiny-invariant: 1.3.1
   umi: 3.5.38_react-router@5.3.4
+  umi-request: 1.4.0
 
 devDependencies:
   '@types/react': 17.0.55
@@ -5380,6 +5390,10 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
 
+  /hash/0.2.1:
+    resolution: {integrity: sha512-yUBu1BNORmIBcz6XsuSIs0mUCnYTb3rsgEWE87d7giQYUCxqtxiVRkokV9mXH3xBKVfPqML+21ruSOQinnTqtg==}
+    dev: false
+
   /history-with-query/4.10.4:
     resolution: {integrity: sha512-JnskQK8X+PbRFHSdDAExhoJyhLnlLZL+UuHQuQhys+Se9/ukRDRBWU4JVTjsiIfbv1fcEmR3oqKW56OYmk5M5w==}
     dependencies:
@@ -6438,6 +6452,10 @@ packages:
       - ts-node
       - utf-8-validate
     dev: true
+
+  /jquery/3.7.0:
+    resolution: {integrity: sha512-umpJ0/k8X0MvD1ds0P9SfowREz2LenHsQaxSohMZ5OMNEU2r0tf8pdeEFTHMFxWVxKNyU9rTtK3CWzUCTKJUeQ==}
+    dev: false
 
   /js-sha3/0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
@@ -10153,7 +10171,6 @@ packages:
     dependencies:
       isomorphic-fetch: 2.2.1
       qs: 6.11.1
-    dev: true
 
   /umi/3.5.38_react-router@5.3.4:
     resolution: {integrity: sha512-Fmf4EdyDMtjs1RvXGwLeZ3vkS5ebQpYspddgZbVMSz2eXl3zfMYWKz1JlsXupyoOrmLq44ueHr1WQVCdxvoyVA==}
