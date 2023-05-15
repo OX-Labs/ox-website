@@ -20,25 +20,25 @@ import { useConnectWallet } from '@/components/ConnectWallet';
 import POOLABI from "./abis/AcyV1Poolz.json";
 import { CustomError, getContract, approveNew, useChainId } from "@/utils"
 import { SCAN_URL_PREFIX, LAUNCHPAD_ADDRESS, LAUNCH_RPC_URL, API_URL, LAUNCH_MAIN_TOKEN } from "./constants";
-import TokenListSelector from '@/constants/token_list';
+import TokenListSelector from './constants/token_list';
 import { nFormatter } from './utils'
-import telegramWIcon from '@/assets/icon_telegram_white.svg';
-import etherIcon from '@/assets/icon_etherscan.svg';
-import polyIcon from '@/assets/icon_polyscan.svg';
-import bscIcon from '@/assets/icon_bscscan.svg';
-import bscChainIcon from '@/assets/icon_bsc.svg';
-import polygonIcon from '@/assets/icon_polygon.svg';
-import solanaIcon from '@/assets/icon_solana.svg'
-import linkedinIcon from '@/assets/icon_linkedin.svg';
-import mediumIcon from '@/assets/icon_medium.svg';
-import youtubeIcon from '@/assets/icon_youtube.svg';
-import githubIcon from '@/assets/icon_github.svg';
-import twitterWIcon from '@/assets/icon_twitter_white.svg';
-import linkWIcon from '@/assets/icon_link_white.svg';
-import linkBIcon from '@/assets/icon_open_in_new_window_black.svg'
-import whitepaperIcon from '@/assets/icon_file_white.svg';
-import deckIcon from '@/assets/icon_ppt.svg';
-import tokenEconomicsIcon from '@/assets/icon_googlesheets.svg';
+import telegramWIcon from '@/assets/launchpad/icon_telegram_white.svg';
+import etherIcon from '@/assets/launchpad/icon_etherscan.svg';
+import polyIcon from '@/assets/launchpad/icon_polyscan.svg';
+import bscIcon from '@/assets/launchpad/icon_bscscan.svg';
+import bscChainIcon from '@/assets/launchpad/icon_bsc.svg';
+import polygonIcon from '@/assets/launchpad/icon_polygon.svg';
+import solanaIcon from '@/assets/launchpad/icon_solana.svg'
+import linkedinIcon from '@/assets/launchpad/icon_linkedin.svg';
+import mediumIcon from '@/assets/launchpad/icon_medium.svg';
+import youtubeIcon from '@/assets/launchpad/icon_youtube.svg';
+import githubIcon from '@/assets/launchpad/icon_github.svg';
+import twitterWIcon from '@/assets/launchpad/icon_twitter_white.svg';
+import linkWIcon from '@/assets/launchpad/icon_link_white.svg';
+import linkBIcon from '@/assets/launchpad/icon_open_in_new_window_black.svg'
+import whitepaperIcon from '@/assets/launchpad/icon_file_white.svg';
+import deckIcon from '@/assets/launchpad/icon_ppt.svg';
+import tokenEconomicsIcon from '@/assets/launchpad/icon_googlesheets.svg';
 
 const InputGroup = Input.Group;
 const logoObj = {
@@ -1010,18 +1010,10 @@ const LaunchpadProject = () => {
   const [poolMainCoinDecimals, setPoolMainCoinDecimals] = useState(0); // Gary: decimal initialize to 0
   const [poolMainCoinAddress, setPoolMainCoinAddress] = useState(""); // e.g., USDT
   const [poolTokenAddress, setPoolTokenAddress] = useState("");
-  const [poolMainCoinLogoURL, setPoolMainCoinLogoURL] = useState(null);
-  const [poolMainCoinName, setPoolMainCoinName] = useState(null);
   const [compareAlloDate, setCompareAlloDate] = useState(false);
   const [comparesaleDate, setComparesaleDate] = useState(false);
   const [comparevestDate, setComparevestDate] = useState(false);
-  // const [investorNum,setinvestorNum] = useState(0);
-  // const [isInvesting, setIsInvesting] = useState(false);
-
-  // CONSTANTS
-
-  // FUNCTIONS
-
+  
   const convertUnixTime = unixTime => {
     const data = new Date((Number(unixTime)) * 1000)
     const res = data.toLocaleString()
@@ -1089,7 +1081,7 @@ const LaunchpadProject = () => {
     setPoolMainCoinDecimals(token2decimal)
   }
 
-  const updatePoolData = async () => {
+  const updatePoolData = async (chainId) => {
     // project must have poolID
     if (poolID === null) return;
 
@@ -1097,8 +1089,6 @@ const LaunchpadProject = () => {
     const end_moment_utc = moment.utc(receivedData.saleEnd);
     const start_moment_utc = moment.utc(receivedData.saleStart);
     if (now_moment_utc > end_moment_utc || now_moment_utc < start_moment_utc) return;
-
-    const { chainId } = useChainId()
 
     try {
       if (account && library) {
@@ -1188,8 +1178,8 @@ const LaunchpadProject = () => {
 
   // fetching data from Smart Contract
   useEffect(() => {
-    updatePoolData();
-  }, [library, account, poolID])
+    updatePoolData(chainId);
+  }, [library, account, poolID, chainId])
 
   // COMPONENTS
   return (
@@ -1200,7 +1190,7 @@ const LaunchpadProject = () => {
         </div>
       ) : (
         <div className="mainContainer">
-          <Timer callBack={updatePoolData} ms={30000} />
+          <Timer callBack={updatePoolData(chainId)} ms={30000} />
           <TokenBanner posterUrl={receivedData.posterUrl} />
           <TokenLogoLabel
             projectName={receivedData.projectName}

@@ -38,6 +38,11 @@ export default defineConfig({
           path: '/launchpad',
           title: 'Launchpad',
           component: '@/pages/LaunchPad'
+        },
+        {
+          path: '/launchpad/project/:projectId',
+          title: 'Launchpad',
+          component: '@/pages/LaunchPad/LaunchpadProject'
         }
       ],
     },
