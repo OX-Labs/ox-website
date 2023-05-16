@@ -103,7 +103,7 @@ const Pool = props => {
 
   return (
     <div className={styles.launchRoot}>
-      <div className={styles.pooltopContainer}>
+      {/* <div className={styles.pooltopContainer}>
         <div className={styles.bigTitle} id="bigTitle" onMouseMove={mouseMove}>
           THE BEST <br />
           IDO PROJECTS
@@ -132,7 +132,7 @@ const Pool = props => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className={styles.btmContent}>
         <section>
           <div className={styles.projectBoxes}>

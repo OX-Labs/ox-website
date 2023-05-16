@@ -25,7 +25,7 @@ export default defineConfig({
           component: '@/pages/Trade'
         },
         {
-          path: '/trade',
+          path: '/exchange/trade',
           title: 'OX EXCHANGE',
           component: '@/pages/Trade'
         },
