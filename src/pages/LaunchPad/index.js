@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Card } from 'antd';
+import { Button, Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import styles from './styles.less';
 import "./css/seemore.css";
-import telegramWIcon from '@/assets/launchpad/icon_telegram_white.svg';
-import announcementIcon from '@/assets/launchpad/icon_announcement.svg';
 import OngoingProjects from './components/OngoingProjects.js';
 import IncomingProjects from './components/IncomingProjects.js';
 import EndedProjects from './components/EndedProjects.js';
-import BubblyButton from './components/BubblyButton.js';
-import RaiseButton from './components/RaiseButton.js';
 import { getProjects } from '@/services/api';
 import { useConnectWallet } from '@/components/ConnectWallet';
 import { useWeb3React } from '@web3-react/core';
@@ -22,12 +19,9 @@ const Pool = props => {
   const [upcomingData, setUpcomingData] = useState([]);
   const [endedData, setEndedData] = useState([]);
   const [isActive, setIsActive] = useState(true); // is see more ended projects
+  const [searchValue, setSearchValue] = useState('')
 
   const history = useHistory();
-  const onClickProject = projectID => {
-    console.log('ProjectID: ', projectID);
-    history.push(`/launchpad/project/${projectID}`);
-  };
 
   // wallet connect
   const { account, chainId, library, activate } = useWeb3React();
@@ -83,94 +77,83 @@ const Pool = props => {
       .catch(e => console.error(e));
   }, [account, chainId]);
 
-  const mouseMove = e => {
-    let mouseX, mouseY;
-    let traX, traY;
-    mouseX = e.pageX;
-    mouseY = e.pageY;
-    traX = (4 * mouseX) / 570 + 40;
-    traY = (4 * mouseY) / 570 + 50;
-    document.getElementById('bigTitle').style.backgroundPosition = traX + '%' + traY + '%';
-  };
-
-  const links = [
-    'https://t.me/acyfinance',
-    'https://t.me/ACYFinanceChannel',
-    'https://twitter.com/ACYFinance',
-    'https://acy.finance/',
-    'https://github.com/ACY-Labs/ACY-Finance-Whitepaper',
-  ];
-
   return (
     <div className={styles.launchRoot}>
-      {/* <div className={styles.pooltopContainer}>
-        <div className={styles.bigTitle} id="bigTitle" onMouseMove={mouseMove}>
-          THE BEST <br />
-          IDO PROJECTS
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontFamily: 'Karla, sans-serif', fontSize: '2rem', lineHeight: '4rem' }}>LAUNCHPAD</span>
+        <div style={{ display: 'flex' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: 15,
+            borderRadius: 15,
+            border: '1px solid #333333',
+            boxShadow: '0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030',
+          }}>
+            <SearchOutlined />
+            <Input
+              placeholder="Search Coin Name"
+              size="large"
+              style={{
+                backgroundColor: 'black',
+                border: 'none',
+                borderRadius: 15,
+                width: 200,
+                fontSize: 14,
+                textAlign: 'left',
+                marginLeft: 5,
+              }}
+              value={searchValue}
+              onChange={(e) => { setSearchValue(e.target.value) }}
+            />
+          </div>
+          <Button type='primary' style={{marginLeft: 15, borderRadius: 15, height: 35}}>Create Presale</Button>
         </div>
       </div>
-      <div className={styles.launchbottomContainer}>
-        <p className={styles.titleDesc}>Launching Profitable Projects on Multichain.</p>
-        <div className={styles.buttonContainer}>
-          <div>
-            <BubblyButton href="https://forms.gle/gsLNsgDy2BXHNZda9" className={styles.btnApply} />
-          </div>
-          <div>
-            <RaiseButton
-              href={links[0]}
-              className={styles.btnApply}
-              src={telegramWIcon}
-              text="Telegram"
-            />
-          </div>
-          <div>
-            <RaiseButton
-              href={links[1]}
-              className={styles.btnApply}
-              src={announcementIcon}
-              text="Announcements"
-            />
-          </div>
-        </div>
-      </div> */}
       <div className={styles.btmContent}>
         <section>
-          <div className={styles.projectBoxes}>
-            <div className={styles.titleBlock}>
-              <span className={styles.anyStatusTitle}>Ongoing Projects</span>
-              <div className={styles.lineSeperator} />
-            </div>
-            <div className={styles.projectsContainer}>
-              <OngoingProjects data={ongoingData} />
-            </div>
-          </div>
-          <div className={styles.projectBoxes}>
-            <div className={styles.titleBlock}>
-              <span className={styles.anyStatusTitle}>Upcoming Projects</span>
-              <div className={styles.lineSeperator} />
-            </div>
-            <div className={styles.projectsContainer}>
-              <IncomingProjects data={upcomingData} />
-            </div>
-          </div>
-          <div className={styles.projectBoxes}>
-            <div className={styles.titleBlock}>
-              <span className={styles.anyStatusTitle}>Ended Projects</span>
-              <div className={styles.lineSeperator} />
-            </div>
-            <div className={styles.projectsContainer}>
-              <div
-                className={
-                  isActive ? "see-more-container" : "see-more-container active"
-                }
-              >
-                <div className='content'>
-                  <EndedProjects data={endedData} />
-                </div>
-                <a className="more" onClick={() => setIsActive(!isActive)}></a>
+          {ongoingData.length != 0 &&
+            <div className={styles.projectBoxes}>
+              <div className={styles.titleBlock}>
+                <div className={styles.lineSeperator} />
+                <span className={styles.anyStatusTitle}>Ongoing Projects</span>
+                <div className={styles.lineSeperator} />
               </div>
-            </div>
-          </div>
+              <div className={styles.projectsContainer}>
+                <OngoingProjects data={ongoingData} />
+              </div>
+            </div>}
+          {upcomingData.length != 0 &&
+            <div className={styles.projectBoxes}>
+              <div className={styles.titleBlock}>
+                <div className={styles.lineSeperator} />
+                <span className={styles.anyStatusTitle}>Upcoming Projects</span>
+                <div className={styles.lineSeperator} />
+              </div>
+              <div className={styles.projectsContainer}>
+                <IncomingProjects data={upcomingData} />
+              </div>
+            </div>}
+          {endedData.length != 0 &&
+            <div className={styles.projectBoxes}>
+              <div className={styles.titleBlock}>
+                <div className={styles.lineSeperator} />
+                <span className={styles.anyStatusTitle}>Ended Projects</span>
+                <div className={styles.lineSeperator} />
+              </div>
+              <div className={styles.projectsContainer}>
+                <div
+                  className={
+                    isActive ? "see-more-container" : "see-more-container active"
+                  }
+                >
+                  <div className='content'>
+                    <EndedProjects data={endedData} />
+                  </div>
+                  <a className="more" onClick={() => setIsActive(!isActive)}></a>
+                </div>
+              </div>
+            </div>}
         </section>
       </div>
     </div>

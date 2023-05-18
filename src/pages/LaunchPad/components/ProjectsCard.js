@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Tag } from 'antd'
 import '../css/ProjectsCard.css';
 import CountDown from './CountDown.js';
 import FormatedTime from './FormatedTime';
 import moment from 'moment';
+import eth from '@/assets/eth.svg'
 
 const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngoing, isUpcoming, tokenLogoUrl }) => {
   const history = useHistory();
@@ -31,21 +33,21 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
       return (
         <>
           <span style={{ marginRight: '5px' }}>Start: </span>
-          <FormatedTime utc_string={start} style={{ color: "white", whiteSpace: 'nowrap' }}/>
+          <FormatedTime utc_string={start} style={{ color: "white", whiteSpace: 'nowrap' }} />
         </>
       )
     } else if (status === 'ongoing') {
       return (
         <>
           <span style={{ marginRight: '5px', color: '#eb5c20' }}>End: </span>
-          <FormatedTime utc_string={ddl} style={{ color: '#eb5c20', whiteSpace: 'nowrap' }}/>
+          <FormatedTime utc_string={ddl} style={{ color: '#eb5c20', whiteSpace: 'nowrap' }} />
         </>
       )
     } else if (status === 'ended') {
       return (
         <>
           <span style={{ marginRight: '5px' }}>End: </span>
-          <FormatedTime utc_string={ddl} style={{ color: "white", whiteSpace: 'nowrap'}}/>
+          <FormatedTime utc_string={ddl} style={{ color: "white", whiteSpace: 'nowrap' }} />
         </>
       )
     }
@@ -78,6 +80,15 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
         </div>
       </div>
 
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'right' }}>
+        <div>
+          <Tag color="blue" style={{ background: 'transparent' }}>Audit</Tag>
+          <Tag color="purple" style={{ background: 'transparent' }}>VETTED</Tag>
+          <Tag color="cyan" style={{ background: 'transparent' }}>KYC+</Tag>
+        </div>
+        <img src={eth} width={15} style={{marginLeft: 5, marginRight: 15}}/>
+      </div>
+
       <div className="details-container detail-text">
         <div
           style={{
@@ -88,7 +99,7 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
           }}
         >
           <span style={{ color: '#fff', marginLeft: '18px' }}>Raise</span>
-          <span style={{ color: '#fff'}}>{raise}</span>
+          <span style={{ color: '#fff' }}>{raise}</span>
         </div>
         <div
           style={{
@@ -99,7 +110,7 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
           }}
         >
           <span style={{ color: '#fff', marginLeft: '18px' }}>Sales</span>
-          <span style={{ color: '#fff'}}>{sales}</span>
+          <span style={{ color: '#fff' }}>{sales}</span>
         </div>
         <div
           style={{
@@ -110,7 +121,7 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
           }}
         >
           <span style={{ color: '#fff', marginLeft: '18px' }}>Rate</span>
-          <span style={{ color: '#fff'}}>{rate}</span>
+          <span style={{ color: '#fff' }}>{rate}</span>
         </div>
       </div>
     </div>

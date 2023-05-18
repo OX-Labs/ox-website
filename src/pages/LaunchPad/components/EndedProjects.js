@@ -42,7 +42,7 @@ const EndedProjects = ({ data, openProject }) => {
           display: 'flex',
           flexWrap: 'wrap',
           gap: '20px',
-          justifyContent: 'left',
+          justifyContent: 'center',
         }}
       >
         {data &&
