@@ -12,7 +12,7 @@ const TopBar = () => {
   const exchangeItems = [
     {
       label: 'Markets',
-      key: 'markets',
+      key: 'exchange/markets',
     },
     {
       label: 'Trade >',
@@ -37,12 +37,12 @@ const TopBar = () => {
       ]
     },
     {
-      label: <div onClick={() => { window.location.href = '/launchpad' }}>Launchpad</div>,
-      key: 'launchpad',
+      label: <div onClick={() => { window.location.href = '/exchange/launchpad' }}>Launchpad</div>,
+      key: 'exchange/launchpad',
     },
     {
       label: 'Institutional',
-      key: 'institutional',
+      key: 'exchange/institutional',
       children: [],
     },
   ]

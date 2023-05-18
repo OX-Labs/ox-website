@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { useChainId } from '@/utils';
-import SankeyGraph from './components/SankeyGraph'
-import { PairsTable } from './components/TableComponents'
+import { PairsTable } from '@/components/TableComponents'
 import AcySymbolNav from './components/AcySymbolNav'
 import AcySymbol from './components/AcySymbol'
 import ExchangeTVChart from './components/ExchangeTVChart/ExchangeTVChart'

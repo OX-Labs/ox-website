@@ -15,14 +15,14 @@ export default defineConfig({
       component: '../layouts/BasicLayout',
       routes: [
         {
-          path: '/test',
-          title: 'OX EXCHANGE',
-          component: '@/pages/test',
-        },
-        {
           path: '/',
           title: 'OX EXCHANGE',
           component: '@/pages/Trade'
+        },
+        {
+          path: '/exchange/markets',
+          title: 'OX EXCHANGE',
+          component: '@/pages/Markets'
         },
         {
           path: '/exchange/trade',
@@ -30,20 +30,20 @@ export default defineConfig({
           component: '@/pages/Trade'
         },
         {
-          path: '/mm',
-          title: 'Market Making',
-          component: '@/pages/MM'
-        },
-        {
-          path: '/launchpad',
+          path: '/exchange/launchpad',
           title: 'Launchpad',
           component: '@/pages/LaunchPad'
         },
         {
-          path: '/launchpad/project/:projectId',
+          path: '/exchange/launchpad/project/:projectId',
           title: 'Launchpad',
           component: '@/pages/LaunchPad/LaunchpadProject'
-        }
+        },
+        {
+          path: '/mm',
+          title: 'Market Making',
+          component: '@/pages/MM'
+        },
       ],
     },
   ],
