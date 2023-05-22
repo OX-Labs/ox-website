@@ -45,6 +45,11 @@ export default defineConfig({
           component: '@/pages/Wallet/Trade'
         },
         {
+          path: '/wallet/assets',
+          title: 'OX EXCHANGE',
+          component: '@/pages/Wallet/Assets'
+        },
+        {
           path: '/mm',
           title: 'Market Making',
           component: '@/pages/MM'
