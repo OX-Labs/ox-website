@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Space, Menu, Segmented } from 'antd';
 import { history } from 'umi'
 import OxConnectWallet from '../OxConnectWallet'
@@ -7,24 +7,23 @@ import styles from './index.less';
 
 const TopBar = () => {
   const [current, setCurrent] = useState('totalGraph')
-  const [mode, setMode] = useState('Exchange')
 
+  const mode = useMemo(()=>{
+    return window.localStorage.mode || 'Exchange'
+  }, [window.localStorage.mode])
+  
   const exchangeItems = [
     {
       label: 'Markets',
       key: 'exchange/markets',
     },
     {
-      label: 'Trade >',
+      label: <div onClick={() => { window.location.href = '/exchange/trade' }}>Trade ></div>,
       key: 'exchange',
       children: [
         {
           label: 'Buy Crypto',
           key: 'buycrypto'
-        },
-        {
-          label: 'Basic Trading',
-          key: 'trade'
         },
         {
           label: 'Trading Bots',
@@ -80,28 +79,12 @@ const TopBar = () => {
 
   const walletItems = [
     {
-      label: 'Dashboard',
-      key: 'dashboard',
+      label: 'Assets',
+      key: 'wallet/assets',
     },
     {
       label: 'Trade',
-      key: 'trade',
-    },
-    {
-      label: 'NFT Marketplace',
-      key: 'nftmarketplace',
-    },
-    {
-      label: 'Earn',
-      key: 'earn',
-    },
-    {
-      label: 'Discover',
-      key: 'discover',
-    },
-    {
-      label: 'Developers',
-      key: 'developers',
+      key: 'wallet/trade',
     },
   ]
 
@@ -111,11 +94,11 @@ const TopBar = () => {
   }
 
   const getItems = () => {
-    if(mode == 'Exchange') {
+    if(!mode || mode == 'Exchange') {
       return exchangeItems
     }
     if(mode == 'Investment') {
-      return investmentItems
+      return []
     }
     if(mode == 'Wallet') {
       return walletItems
@@ -129,8 +112,20 @@ const TopBar = () => {
       </div>
       <div className={styles.segmented} style={{ width: 300, borderRadius: 5, border: '1px solid #333333' }}>
         <Segmented
+          value={mode}
           options={['Exchange', 'Investment', 'Wallet']}
-          onChange={(e)=>{setMode(e)}}
+          onChange={(e:any)=>{
+            window.localStorage.setItem('mode', e)
+            if(e == 'Exchange') {
+              window.location.href = '/exchange/trade'
+            }
+            if(e == 'Investment') {
+              window.location.href = '/investment'
+            }
+            if(e == 'Wallet') {
+              window.location.href = '/wallet/trade'
+            }
+          }}
           block
         />
       </div>

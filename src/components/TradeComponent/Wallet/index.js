@@ -5,11 +5,10 @@ import { getUserTokenBalance } from '@/utils'
 import { getTokens, INITIAL_ALLOWED_SLIPPAGE } from '@/constants/trade';
 import { useConnectWallet } from '@/components/ConnectWallet';
 import styles from './styles.less';
-import CurrencyCard from '../CurrencyCard';
-import DetailBox from '../DetailBox';
-import AcyDescriptions from '../AcyDescriptions'
-import ComponentButton from '../ComponentButton'
-import TokenSelectorDrawer from '../TokenSelectorDrawer';
+import CurrencyCard from '@/components/CurrencyCard';
+import AcyDescriptions from '@/components/AcyDescriptions'
+import ComponentButton from '@/components/ComponentButton'
+import TokenSelectorDrawer from '@/components/TokenSelectorDrawer';
 
 export default function TradeComponent(props) {
   const {

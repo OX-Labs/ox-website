@@ -146,6 +146,25 @@ export default function ExchangeTVChart(props) {
   const ref = useRef(null);
   const chartRef = useRef(null);
 
+  const baseTokenAddr = {
+    56: [
+      { symbol: "USDT", address: "0xF82eEeC2C58199cb409788E5D5806727cf549F9f" },
+      { symbol: "USDC", address: "0x8965349fb649A33a30cbFDa057D8eC2C48AbE2A2" },
+      { symbol: "WETH", address: "0xF471F7051D564dE03F3736EeA037D2dA2fa189c1" },
+    ],
+    97: [
+      { symbol: "USDT", address: "0xF82eEeC2C58199cb409788E5D5806727cf549F9f" },
+    ],
+    137: [
+      { symbol: "USDT", address: "0xc2132d05d31c914a87c6611c10748aeb04b58e8f" },
+      { symbol: "USDC", address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174" },
+      { symbol: "WETH", address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619" }
+    ],
+    80001: [
+      { symbol: "USDT", address: "0x158653b66fd72555F68eDf983736781E471639Cc" },
+    ]
+  }
+
   useEffect(() => {
     if (marketName !== previousMarketName) {
       setChartInited(false);
@@ -185,7 +204,8 @@ export default function ExchangeTVChart(props) {
       let responsePairData = [];
       let responseFromTokenData;
       if(pageName == "Trade") {
-        responseFromTokenData = await axios.get(`${TradePriceApi}?token0=${fromToken}&token1=${toToken}&chainId=${chainId}&period=${period}`)
+        let toTokenAddress = toToken ? toToken : baseTokenAddr[chainId][0].address
+        responseFromTokenData = await axios.get(`${TradePriceApi}?token0=${fromToken}&token1=${toTokenAddress}&chainId=${chainId}&period=${period}`)
           .then((res) => res.data);
       }
 
@@ -206,6 +226,7 @@ export default function ExchangeTVChart(props) {
       // Binance data is independent of chain, so here we can fill in any chain name
       if (responsePairData && responsePairData[0]?.time) {
         currentSeries.setData(responsePairData);
+        setCurPrice(parseFloat(responsePairData[responsePairData.length - 1].close).toFixed(2))
         setIsLoading(false)
 
         if (!chartInited) {

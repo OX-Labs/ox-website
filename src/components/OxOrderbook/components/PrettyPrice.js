@@ -8,7 +8,7 @@ const SidePrimary = glamorous.span(({side}) => ({
 }))
 
 const SideSecondary = glamorous.span(({side}) => ({
-  color: side === 'buy' ? '#437944' : '#7F4332'
+  color: side === 'buy' ? '#4DA53C' : '#FF6939'
 }))
 
 const NoSidePrimary = glamorous.span({
@@ -16,7 +16,7 @@ const NoSidePrimary = glamorous.span({
 })
 
 const NoSideSecondary = glamorous.span({
-  color: '#3B464E'
+  color: '#7E878C'
 })
 
 const PrettyPrice = ({price = 0, format, side}) => {

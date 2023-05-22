@@ -6,11 +6,11 @@ import glamorous from 'glamorous'
 import {countTrailingZeroes} from '../defaults/util'
 
 const LowContrast = glamorous.span({
-  color: '#3B464E'
+  color: '#CED2D5'
 })
 
 const MedContrast = glamorous.span({
-  color: '#7E878C'
+  color: '#CED2D5'
 })
 
 const HighContrast = glamorous.span({

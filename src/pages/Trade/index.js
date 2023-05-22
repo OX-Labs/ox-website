@@ -3,10 +3,10 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { useChainId } from '@/utils';
 import { PairsTable } from '@/components/TableComponents'
-import AcySymbolNav from './components/AcySymbolNav'
-import AcySymbol from './components/AcySymbol'
-import ExchangeTVChart from './components/ExchangeTVChart/ExchangeTVChart'
-import TradeComponent from './components/TradeComponent'
+import AcySymbolNav from '@/components/AcySymbolNav'
+import AcySymbol from '@/components/AcySymbol'
+import ExchangeTVChart from '@/components/ExchangeTVChart/ExchangeTVChart'
+import TradeComponent from '@/components/TradeComponent/Exchange'
 import OxTabs from '@/components/OxTabs'
 import OrderBook from '@/components/OxOrderbook/OrderBook.js';
 import styles from './styles.less'
@@ -16,12 +16,14 @@ const apiUrlPrefix = "https://stats.acy.finance/api"
 
 const Trade = props => {
 
-  const { account, library } = useWeb3React()
+  const { account, active, library } = useWeb3React()
   const { chainId } = useChainId()
 
   const [topVolumePairs, setTopVolumePairs] = useState([])
   const [activeToken0, setActiveToken0] = useState({ "address": "0xeCDCB5B88F8e3C15f95c720C51c71c9E2080525d", "symbol": "BNB" })
   const [activeToken1, setActiveToken1] = useState({ "address": "0x9c9e5fd8bbc25984b178fdce6117defa39d2db39", "symbol": "BUSD" })
+  const [curPrice, setCurPrice] = useState(0);
+  const [priceDeltaPercent, setPriceDeltaPercent] = useState(0);
   const [showChart, setShowChart] = useState(true)
   const [favTokens, setFavTokens] = useState(JSON.parse(localStorage.getItem('tokens_symbol')))
 
@@ -116,23 +118,22 @@ const Trade = props => {
               }}
             />
             <AcySymbol
-              activeToken0={activeToken0}
-              activeToken1={activeToken1}
-              onSelectToken0={token => { setActiveToken0(token); }}
-              onSelectToken1={token => { setActiveToken1(token); }}
-              latestPricePercentage={1}
+              activeToken={activeToken0}
+              setActiveToken={setActiveToken0}
+              latestPricePercentage={priceDeltaPercent}
+              latestPrice={curPrice}
               showChart={showChart}
               setShowChart={() => setShowChart(!showChart)}
+              setFavTokens={()=>{setFavTokens(JSON.parse(localStorage.getItem('tokens_symbol')))}}
             />
 
             <div style={{ borderTop: '1px solid black' }}>
               {showChart &&
                 <div>
                   <ExchangeTVChart
-                    chartTokenSymbol={activeToken1.symbol}
+                    chartTokenSymbol={activeToken0.symbol}
                     pageName="Trade"
-                    fromToken={activeToken0.address < activeToken1.address ? activeToken0.address : activeToken1.address}
-                    toToken={activeToken0.address < activeToken1.address ? activeToken1.address : activeToken0.address}
+                    fromToken={activeToken0.address}
                     chainId={chainId}
                   />
                 </div>
@@ -141,17 +142,24 @@ const Trade = props => {
           </div>
 
           <div className={styles.bottomWrapper}>
-            <OxTabs single>
-              {/* <div tab="Routes" key="1" style={{ textAlign: 'center', paddingTop: 20 }}>
-                <SankeyGraph token0={activeToken0} token1={activeToken1} />
-              </div> */}
-              <div tab="Volume" key="2">
+            <OxTabs>
+              <div tab="Open orders" key="1">
                 <PairsTable dataSource={topVolumePairs} />
+              </div>
+              <div tab="Order history" key="2">
+              </div>
+              <div tab="Open positions" key="3">
+              </div>
+              <div tab="Position history" key="4">
+              </div>
+              <div tab="Assets" key="5">
+              </div>
+              <div tab="Bots" key="6">
               </div>
             </OxTabs>
           </div>
         </div>
-        <div className={`${styles.colItem} ${styles.swapComponent}`}>
+        <div className={`${styles.colItem} ${styles.orderBook}`}>
           <OrderBook asks={book.asks} bids={book.bids} />
         </div>
         <div className={`${styles.colItem} ${styles.swapComponent}`}>
@@ -162,9 +170,9 @@ const Trade = props => {
               onSelectToken0={token => { setActiveToken0(token); }}
               onSelectToken1={token => { setActiveToken1(token); }}
               account={account}
+              active={active}
               library={library}
               chainId={chainId}
-              setFavTokens={() => { setFavTokens(JSON.parse(localStorage.getItem('tokens_symbol'))) }}
             />
           </div>
         </div>

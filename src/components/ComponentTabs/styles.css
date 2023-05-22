@@ -6,7 +6,6 @@
       border-radius: 3px;
       overflow: hidden;
       color: rgba(255, 255, 255, 0.7);
-      /* background: linear-gradient(90deg, rgb(27 27 28) 0%, rgba(27 27 28) 100%); */
       box-shadow: inset 0px 0px 30px 5px rgba(255, 255, 255, 0.01);
     }
     
@@ -27,13 +26,13 @@
     .Tab.block .Tab-option:hover {
       /* color: rgba(255, 255, 255, 1); */
       /* background: linear-gradient(90deg, #1b1b1c 0%, #1b1b1c 100%); */
-      background: #29292c !important;
+      background: #0030d421 !important;
     }
     
     .Tab.block .Tab-option.active {
       opacity: 1;
       pointer-events: none;
-      background: #29292c !important;
+      background: #0030d4 !important;
       border: 0.75px solid #0E0304;
       color: rgba(255, 255, 255, 0.9);
       /* border-radius: 8px 8px -8px 0; */

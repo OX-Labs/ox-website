@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Input, Icon, Drawer, Button } from "antd";
 import mockTokenList from '@/constants/mockTokenList.json'
-import AcyCoinItem from "../AcyCoinItem";
-import AcyTabs from '../AcyTabs';
+import AcyCoinItem from "@/components/AcyCoinItem";
+import AcyTabs from '@/components/AcyTabs';
 
 import styles from "./styles.less";
 

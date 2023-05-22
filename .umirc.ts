@@ -40,6 +40,11 @@ export default defineConfig({
           component: '@/pages/LaunchPad/LaunchpadProject'
         },
         {
+          path: '/wallet/trade',
+          title: 'OX EXCHANGE',
+          component: '@/pages/Wallet/Trade'
+        },
+        {
           path: '/mm',
           title: 'Market Making',
           component: '@/pages/MM'

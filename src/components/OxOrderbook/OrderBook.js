@@ -22,6 +22,7 @@ import PrettyPrice from './components/PrettyPrice'
 import PrettyAmount from './components/PrettyAmount'
 import Spread from './components/Spread'
 import Spinner from './components/Spinner'
+import OxTabs from '@/components/OxTabs'
 
 // Normalize Array to have first and last methods
 Array.prototype.first = function () { return this[0] } // eslint-disable-line no-extend-native
@@ -37,7 +38,7 @@ const unsafePropNames = [
 ]
 
 class OrderBook extends React.Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.state = { hasOrders: false, hasCentered: false }
     this.scroller = null
@@ -46,30 +47,30 @@ class OrderBook extends React.Component {
     window.addEventListener('resize', this.centerSpreadOnResize)
   }
 
-  componentWillUpdate (nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) {
     if (!nextState.hasOrders && util.hasReceivedOrderBook(nextProps)) {
-      return this.setState({hasOrders: true})
+      return this.setState({ hasOrders: true })
     }
     if (this.scroller && nextState.hasOrders && !nextState.hasCentered) {
-      return this.setState({hasCentered: true}, this.centerSpread)
+      return this.setState({ hasCentered: true }, this.centerSpread)
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.centerSpreadOnResize)
   }
 
-  centerSpread () {
+  centerSpread() {
     this.scroller.scrollTop = (this.scroller.scrollHeight - this.scroller.clientHeight) / 2
   }
 
-  centerSpreadOnResize () {
+  centerSpreadOnResize() {
     if (!this.state.hasCentered) {
       return this.centerSpread()
     }
   }
 
-  render () {
+  render() {
     const {
       asks, bids, showSizeBar,
       sizeLabel, priceLabel, amountLabel, onClickOrder,
@@ -83,78 +84,147 @@ class OrderBook extends React.Component {
     const visibleBids = bids
     const spread = this.state.hasOrders ? getPrice(visibleAsks.last()) - getPrice(visibleBids.first()) : undefined
     const dataConfigs = [
-      {propName: 'size', format: sizeFormat, getter: getSize, renderer: renderSize},
-      {propName: 'price', format: priceFormat, getter: getPrice, renderer: renderPrice},
-      {propName: 'amount', format: amountFormat, getter: getAmount, renderer: renderAmount}
+      { propName: 'price', format: priceFormat, getter: getPrice, renderer: renderPrice },
+      { propName: 'amount', format: amountFormat, getter: getAmount, renderer: renderAmount },
+      { propName: 'size', format: sizeFormat, getter: getSize, renderer: renderSize },
     ]
     return (
       <TradingUIParent {...safeProps}>
         {/* UI HEADER */}
-        <TradingUIHeader>Order Book</TradingUIHeader>
-        <TradingUIContentWrapper>
-          <TradingUIStickyContent>
-            {/* TABLE COLUMN HEADERS */}
-            <TradingUITableHead>
-              {/* {showSizeBar ? <TradingUITableHeading style={{width: sizeBarMaxWidth}} /> : null} */}
-              <TradingUITableHeading>{sizeLabel}</TradingUITableHeading>
-              <TradingUITableHeading>{priceLabel}</TradingUITableHeading>
-              <TradingUITableHeading>{amountLabel}</TradingUITableHeading>
-            </TradingUITableHead>
-          </TradingUIStickyContent>
-          <TradingUIScrollingContent scrollerRef={c => { this.scroller = ReactDOM.findDOMNode(c) }} >
-            {/* ASKS TABLE */}
-            <TradingUIOrderTable
-              // showSizeBar={showSizeBar}
-              headerLabels={[sizeLabel, priceLabel, amountLabel]}
-            >
-              {visibleAsks.map(order =>
-                <TradingUIOrder
-                  key={getPrice(order)}
-                  side='sell'
-                  order={order}
-                  size={getSize(order)}
-                  // onClick={onClickOrder}
-                  dataConfigs={dataConfigs}
-                  showSizeBar={showSizeBar}
-                  sizeBarMaxSize={sizeBarMaxSize}
-                  sizeBarUnitSize={sizeBarUnitSize}
-                  sizeBarMaxWidth={sizeBarMaxWidth}
+        <OxTabs>
+          <div tab="Order Book" key="1">
+            <TradingUIContentWrapper>
+              <TradingUIStickyContent>
+                {/* TABLE COLUMN HEADERS */}
+                <TradingUITableHead>
+                  {/* {showSizeBar ? <TradingUITableHeading style={{width: sizeBarMaxWidth}} /> : null} */}
+                  <TradingUITableHeading>{priceLabel}</TradingUITableHeading>
+                  <TradingUITableHeading>{amountLabel}</TradingUITableHeading>
+                  <TradingUITableHeading>{sizeLabel}</TradingUITableHeading>
+                </TradingUITableHead>
+              </TradingUIStickyContent>
+              <TradingUIScrollingContent scrollerRef={c => { this.scroller = ReactDOM.findDOMNode(c) }} >
+                {/* ASKS TABLE */}
+                <TradingUIOrderTable
+                  // showSizeBar={showSizeBar}
+                  headerLabels={[priceLabel, amountLabel, sizeLabel]}
+                >
+                  {visibleAsks.map(order =>
+                    <TradingUIOrder
+                      key={getPrice(order)}
+                      side='sell'
+                      order={order}
+                      size={getSize(order)}
+                      // onClick={onClickOrder}
+                      dataConfigs={dataConfigs}
+                      showSizeBar={showSizeBar}
+                      sizeBarMaxSize={sizeBarMaxSize}
+                      sizeBarUnitSize={sizeBarUnitSize}
+                      sizeBarMaxWidth={sizeBarMaxWidth}
+                    />
+                  )}
+                </TradingUIOrderTable>
+                {/* SPREAD MARKER */}
+                <Spread
+                  spread={spread}
+                  className={!this.state.hasOrders ? 'hide' : ''}
+                  label='USD SPREAD'
+                  format={spreadFormat}
+                  onClick={this.centerSpread}
                 />
-              )}
-            </TradingUIOrderTable>
-            {/* SPREAD MARKER */}
-            <Spread
-              spread={spread}
-              className={!this.state.hasOrders ? 'hide' : ''}
-              label='USD SPREAD'
-              format={spreadFormat}
-              onClick={this.centerSpread}
-            />
-            {/* BIDS TABLE */}
-            <TradingUIOrderTable
-              style={{marginBottom: '6em'}}
-              showSizeBar={showSizeBar}
-              headerLabels={[sizeLabel, priceLabel, amountLabel]}
-            >
-              {visibleBids.map(order =>
-                <TradingUIOrder
-                  key={getPrice(order)}
-                  side='buy'
-                  order={order}
-                  size={getSize(order)}
-                  onClick={onClickOrder}
-                  dataConfigs={dataConfigs}
+                {/* BIDS TABLE */}
+                <TradingUIOrderTable
+                  style={{ marginBottom: '6em' }}
                   showSizeBar={showSizeBar}
-                  sizeBarMaxSize={sizeBarMaxSize}
-                  sizeBarUnitSize={sizeBarUnitSize}
-                  sizeBarMaxWidth={sizeBarMaxWidth}
+                  headerLabels={[priceLabel, amountLabel, sizeLabel]}
+                >
+                  {visibleBids.map(order =>
+                    <TradingUIOrder
+                      key={getPrice(order)}
+                      side='buy'
+                      order={order}
+                      size={getSize(order)}
+                      onClick={onClickOrder}
+                      dataConfigs={dataConfigs}
+                      showSizeBar={showSizeBar}
+                      sizeBarMaxSize={sizeBarMaxSize}
+                      sizeBarUnitSize={sizeBarUnitSize}
+                      sizeBarMaxWidth={sizeBarMaxWidth}
+                    />
+                  )}
+                </TradingUIOrderTable>
+                {/* LOADING SPINNER */}
+                <Spinner hide={this.state.hasOrders} />
+              </TradingUIScrollingContent>
+            </TradingUIContentWrapper>
+          </div>
+          <div tab="Last Trades" key="2">
+            <TradingUIContentWrapper>
+              <TradingUIStickyContent>
+                {/* TABLE COLUMN HEADERS */}
+                <TradingUITableHead>
+                  {/* {showSizeBar ? <TradingUITableHeading style={{width: sizeBarMaxWidth}} /> : null} */}
+                  <TradingUITableHeading>{priceLabel}</TradingUITableHeading>
+                  <TradingUITableHeading>{amountLabel}</TradingUITableHeading>
+                  <TradingUITableHeading>{sizeLabel}</TradingUITableHeading>
+                </TradingUITableHead>
+              </TradingUIStickyContent>
+              <TradingUIScrollingContent scrollerRef={c => { this.scroller = ReactDOM.findDOMNode(c) }} >
+                {/* ASKS TABLE */}
+                <TradingUIOrderTable
+                  // showSizeBar={showSizeBar}
+                  headerLabels={[priceLabel, amountLabel, sizeLabel]}
+                >
+                  {visibleAsks.map(order =>
+                    <TradingUIOrder
+                      key={getPrice(order)}
+                      side='sell'
+                      order={order}
+                      size={getSize(order)}
+                      // onClick={onClickOrder}
+                      dataConfigs={dataConfigs}
+                      showSizeBar={showSizeBar}
+                      sizeBarMaxSize={sizeBarMaxSize}
+                      sizeBarUnitSize={sizeBarUnitSize}
+                      sizeBarMaxWidth={sizeBarMaxWidth}
+                    />
+                  )}
+                </TradingUIOrderTable>
+                {/* SPREAD MARKER */}
+                <Spread
+                  spread={spread}
+                  className={!this.state.hasOrders ? 'hide' : ''}
+                  label='USD SPREAD'
+                  format={spreadFormat}
+                  onClick={this.centerSpread}
                 />
-              )}
-            </TradingUIOrderTable>
-            {/* LOADING SPINNER */}
-            <Spinner hide={this.state.hasOrders} />
-          </TradingUIScrollingContent>
-        </TradingUIContentWrapper>
+                {/* BIDS TABLE */}
+                <TradingUIOrderTable
+                  style={{ marginBottom: '6em' }}
+                  showSizeBar={showSizeBar}
+                  headerLabels={[priceLabel, amountLabel, sizeLabel]}
+                >
+                  {visibleBids.map(order =>
+                    <TradingUIOrder
+                      key={getPrice(order)}
+                      side='buy'
+                      order={order}
+                      size={getSize(order)}
+                      onClick={onClickOrder}
+                      dataConfigs={dataConfigs}
+                      showSizeBar={showSizeBar}
+                      sizeBarMaxSize={sizeBarMaxSize}
+                      sizeBarUnitSize={sizeBarUnitSize}
+                      sizeBarMaxWidth={sizeBarMaxWidth}
+                    />
+                  )}
+                </TradingUIOrderTable>
+                {/* LOADING SPINNER */}
+                <Spinner hide={this.state.hasOrders} />
+              </TradingUIScrollingContent>
+            </TradingUIContentWrapper>
+          </div>
+        </OxTabs>
       </TradingUIParent>
     )
   }
@@ -190,14 +260,14 @@ OrderBook.defaultProps = {
   sizeBarMaxWidth: 50,
   sizeBarMaxSize: 1000,
   sizeBarUnitSize: 50,
-  sizeLabel: 'Market Size',
-  priceLabel: 'Price (USD)',
-  amountLabel: 'Amount',
+  sizeLabel: 'Total (BTC)',
+  priceLabel: 'Price (USDT)',
+  amountLabel: 'Amount (BTC)',
   getSize: getters.getSize,
   getPrice: getters.getPrice,
   getAmount: getters.getAmount,
-  sizeFormat: '0.00000000',
-  priceFormat: '00.00',
+  sizeFormat: '0.000',
+  priceFormat: '00.0',
   amountFormat: '0.000',
   spreadFormat: '0.00',
   renderSize: PrettySize,
