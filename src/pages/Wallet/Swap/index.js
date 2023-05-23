@@ -6,14 +6,14 @@ import { PairsTable } from '@/components/TableComponents'
 import AcySymbolNav from '@/components/AcySymbolNav'
 import AcySymbol from '@/components/AcySymbol'
 import SankeyGraph from '@/components/SankeyGraph'
-import TradeComponent from '@/components/TradeComponent/Wallet'
+import SwapComponent from '@/components/SwapComponent'
 import OxTabs from '@/components/OxTabs'
 import styles from './styles.less'
 import { random } from 'lodash';
 
 const apiUrlPrefix = "https://stats.acy.finance/api"
 
-const Trade = props => {
+const Swap = props => {
 
   const { account, library } = useWeb3React()
   const { chainId } = useChainId()
@@ -148,7 +148,7 @@ const Trade = props => {
         </div> */}
         <div className={`${styles.colItem} ${styles.swapComponent}`}>
           <div className={styles.trade} style={{ padding: '10px', border: 'none' }}>
-            <TradeComponent
+            <SwapComponent
               token0={activeToken0}
               token1={activeToken1}
               onSelectToken0={token => { setActiveToken0(token); }}
@@ -165,4 +165,4 @@ const Trade = props => {
   )
 }
 
-export default Trade
+export default Swap

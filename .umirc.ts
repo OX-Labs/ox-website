@@ -17,32 +17,32 @@ export default defineConfig({
         {
           path: '/',
           title: 'OX EXCHANGE',
-          component: '@/pages/Trade'
+          component: '@/pages/Exchange/Trade'
         },
         {
           path: '/exchange/markets',
           title: 'OX EXCHANGE',
-          component: '@/pages/Markets'
+          component: '@/pages/Exchange/Markets'
         },
         {
           path: '/exchange/trade',
           title: 'OX EXCHANGE',
-          component: '@/pages/Trade'
+          component: '@/pages/Exchange/Trade'
         },
         {
           path: '/exchange/launchpad',
           title: 'Launchpad',
-          component: '@/pages/LaunchPad'
+          component: '@/pages/Exchange/LaunchPad'
         },
         {
           path: '/exchange/launchpad/project/:projectId',
           title: 'Launchpad',
-          component: '@/pages/LaunchPad/LaunchpadProject'
+          component: '@/pages/Exchange/LaunchPad/LaunchpadProject'
         },
         {
-          path: '/wallet/trade',
+          path: '/wallet/swap',
           title: 'OX EXCHANGE',
-          component: '@/pages/Wallet/Trade'
+          component: '@/pages/Wallet/Swap'
         },
         {
           path: '/wallet/assets',

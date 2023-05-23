@@ -307,7 +307,7 @@ export function MarketsTable(props) {
             {currentKey == 'name' && (
               <Icon
                 type={!isAscending ? 'arrow-up' : 'arrow-down'}
-                style={{ fontSize: '14px', marginLeft: '4px' }}
+                style={{ fontSize: '14px', marginLeft: '4px', color: 'white' }}
               />
             )}
           </div>
@@ -425,7 +425,7 @@ export function MarketsTable(props) {
         render: (text, entry) => {
           return <Space size="middle">
             <Button type="link" style={{ width: 65, fontSize: 16 }} onClick={() => { }}>
-              Detail
+              Swap
             </Button>
             <Button type="link" style={{ width: 65, fontSize: 16 }} onClick={() => { }}>
               Trade

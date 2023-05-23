@@ -18,31 +18,26 @@ const TopBar = () => {
       key: 'exchange/markets',
     },
     {
-      label: <div onClick={() => { window.location.href = '/exchange/trade' }}>Trade ></div>,
+      label: <div onClick={() => { window.location.href = '/exchange/trade' }}>Trade</div>,
       key: 'exchange',
-      children: [
-        {
-          label: 'Buy Crypto',
-          key: 'buycrypto'
-        },
-        {
-          label: 'Trading Bots',
-          key: 'tradingbots'
-        },
-        {
-          label: 'Copy Trading',
-          key: 'copytrading'
-        }
-      ]
+      // children: [
+      //   {
+      //     label: 'Buy Crypto',
+      //     key: 'buycrypto'
+      //   },
+      //   {
+      //     label: 'Trading Bots',
+      //     key: 'tradingbots'
+      //   },
+      //   {
+      //     label: 'Copy Trading',
+      //     key: 'copytrading'
+      //   }
+      // ]
     },
     {
       label: <div onClick={() => { window.location.href = '/exchange/launchpad' }}>Launchpad</div>,
       key: 'exchange/launchpad',
-    },
-    {
-      label: 'Institutional',
-      key: 'exchange/institutional',
-      children: [],
     },
   ]
 
@@ -83,8 +78,8 @@ const TopBar = () => {
       key: 'wallet/assets',
     },
     {
-      label: 'Trade',
-      key: 'wallet/trade',
+      label: 'Swap',
+      key: 'wallet/swap',
     },
   ]
 

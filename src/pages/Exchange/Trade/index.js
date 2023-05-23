@@ -6,7 +6,7 @@ import { PairsTable } from '@/components/TableComponents'
 import AcySymbolNav from '@/components/AcySymbolNav'
 import AcySymbol from '@/components/AcySymbol'
 import ExchangeTVChart from '@/components/ExchangeTVChart/ExchangeTVChart'
-import TradeComponent from '@/components/TradeComponent/Exchange'
+import TradeComponent from '@/components/TradeComponent'
 import OxTabs from '@/components/OxTabs'
 import OrderBook from '@/components/OxOrderbook/OrderBook.js';
 import styles from './styles.less'

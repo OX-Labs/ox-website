@@ -75,11 +75,6 @@ const AcySymbol = (props: any) => {
             <div>24H Volume(USDT)</div>
             <span>$ 4,598,774,444.16</span>
           </div>
-          <div className={styles.item}>
-            <div>Funding / Countdown</div>
-            <span style={{ color: '#eb5c20' }}>-0.0126% </span>
-            <span>/ 07:35:28</span>
-          </div>
         </div>
         {showChart == true &&
           <div style={{ marginRight: '8px', cursor: 'pointer', borderBottom: '1px solid #22252e' }} onClick={() => { setShowChart() }}>
