@@ -3,6 +3,17 @@ import { Table, Space, Button, Icon } from 'antd';
 import className from 'classnames';
 import styles from './styles.less'
 
+const tokenImgURL = {
+  'MATIC': 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
+  'WMATIC': 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
+  'BTC': 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+  'ETH': 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+  'USDC': 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+  'USDT': 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+  'BNB': 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
+  'ACY': 'https://storageapi.fleek.co/5bec74db-774b-4b8a-b735-f08a5ec1c1e6-bucket/icon_acy.svg',
+}
+
 function sortTableTime(table, key, isReverse) {
   return table.sort((a, b) => {
     if (isReverse) {
@@ -316,7 +327,8 @@ export function MarketsTable(props) {
         render: (text, entry) => {
           return (
             <div className={styles.tableHeader}>
-              <span style={{ color: 'white', fontWeight: 'bold', fontSize: 16 }}>{entry.symbol}</span>
+              <img height={20} src={tokenImgURL[entry.symbol]} />
+              <span style={{ color: 'white', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{entry.symbol}</span>
               <span style={{ fontSize: 14, marginLeft: 15 }}>{entry.name}</span>
             </div>
           );
@@ -424,10 +436,13 @@ export function MarketsTable(props) {
         key: 'operation',
         render: (text, entry) => {
           return <Space size="middle">
-            <Button type="link" style={{ width: 65, fontSize: 16 }} onClick={() => { }}>
+            <Button type="link" style={{ width: 65, fontSize: 16, color: 'white' }} onClick={() => { window.location.href = '/wallet/swap' }}>
               Swap
             </Button>
-            <Button type="link" style={{ width: 65, fontSize: 16 }} onClick={() => { }}>
+            <Button type="link" style={{ width: 65, fontSize: 16, color: 'white' }} onClick={() => {
+              window.location.href = '/exchange/trade'
+              window.localStorage.mode = 'Wallet'
+            }}>
               Trade
             </Button>
           </Space>

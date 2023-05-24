@@ -7,7 +7,7 @@ import PrettyPrice from './PrettyPrice'
 const SpreadDiv = glamorous.div({
   textAlign: 'center',
   padding: '.3em 0',
-  margin: '-10px 0',
+  margin: '-20px 0',
   color: '#7E878C',
   borderWidth: '.5px 0',
   borderColor: '#7E878C',

@@ -80,13 +80,12 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
         </div>
       </div>
 
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'right' }}>
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'space-between', paddingLeft: 45, paddingRight: 7 }}>
+        <img src={eth} width={15} style={{ marginLeft: 5, marginRight: 15 }} />
         <div>
-          <Tag color="blue" style={{ background: 'transparent' }}>Audit</Tag>
-          <Tag color="purple" style={{ background: 'transparent' }}>VETTED</Tag>
-          <Tag color="cyan" style={{ background: 'transparent' }}>KYC+</Tag>
+          <Tag color="blue" style={{ background: 'transparent', color: 'white' }}>Audit</Tag>
+          <Tag color="cyan" style={{ background: 'transparent', color: 'white' }}>KYC+</Tag>
         </div>
-        <img src={eth} width={15} style={{marginLeft: 5, marginRight: 15}}/>
       </div>
 
       <div className="details-container detail-text">

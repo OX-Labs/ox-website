@@ -10,14 +10,15 @@ const Container = glamorous.div({
 
 const Scrollable = glamorous.div({
   width: '100%',
-  height: '100%'
+  height: '100%',
 })
 
 const Scroller = glamorous.div({
   width: '100%',
   height: '100%',
-  overflow: 'scroll',
+  // overflow: 'scroll',
   position: 'absolute',
+  marginTop: -30,
   '&::-webkit-scrollbar': { display: 'none' }
 })
 

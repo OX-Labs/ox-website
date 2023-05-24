@@ -4,19 +4,23 @@ import Numeral from 'numeral'
 import glamorous from 'glamorous'
 
 const SidePrimary = glamorous.span(({side}) => ({
-  color: side === 'buy' ? '#4DA53C' : '#FF6939'
+  color: side === 'buy' ? '#4DA53C' : '#FF6939',
+  fontWeight: 400,
 }))
 
 const SideSecondary = glamorous.span(({side}) => ({
-  color: side === 'buy' ? '#4DA53C' : '#FF6939'
+  color: side === 'buy' ? '#4DA53C' : '#FF6939',
+  fontWeight: 400,
 }))
 
 const NoSidePrimary = glamorous.span({
-  color: '#7E878C'
+  color: '#7E878C',
+  fontWeight: 400,
 })
 
 const NoSideSecondary = glamorous.span({
-  color: '#7E878C'
+  color: '#7E878C',
+  fontWeight: 400,
 })
 
 const PrettyPrice = ({price = 0, format, side}) => {

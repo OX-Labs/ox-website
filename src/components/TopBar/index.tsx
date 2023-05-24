@@ -118,7 +118,7 @@ const TopBar = () => {
               window.location.href = '/investment'
             }
             if(e == 'Wallet') {
-              window.location.href = '/wallet/trade'
+              window.location.href = '/wallet/swap'
             }
           }}
           block

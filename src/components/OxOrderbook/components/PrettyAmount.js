@@ -4,7 +4,8 @@ import glamorous from 'glamorous'
 import PrettySize from './PrettySize'
 
 const MedContrast = glamorous.span({
-  color: '#7E878C'
+  color: '#7E878C',
+  fontWeight: 400,
 })
 
 const PrettyAmount = ({amount, format, side}) =>

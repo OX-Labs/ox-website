@@ -6,7 +6,6 @@ import TradingUIOrderSizeBar from './TradingUIOrderSizeBar'
 
 const TradingUIOrderTableRow = glamorous.tr({
   fontSize: '.8em',
-  fontWeight: 700,
   ':hover': {
     cursor: 'pointer',
     background: '#15232C'
@@ -14,8 +13,9 @@ const TradingUIOrderTableRow = glamorous.tr({
 })
 
 const TradingUIOrderTableData = glamorous.td({
-  textAlign: 'right',
-  transform: 'translateX(-10%)'
+  textAlign: 'left',
+  transform: 'translateX(-10%)',
+  width: '75px',
 })
 
 const TradingUIOrder = ({showSizeBar, side, size, sizeBarMaxWidth, sizeBarMaxSize, sizeBarUnitSize, onClick, order, dataConfigs, ...props}) => {

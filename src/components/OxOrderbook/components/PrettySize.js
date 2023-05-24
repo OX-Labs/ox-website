@@ -6,15 +6,18 @@ import glamorous from 'glamorous'
 import {countTrailingZeroes} from '../defaults/util'
 
 const LowContrast = glamorous.span({
-  color: '#CED2D5'
+  color: '#CED2D5',
+  fontWeight: 400,
 })
 
 const MedContrast = glamorous.span({
-  color: '#CED2D5'
+  color: '#CED2D5',
+  fontWeight: 400,
 })
 
 const HighContrast = glamorous.span({
-  color: '#CED2D5'
+  color: '#CED2D5',
+  fontWeight: 400,
 })
 
 const PrettySize = ({size = 0, format, side}) => {

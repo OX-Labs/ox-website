@@ -9,7 +9,7 @@ const TradingUIOrderSizeBar = glamorous.td({
   const percentSize = numUnits >= totalUnits ? 1 : numUnits / totalUnits
   const sizeBarWidth = percentSize * sizeBarMaxWidth
   return {
-    width: sizeBarMaxWidth,
+    width: '50px',
     borderColor: side === 'buy' ? '#437944' : '#7F4332',
     borderStyle: showSizeBar ? 'solid' : 'none',
     borderWidth: `0 0 0 ${1 + sizeBarWidth}px`
