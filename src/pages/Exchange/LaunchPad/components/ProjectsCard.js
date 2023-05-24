@@ -10,7 +10,7 @@ import eth from '@/assets/eth.svg'
 const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngoing, isUpcoming, tokenLogoUrl }) => {
   const history = useHistory();
   const onOpenProjectDetail = (p) => {
-    history.push(`/launchpad/project/${p}`);
+    history.push(`/exchange/launchpad/project/${p}`);
   };
 
   const stripTitle = (title) => {

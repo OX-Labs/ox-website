@@ -42,7 +42,7 @@ export default defineConfig({
         {
           path: '/exchange/mm',
           title: 'Market Making',
-          component: '@/pages/MM'
+          component: '@/pages/Exchange/MM'
         },
         {
           path: '/wallet/swap',
