@@ -436,13 +436,16 @@ export function MarketsTable(props) {
         key: 'operation',
         render: (text, entry) => {
           return <Space size="middle">
-            <Button type="link" style={{ width: 65, fontSize: 16, color: 'white' }} onClick={() => { window.location.href = '/wallet/swap' }}>
+            <Button className={styles.button}
+              onClick={() => { window.location.href = '/wallet/swap' }}
+            >
               Swap
             </Button>
-            <Button type="link" style={{ width: 65, fontSize: 16, color: 'white' }} onClick={() => {
-              window.location.href = '/exchange/trade'
-              window.localStorage.mode = 'Wallet'
-            }}>
+            <Button className={styles.button}
+              onClick={() => {
+                window.location.href = '/exchange/trade'
+                window.localStorage.mode = 'Wallet'
+              }}>
               Trade
             </Button>
           </Space>

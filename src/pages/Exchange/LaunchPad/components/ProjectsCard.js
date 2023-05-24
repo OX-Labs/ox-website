@@ -80,11 +80,13 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
         </div>
       </div>
 
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'space-between', paddingLeft: 45, paddingRight: 7 }}>
-        <img src={eth} width={15} style={{ marginLeft: 5, marginRight: 15 }} />
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'space-between' }}>
+        <div style={{ marginLeft: 12 }}>
+          <img src={eth} width={25} style={{ marginRight: 5 }} /> Ethereum
+        </div>
         <div>
           <Tag color="blue" style={{ background: 'transparent', color: 'white' }}>Audit</Tag>
-          <Tag color="cyan" style={{ background: 'transparent', color: 'white' }}>KYC+</Tag>
+          <Tag color="cyan" style={{ background: 'transparent', color: 'white' }}>KYC</Tag>
         </div>
       </div>
 
