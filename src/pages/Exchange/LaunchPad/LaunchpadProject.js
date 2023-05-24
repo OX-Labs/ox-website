@@ -1158,7 +1158,7 @@ const LaunchpadProject = () => {
           const tokenList = TokenListSelector(chainId)
           console.log(tokenList);
           const mainCoinInfo = tokenList.find(item => item.symbol == res.basicInfo.mainCoin)
-          setMainCoinLogoURI(mainCoinInfo.logoURI);
+          setMainCoinLogoURI(mainCoinInfo?.logoURI);
           setPoolID(res.basicInfo.poolID);
 
           console.log('res', res);
@@ -1173,7 +1173,6 @@ const LaunchpadProject = () => {
         // console.error(e);
         // history.push('/launchpad');
       });
-
   }, [library, account]);
 
   // fetching data from Smart Contract
