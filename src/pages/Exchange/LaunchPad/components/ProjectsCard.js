@@ -39,8 +39,8 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
     } else if (status === 'ongoing') {
       return (
         <>
-          <span style={{ marginRight: '5px', color: '#eb5c20' }}>End: </span>
-          <FormatedTime utc_string={ddl} style={{ color: '#eb5c20', whiteSpace: 'nowrap' }} />
+          <span style={{ marginRight: '5px', color: '#0030d4' }}>End: </span>
+          <FormatedTime utc_string={ddl} style={{ color: '#0030d4', whiteSpace: 'nowrap' }} />
         </>
       )
     } else if (status === 'ended') {
@@ -81,8 +81,9 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
       </div>
 
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row', marginTop: 5, marginBottom: 10, justifyContent: 'space-between' }}>
-        <div style={{ marginLeft: 12 }}>
-          <img src={eth} width={25} style={{ marginRight: 5 }} /> Ethereum
+        <div style={{ marginLeft: 20 }}>
+          <img src={eth} width={15} style={{ marginRight: 5 }} /> 
+          <span style={{ fontSize: 12 }}>Ethereum</span>
         </div>
         <div>
           <Tag color="blue" style={{ background: 'transparent', color: 'white' }}>Audit</Tag>

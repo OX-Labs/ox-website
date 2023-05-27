@@ -29,7 +29,7 @@ const FormatedTime = ({ utc_string, utc_second, visible = true, format = "YYYY-M
       {visible &&
         <span className='time-string' style={style}>
           {timeString()}
-          <span onClick={onClickTimeZone} className='timezone-symbol' style={{cursor: 'pointer'}}>({timezone})</span>
+          {/* <span onClick={onClickTimeZone} className='timezone-symbol' style={{cursor: 'pointer'}}>({timezone})</span> */}
         </span>
       }
     </>

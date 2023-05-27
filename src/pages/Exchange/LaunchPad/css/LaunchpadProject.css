@@ -18,6 +18,7 @@
   display: flex;
   margin-top: 2.5rem;
   text-align: center;
+  margin-left: 1.5rem;
 }
 
 .gridContainer {
@@ -47,7 +48,7 @@
   padding-inline-end: 2.25rem;
   padding-top: 2rem;
   padding-bottom: 2.5rem;
-  
+  background: #0e1118;
 }
 
 .allocation-content {
@@ -71,13 +72,15 @@
   object-position: center center;
   height: auto;
   border-radius: 16px;
+  max-height: 330px;
+  margin-bottom: -150px;
 }
 
 .tokenLogo {
   display: inline-block;
   width: 84px;
   height: 84px;
-  border-radius: 2rem;
+  border-radius: 5rem;
   max-width: 100%;
   background: white;
 }
@@ -138,7 +141,7 @@
   border-radius: 20px;
   padding-inline-start: 0.75rem;
   padding-inline-end: 0.75rem;
-  background-color: #4b4f4e;
+  background-color: #202323;
   color: #ffffff;
   margin: 0.25rem;
 }
@@ -157,8 +160,8 @@
   border-style: solid;
   height: calc(100% + 30px);
   top: 0px;
-  background: #eb5c1f;
-  color: #eb5c1f;
+  background: #0030d4;
+  color: #0030d4;
   width: 1px;
   position: absolute;
   left: 11px;
@@ -190,7 +193,7 @@
   width: 24px;
   height: 24px;
   border-radius: 10000px;
-  background-color: #eb5c1f;
+  background-color: #0030d4;
   z-index: 1;
   color: #010101;
 }
@@ -524,8 +527,8 @@
 .vesting-procedure-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  padding-left: 10%;
+  /* width: 400px;
+  padding-left: 10%; */
 }
 
 .vesting-schedule {
@@ -676,7 +679,7 @@
 }
 
 .sales-container .sales-submit {
-  background-color: #eb5c20;
+  background-color: #0030d4;
   color: white;
   border: unset;
   /* border: 1px solid white; */
@@ -712,7 +715,7 @@
 }
 
 .claim-btn {
-  background-color: #eb5c20;
+  background-color: #0030d4;
   border: unset;
   font-size: 12px;
   border-radius: 999px;
@@ -743,24 +746,24 @@
 
 .vesting-procedure .procedureNumber {
   color: white;
-  background-color: #4e4e4d;
+  background-color: #202323;
 }
 
 .vesting-procedure .procedureNumberColored {
   color: white;
-  background-color: #eb5c20;
+  background-color: #0030d4;
 }
 
 .vesting-procedure .verticalDivideLine {
-  background-color: #4e4e4d;
-  color: #4e4e4d;
+  background-color: #202323;
+  color: #202323;
   font-style: unset;
   font-style: normal;
 }
 
 .vesting-procedure .verticalDivideLineColored {
-  background-color: #eb5c20;
-  color: #eb5c20;
+  background-color: #0030d4;
+  color: #0030d4;
   font-style: unset;
   font-style: normal;
 }
@@ -1203,7 +1206,7 @@
 
   .flexContainer {
     padding-left: 1em;
-    display: block;
+    /* display: block; */
   }
 
   .mainContainer {

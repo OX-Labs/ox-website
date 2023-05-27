@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import './css/LaunchpadProject.css';
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
 import tick from '@/assets/launchpad/icon-tick-white.svg';
 import FormatedTime from './components/FormatedTime';
 
 const VestingSchedule = ({ vestingDate, stageData, vestingClick, receivedData }) => {
   const len = vestingDate.length;
   const curDate = new Date();
-  
+
   const totalStageSum = stageData.reduce((a, b) => parseInt(a) + parseInt(b), 0)
 
   const ClaimButton = () => {
@@ -40,7 +40,7 @@ const VestingSchedule = ({ vestingDate, stageData, vestingClick, receivedData })
               }
             </Button>
           </div>
-          
+
         </>
       )
     }
@@ -74,14 +74,17 @@ const VestingSchedule = ({ vestingDate, stageData, vestingClick, receivedData })
 
                 <div className="vesting-schedule-text">
                   <div className='vesting-percentage-claim-container'>
-                    <div className="vesting-percentage-container">
-                      <p className="vesting-percentage">{(stageData[index] / totalStageSum * 100).toPrecision(4)}%</p>
-                    </div>
                     <div className="vesting-text-container">
-                      <p className="vesting-text">
+                      <p className="vesting-text" style={{marginLeft: -6}}>
                         <FormatedTime utc_second={vestingDate[index]} />
                       </p>
                     </div>
+                    {/* <div className="vesting-percentage-container">
+                      <p className="vesting-percentage">{(stageData[index] / totalStageSum * 100).toPrecision(4)}%</p>
+                    </div> */}
+                    <Tag color="blue" style={{ background: 'transparent', borderRadius: 25, height: 25, marginLeft: 10 }}>
+                      {(stageData[index] / totalStageSum * 100).toPrecision(4)}%
+                    </Tag>
                   </div>
 
                 </div>

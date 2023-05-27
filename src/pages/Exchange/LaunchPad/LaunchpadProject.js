@@ -273,7 +273,13 @@ const CardArea = ({
           poolTokenAddress={poolTokenAddress}
           poolMainCoinAddress={poolMainCoinAddress}
         />
-
+        <VestingCard
+          account={account}
+          library={library}
+          receivedData={receivedData}
+          poolDistributionStage={poolDistributionStage}
+          poolDistributionDate={poolDistributionDate}
+        />
       </div>
       <div className="rightGrid">
         <div className="circleBorderCard">
@@ -315,7 +321,7 @@ const TokenProcedure = ({ receivedData, poolBaseData, comparesaleDate, compareve
 
   const Procedure = () => {
     return (
-      <div className="cardContent">
+      <div className="cardContent" style={{borderRadius: '1rem'}}>
         <div className="procedure">
           <hr aria-orientation="vertical" className="verticalDivideLine" />
           <div className="procedureNumber">1</div>
@@ -526,6 +532,67 @@ const ProjectDescription = ({ receivedData }) => {
   );
 };
 
+const VestingCard = ({
+  account,
+  library,
+  receivedData,
+  poolDistributionStage,
+  poolDistributionDate,
+}) => {
+
+  const vestingClaimClicked = async () => {
+    // can't claim before vesting schedule
+    let startDistributionTime = poolDistributionDate[0];
+    let nowTime = moment.utc().unix();
+    if (nowTime < startDistributionTime) {
+      return;
+    }
+
+    const PoolContract = getContract(LAUNCHPAD_ADDRESS(), POOLABI, library, account);
+
+    const result = await PoolContract.WithdrawERC20ToInvestor(poolID)
+      .catch(e => {
+        console.log('claim Error', e);
+      });
+
+    return result
+  }
+
+  return (
+    <div className="circleBorderCard cardContent">
+      <div className="vesting-open-container">
+        <div className="vesting-container">
+          <p className="sale-vesting-title vesting">Vesting</p>
+
+          <div className='vesting-trigger-container'>
+            <div className="text-line-container">
+              <p>Unlock {(poolDistributionStage[0] * 100 / poolDistributionStage.reduce((a, b) => parseInt(a) + parseInt(b), 0)).toPrecision(4)}% at TGE, vesting in {poolDistributionStage.length} stages: </p>
+              <span className="vesting-line" />
+
+            </div>
+            {/* <div className="arrow-down-container">
+              <CaretDownOutlined
+                className={
+                  isClickedVesting ? 'arrow-down-active arrow-down' : 'arrow-down-inactive arrow-down'
+                }
+              />
+            </div> */}
+          </div>
+        </div>
+
+        <div className="vesting-schedule vesting-schedule-active">
+          <VestingSchedule
+            vestingDate={poolDistributionDate}
+            stageData={poolDistributionStage}
+            vestingClick={vestingClaimClicked}
+            receivedData={receivedData}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const AllocationCard = ({
   index,
   allocationInfo,
@@ -594,7 +661,7 @@ const AllocationCard = ({
 
   return (
     <div className='allocationCard-container'>
-      <div className="allocationCard" onClick={clickCover} style={{ backgroundColor: baseColorCodes[index] }}>
+      <div className="allocationCard" onClick={clickCover} style={{ backgroundColor: baseColorCodes[index], paddingTop: 13 }}>
         <div
           className={computeCoverClass()}
           style={{ backgroundColor: colorCodes[index] }}
@@ -629,7 +696,6 @@ const Allocation = ({
   const [coverOpenStates, setCoverOpenStates] = useState(new Array(5).fill('cover'));
   const [salesValue, setSalesValue] = useState(0);
   const [isShowingBonusInstrution, SetIsShowingBonusInstruction] = useState(false);
-  const [isClickedVesting, setIsClickedVesting] = useState(false);
   const [recordWalletId, setRecordWalletId] = useState("");
 
   // fetching allocation data
@@ -687,7 +753,7 @@ const Allocation = ({
   }
 
   const validWalletId = (chain, walletId) => {
-    if(walletId === "") return false;
+    if (walletId === "") return false;
     return true;
   }
 
@@ -780,25 +846,6 @@ const Allocation = ({
     )
   }
 
-  const vestingClaimClicked = async () => {
-    // can't claim before vesting schedule
-    console.log('Distribution Date', poolDistributionDate);
-
-    let startDistributionTime = poolDistributionDate[0];
-    let nowTime = moment.utc().unix();
-    console.log(nowTime, startDistributionTime);
-    if (nowTime < startDistributionTime) {
-      return;
-    }
-
-    const PoolContract = getContract(LAUNCHPAD_ADDRESS(), POOLABI, library, account);
-
-    const result = await PoolContract.WithdrawERC20ToInvestor(poolID)
-      .catch(e => {
-        console.log('claim Error', e);
-      });
-  }
-
   const investClicked = async (poolAddress, poolId, amount) => {
     const PoolContract = getContract(LAUNCHPAD_ADDRESS(), POOLABI, library, account);
 
@@ -845,14 +892,14 @@ const Allocation = ({
 
   return (
     <div>
-      <div className='cardContent allocation-content allocation-content-active'>
+      <div className='cardContent allocation-content allocation-content-active' style={{borderRadius: '1rem'}}>
         <div className="allocation-title-container">
           <div className='title-tooltip-container'>
             <div style={{ height: 24 }}></div>
             <div className="allocation-title">Allocation</div>
-            <div className='bonus-instruction-title' onClick={(e) => SetIsShowingBonusInstruction(!isShowingBonusInstrution)}>
+            {/* <div className='bonus-instruction-title' onClick={(e) => SetIsShowingBonusInstruction(!isShowingBonusInstrution)}>
               How to Increase
-            </div>
+            </div> */}
 
             {/* <Tooltip title={tooltipTitle} mouseEnterDelay={0} mouseLeaveDelay={0.25}>
               <Icon type="info-circle" className='tool-tip-icon' />
@@ -912,7 +959,7 @@ const Allocation = ({
                     value={recordWalletId}
                     onChange={(e) => setRecordWalletId(e.target.value)}
                     placeholder={`Please add your ${receivedData.actualChain} wallet address.`}
-                    // onBlur={onChangeRecordWalletId}
+                  // onBlur={onChangeRecordWalletId}
                   />
                 </InputGroup>
               </div>
@@ -959,35 +1006,6 @@ const Allocation = ({
           </Button>
         </form>
 
-        <div className="vesting-open-container">
-          <div className="vesting-container">
-            <p className="sale-vesting-title vesting">Vesting</p>
-
-            <div className='vesting-trigger-container' onClick={() => setIsClickedVesting(!isClickedVesting)}>
-              <div className="text-line-container">
-                <p>Unlock {(poolDistributionStage[0] * 100 / poolDistributionStage.reduce((a, b) => parseInt(a) + parseInt(b), 0)).toPrecision(4)}% at TGE, vesting in {poolDistributionStage.length} stages: </p>
-                <span className="vesting-line" />
-
-              </div>
-              <div className="arrow-down-container">
-                <CaretDownOutlined
-                  className={
-                    isClickedVesting ? 'arrow-down-active arrow-down' : 'arrow-down-inactive arrow-down'
-                  }
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className={isClickedVesting ? 'vesting-schedule vesting-schedule-active' : 'vesting-schedule'}>
-            <VestingSchedule
-              vestingDate={poolDistributionDate}
-              stageData={poolDistributionStage}
-              vestingClick={vestingClaimClicked}
-              receivedData={receivedData}
-            />
-          </div>
-        </div>
       </div>
 
     </div>
@@ -1013,7 +1031,7 @@ const LaunchpadProject = () => {
   const [compareAlloDate, setCompareAlloDate] = useState(false);
   const [comparesaleDate, setComparesaleDate] = useState(false);
   const [comparevestDate, setComparevestDate] = useState(false);
-  
+
   const convertUnixTime = unixTime => {
     const data = new Date((Number(unixTime)) * 1000)
     const res = data.toLocaleString()
