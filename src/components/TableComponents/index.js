@@ -476,3 +476,336 @@ export function MarketsTable(props) {
     </div>
   );
 }
+
+export function YearTable(props) {
+
+  const [isHover, setIsHover] = useState(false)
+
+  function columnsCoin() {
+    return [
+      {
+        title: <div className={styles.tableHeader}>YEAR</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.year}</div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>JAN</div>,
+        render: (text, entry) => {
+          return (
+            entry.jan == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.jan < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.jan}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>FEB</div>,
+        render: (text, entry) => {
+          return (
+            entry.feb == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.feb < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.feb}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>MAR</div>,
+        render: (text, entry) => {
+          return (
+            entry.mar == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.mar < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.mar}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>APR</div>,
+        render: (text, entry) => {
+          return (
+            entry.apr == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.apr < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.apr}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>MAY</div>,
+        render: (text, entry) => {
+          return (
+            entry.may == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.may < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.may}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>JUN</div>,
+        render: (text, entry) => {
+          return (
+            entry.jun == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.jun < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.jun}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>JUL</div>,
+        render: (text, entry) => {
+          return (
+            entry.jul == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.jul < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.jul}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>AUG</div>,
+        render: (text, entry) => {
+          return (
+            entry.aug == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.aug < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.aug}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>SEP</div>,
+        render: (text, entry) => {
+          return (
+            entry.sep == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.sep < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.sep}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>OCT</div>,
+        render: (text, entry) => {
+          return (
+            entry.oct == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.oct < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.oct}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>NOV</div>,
+        render: (text, entry) => {
+          return (
+            entry.nov == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.nov < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.nov}%
+              </div>
+          )
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>DEC</div>,
+        render: (text, entry) => {
+          return (
+            entry.dec == '-'
+              ? <div style={{ color: 'white', fontSize: 16 }}>-</div>
+              : <div
+                className={styles.tableData}
+                style={{ color: entry.dec < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}
+              >
+                {entry.dec}%
+              </div>
+          )
+        },
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={props.dataSource}
+        columns={columnsCoin()}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}
+
+export function TokenHoldingTable(props) {
+  const [isHover, setIsHover] = useState(false)
+
+  function columnsCoin() {
+    return [
+      {
+        title: <div className={styles.tableHeaderFirst}>ASSET</div>,
+        className: 'leftAlignTableHeader',
+        render: (text, entry) => {
+          return (
+            <div className={styles.tableHeader} style={{ display: 'flex', alignItems: 'center' }}>
+              <img src={entry.logo} />
+              <div style={{ marginLeft: 10, display: 'flex', flexDirection: 'column' }}>
+                <span style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginBottom: -5 }}>{entry.symbol}</span>
+                <span>{entry.name}</span>
+              </div>
+            </div >
+          );
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>BALANCE</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.balance}</div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>PRICE</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.price}</div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>CHANGE 24H</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: entry.change24h < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}>{entry.change24h}%</div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>VALUE</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.value}</div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>ALLOCATION</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.allocation}</div>;
+        },
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={props.dataSource}
+        columns={columnsCoin()}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}
+
+export function FeesTable(props) {
+  const [isHover, setIsHover] = useState(false)
+
+  function columnsCoin() {
+    return [
+      {
+        title: <div className={styles.tableHeaderFirst}>FEE TYPE</div>,
+        className: 'leftAlignTableHeader',
+        render: (text, entry) => {
+          return (
+            <div className={styles.tableData} style={{fontSize: 16}}>
+              Protocol Fee
+            </div >
+          );
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>SETTINGS</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: 16}}>Rate</span>
+            <span style={{fontSize: 16, color: 'white'}}>{entry.rate}</span>
+          </div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>RECIPENT</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{fontSize: 16}}>Protocol Fee contract</div>;
+        },
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={props.dataSource}
+        columns={columnsCoin()}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}

@@ -54,6 +54,11 @@ export default defineConfig({
           title: 'OX EXCHANGE',
           component: '@/pages/Wallet/Assets'
         },
+        {
+          path: '/investment',
+          title: 'OX EXCHANGE',
+          component: '@/pages/Investment'
+        }
       ],
     },
   ],
