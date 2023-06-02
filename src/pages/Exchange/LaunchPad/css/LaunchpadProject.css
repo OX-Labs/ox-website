@@ -78,7 +78,7 @@
   margin-bottom: -150px;
   position: inherit;
   z-index: 1;
-  filter: brightness(0.5);
+  filter: brightness(33%);
 }
 
 .tokenLogo {
