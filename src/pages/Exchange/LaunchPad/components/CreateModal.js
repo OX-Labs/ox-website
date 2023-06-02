@@ -9,7 +9,9 @@ const CreateModal = (props) => {
     setShowModal,
   } = props
 
-  const [title, setTitle] = useState('Create Token')
+  const [title, setTitle] = useState('Approve Token')
+  // approve token
+  const [approveToken, setApproveToken] = useState('')
   // create token
   const [tokenType, setTokenType] = useState('Simple Token')
   const [tokenName, setTokenName] = useState('')
@@ -51,6 +53,17 @@ const CreateModal = (props) => {
 
   const getFormItems = () => {
     switch (title) {
+      case 'Approve Token':
+        return <>
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Approve Token</div>
+            <Input
+              value={approveToken}
+              onChange={(e) => { setApproveToken(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </>
       case 'Create Token':
         return <>
           <Form.Item>
@@ -399,6 +412,9 @@ const CreateModal = (props) => {
   }
 
   const getPrimaryText = () => {
+    if (title == 'Approve Token') {
+      return 'Approve'
+    }
     if (title == 'Create Token') {
       return title
     }
@@ -411,6 +427,10 @@ const CreateModal = (props) => {
   }
 
   const onClickPrimary = () => {
+    if (title == 'Approve Token') {
+      setTitle('Presale Information')
+      return
+    }
     if (title == 'Create Token') {
       setTitle('Presale Information')
       return
@@ -419,7 +439,7 @@ const CreateModal = (props) => {
       setTitle('Project Information')
       return
     }
-    setTitle('Create Token')
+    setTitle('Approve Token')
     setShowModal(false)
   }
 
@@ -449,6 +469,13 @@ const CreateModal = (props) => {
           onClick={() => { onClickPrimary() }}
         >
           Skip
+        </div>}
+        {title == 'Approve Token' &&
+        <div
+          style={{ textAlign: 'center', cursor: 'pointer', marginTop: 10, marginBottom: 20 }}
+          onClick={() => { setTitle('Create Token') }}
+        >
+          Create Token
         </div>}
     </Modal>
   )
