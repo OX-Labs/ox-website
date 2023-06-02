@@ -82,7 +82,7 @@ const VestingSchedule = ({ vestingDate, stageData, vestingClick, receivedData })
                     {/* <div className="vesting-percentage-container">
                       <p className="vesting-percentage">{(stageData[index] / totalStageSum * 100).toPrecision(4)}%</p>
                     </div> */}
-                    <Tag color="blue" style={{ background: 'transparent', borderRadius: 25, height: 25, marginLeft: 10 }}>
+                    <Tag color="blue" style={{ background: 'transparent', borderRadius: 25, height: 25, marginLeft: 10, color: 'white', borderColor: '#333333', paddingTop: 2 }}>
                       {(stageData[index] / totalStageSum * 100).toPrecision(4)}%
                     </Tag>
                   </div>

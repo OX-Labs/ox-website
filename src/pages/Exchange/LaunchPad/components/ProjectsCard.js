@@ -122,7 +122,7 @@ const ProjectsCard = ({ projectID, start, ddl, raise, sales, rate, title, isOngo
             padding: '0 20px 0 10px',
           }}
         >
-          <span style={{ color: '#fff', marginLeft: '18px' }}>Rate</span>
+          <span style={{ color: '#fff', marginLeft: '18px' }}>Initial Price</span>
           <span style={{ color: '#fff' }}>{rate}</span>
         </div>
       </div>

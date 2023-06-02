@@ -23,6 +23,7 @@
     "@acyswap/sdk": "^1.1.5",
     "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.8.0",
+    "@ant-design/plots": "^1.2.5",
     "@binance-chain/bsc-connector": "^1.0.0",
     "@ethersproject/address": "^5.7.0",
     "@ethersproject/bignumber": "^5.5.0",

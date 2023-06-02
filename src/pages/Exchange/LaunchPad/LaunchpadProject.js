@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent */
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Progress, Button, message, Input } from 'antd';
+import { Progress, Button, message, Input, Radio } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
 import styles from "./styles.less"
 import * as moment from 'moment';
@@ -39,6 +39,7 @@ import linkBIcon from '@/assets/launchpad/icon_open_in_new_window_black.svg'
 import whitepaperIcon from '@/assets/launchpad/icon_file_white.svg';
 import deckIcon from '@/assets/launchpad/icon_ppt.svg';
 import tokenEconomicsIcon from '@/assets/launchpad/icon_googlesheets.svg';
+import TokenomicsPieChart from './components/PieChart';
 
 const InputGroup = Input.Group;
 const logoObj = {
@@ -190,7 +191,7 @@ const TokenLogoLabel = ({ projectName, tokenLogo, receivedData }) => {
   }
 
   return (
-    <div className="flexContainer">
+    <div className="flexContainer" >
       <img
         className="tokenLogo"
         alt=""
@@ -280,6 +281,7 @@ const CardArea = ({
           poolDistributionStage={poolDistributionStage}
           poolDistributionDate={poolDistributionDate}
         />
+        <Tokenomics />
       </div>
       <div className="rightGrid">
         <div className="circleBorderCard">
@@ -321,7 +323,7 @@ const TokenProcedure = ({ receivedData, poolBaseData, comparesaleDate, compareve
 
   const Procedure = () => {
     return (
-      <div className="cardContent" style={{borderRadius: '1rem'}}>
+      <div className="cardContent" style={{ borderRadius: '1rem' }}>
         <div className="procedure">
           <hr aria-orientation="vertical" className="verticalDivideLine" />
           <div className="procedureNumber">1</div>
@@ -340,7 +342,7 @@ const TokenProcedure = ({ receivedData, poolBaseData, comparesaleDate, compareve
           </div>
 
           <div>
-            <p>Sale (FCFS)</p>
+            <p>Sale</p>
             <div>
               <p className="shortText">Start: </p>
               <FormatedTime utc_string={receivedData.saleStart} />
@@ -487,6 +489,20 @@ const KeyInformation = ({ projectToken, totalSale, tokenPrice, receivedData, poo
           1 {projectToken} = {tokenPrice} {receivedData.mainCoin}
         </div>
       </div>
+
+      <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
+        <div className="keyinfoName">Initial Price</div>
+        <div>
+          1 {projectToken} = {tokenPrice} {receivedData.mainCoin}
+        </div>
+      </div>
+
+      <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
+        <div className="keyinfoName">24H Rise</div>
+        <div>
+          + 10 %
+        </div>
+      </div>
     </div>
   );
 };
@@ -567,7 +583,7 @@ const VestingCard = ({
           <div className='vesting-trigger-container'>
             <div className="text-line-container">
               <p>Unlock {(poolDistributionStage[0] * 100 / poolDistributionStage.reduce((a, b) => parseInt(a) + parseInt(b), 0)).toPrecision(4)}% at TGE, vesting in {poolDistributionStage.length} stages: </p>
-              <span className="vesting-line" />
+              {/* <span className="vesting-line" /> */}
 
             </div>
             {/* <div className="arrow-down-container">
@@ -892,7 +908,7 @@ const Allocation = ({
 
   return (
     <div>
-      <div className='cardContent allocation-content allocation-content-active' style={{borderRadius: '1rem'}}>
+      <div className='cardContent allocation-content allocation-content-active' style={{ borderRadius: '1rem' }}>
         <div className="allocation-title-container">
           <div className='title-tooltip-container'>
             <div style={{ height: 24 }}></div>
@@ -1011,6 +1027,21 @@ const Allocation = ({
     </div>
   );
 };
+
+const Tokenomics = ({}) => {
+
+  return (
+    <div className="circleBorderCard cardContent">
+      <div style={{textAlign: 'center', fontSize: 16, fontWeight: 'bold', marginBottom: 10}}>Tokenomics - Supply Distribution</div>
+      <div style={{textAlign: 'center', color: '#b3b4b7', marginBottom: 15}}>
+        <div>Diluted Market Cap: 8,872 $</div>
+        <div>Circulating Market Cap: 6,220 $</div>
+        <div>Total: <span style={{color: 'white', fontWeight: 'bold'}}>1B</span></div>
+      </div>
+      <TokenomicsPieChart />
+    </div>
+  )
+}
 
 const LaunchpadProject = () => {
   // STATES
@@ -1208,12 +1239,14 @@ const LaunchpadProject = () => {
       ) : (
         <div className="mainContainer">
           <Timer callBack={updatePoolData(chainId)} ms={30000} />
-          <TokenBanner posterUrl={receivedData.posterUrl} />
-          <TokenLogoLabel
-            projectName={receivedData.projectName}
-            tokenLogo={receivedData.tokenLogoUrl}
-            receivedData={receivedData}
-          />
+          <div style={{ position: 'relative' }}>
+            <TokenBanner posterUrl={receivedData.posterUrl} />
+            <TokenLogoLabel
+              projectName={receivedData.projectName}
+              tokenLogo={receivedData.tokenLogoUrl}
+              receivedData={receivedData}
+            />
+          </div>
           <CardArea
             poolBaseData={poolBaseData}
             receivedData={receivedData}

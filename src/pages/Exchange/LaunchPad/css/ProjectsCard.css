@@ -55,7 +55,7 @@
 .projects-card .logo img {
   height: 50px;
   width: 50px;
-  border-radius: 1rem;
+  border-radius: 2rem;
   background: white;
 }
 .projects-card .countdown-container {

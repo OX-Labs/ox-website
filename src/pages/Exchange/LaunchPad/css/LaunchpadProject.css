@@ -6,7 +6,7 @@
 .mainContainer {
   width: 100%;
   margin-inline: auto;
-  max-width: 1024px;
+  max-width: 1200px;
   padding-inline: 1rem;
   margin-top: 2.5px;
   margin-bottom: 2.5px;
@@ -19,6 +19,8 @@
   margin-top: 2.5rem;
   text-align: center;
   margin-left: 1.5rem;
+  position: inherit;
+  z-index: 2;
 }
 
 .gridContainer {
@@ -74,6 +76,9 @@
   border-radius: 16px;
   max-height: 330px;
   margin-bottom: -150px;
+  position: inherit;
+  z-index: 1;
+  filter: brightness(0.5);
 }
 
 .tokenLogo {
@@ -195,7 +200,7 @@
   border-radius: 10000px;
   background-color: #0030d4;
   z-index: 1;
-  color: #010101;
+  color: white;
 }
 
 .procedureNumber_NotActive {
@@ -460,7 +465,7 @@
 
 .vesting-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -558,7 +563,7 @@
 .sale-vesting-title {
   font-size: 16px;
   width: 100px;
-  text-align: center;
+  text-align: left;
   margin-right: 10px;
 }
 
@@ -572,9 +577,9 @@
 
 .sales-input-container {
   display: block;
-  width: 100%;
-  margin: 0 2em 0 2.4em;
-  margin-bottom: 14px;
+  width: 60%;
+  /* margin: 0 2em 0 2.4em; */
+  /* margin-bottom: 14px; */
 }
 
 .sales-input-max {
@@ -683,10 +688,11 @@
   color: white;
   border: unset;
   /* border: 1px solid white; */
-  border-radius: 999px;
-  width: 100px;
-  height: 35px;
+  border-radius: 10px;
+  width: 150px;
+  height: 40px;
   cursor: pointer;
+  margin-left: 2em;
 }
 
 .sales-container .invalid {
@@ -928,7 +934,7 @@
 
   .sales-input-container {
     margin: 0 0 0 0;
-    margin-bottom: 14px;
+    /* margin-bottom: 14px; */
   }
 
   .allocation-title {
@@ -1163,7 +1169,7 @@
 
   .sales-input-container {
     margin: 0 0 0 0;
-    margin-bottom: 14px;
+    /* margin-bottom: 14px; */
     padding-left: 20px;
     padding-right: 20px;
   }

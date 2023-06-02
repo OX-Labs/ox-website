@@ -7,6 +7,7 @@ import "./css/seemore.css";
 import OngoingProjects from './components/OngoingProjects.js';
 import IncomingProjects from './components/IncomingProjects.js';
 import EndedProjects from './components/EndedProjects.js';
+import CreateModal from './components/CreateModal';
 import { getProjects } from '@/services/api';
 import { useConnectWallet } from '@/components/ConnectWallet';
 import { useWeb3React } from '@web3-react/core';
@@ -20,8 +21,7 @@ const Pool = props => {
   const [endedData, setEndedData] = useState([]);
   const [isActive, setIsActive] = useState(true); // is see more ended projects
   const [searchValue, setSearchValue] = useState('')
-
-  const history = useHistory();
+  const [showModal, setShowModal] = useState(false)
 
   // wallet connect
   const { account, chainId, library, activate } = useWeb3React();
@@ -107,7 +107,10 @@ const Pool = props => {
               onChange={(e) => { setSearchValue(e.target.value) }}
             />
           </div>
-          <Button type='primary' style={{marginLeft: 15, borderRadius: 15, height: 35}}>Create Presale</Button>
+          <Button
+            type='primary' style={{ marginLeft: 15, borderRadius: 15, height: 35 }}
+            onClick={() => { setShowModal(true) }}
+          >Create Presale</Button>
         </div>
       </div>
       <div className={styles.btmContent}>
@@ -156,6 +159,7 @@ const Pool = props => {
             </div>}
         </section>
       </div>
+      <CreateModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 };

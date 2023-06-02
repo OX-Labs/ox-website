@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { Area } from '@ant-design/charts';
-import { BankOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons'
+import { BankOutlined, BarChartOutlined, LineChartOutlined } from '@ant-design/icons'
 import OxTabs from '@/components/OxTabs'
 import { YearTable, TokenHoldingTable, FeesTable } from '@/components/TableComponents'
 import eth from '@/assets/eth.svg'
@@ -422,19 +422,19 @@ const Investment = props => {
           <div className={styles.cardContent}>
             <div className={styles.row}>
               <div className={styles.title}>
-                <DownloadOutlined className={styles.logo} />
-                2
+                <LineChartOutlined className={styles.logo} style={{ color: '#34d399' }} />
+                +35.35%
               </div>
-              <span className={styles.content}>Depositors</span>
+              <span className={styles.content}>Annualized Return</span>
             </div>
           </div>
           <div className={styles.cardContent}>
             <div className={styles.row}>
               <div className={styles.title} style={{ color: '#34d399' }}>
                 <BarChartOutlined className={styles.logo} />
-                +1.23%
+                +238.76%
               </div>
-              <span className={styles.content}>Average Monthly Return</span>
+              <span className={styles.content}>Accumulated Return</span>
             </div>
           </div>
           <div className={styles.cardContent}>
@@ -523,7 +523,7 @@ const Investment = props => {
       </div>
     )
   }
-
+ 
   return (
     <div className={styles.mainContainer}>
       <div style={{ display: 'flex', marginBottom: '2rem' }}>

@@ -4,6 +4,7 @@ specifiers:
   '@acyswap/sdk': ^1.1.5
   '@ant-design/charts': ^1.4.2
   '@ant-design/icons': ^4.8.0
+  '@ant-design/plots': ^1.2.5
   '@binance-chain/bsc-connector': ^1.0.0
   '@ethersproject/address': ^5.7.0
   '@ethersproject/bignumber': ^5.5.0
@@ -64,6 +65,7 @@ dependencies:
   '@acyswap/sdk': 1.1.5_aubmzodavxs43qlts2w3pwswn4
   '@ant-design/charts': 1.4.2_o6fs4fdym5gthietrcw3yx3exu
   '@ant-design/icons': 4.8.0_sfoxds7t5ydpegc3knd667wn6m
+  '@ant-design/plots': 1.2.5_sfoxds7t5ydpegc3knd667wn6m
   '@binance-chain/bsc-connector': 1.0.0
   '@ethersproject/address': 5.7.0
   '@ethersproject/bignumber': 5.7.0
@@ -12902,7 +12904,7 @@ packages:
     dev: true
 
   github.com/ethereumjs/ethereumjs-abi/ee3994657fa7a427238e6ba92a84d0b529bbcde0:
-    resolution: {commit: ee3994657fa7a427238e6ba92a84d0b529bbcde0, repo: git+ssh://git@github.com/ethereumjs/ethereumjs-abi.git, type: git}
+    resolution: {tarball: https://codeload.github.com/ethereumjs/ethereumjs-abi/tar.gz/ee3994657fa7a427238e6ba92a84d0b529bbcde0}
     name: ethereumjs-abi
     version: 0.6.8
     dependencies:
