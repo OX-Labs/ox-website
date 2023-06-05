@@ -109,8 +109,10 @@ const Pool = props => {
           </div>
           <Button
             type='primary' style={{ marginLeft: 15, borderRadius: 15, height: 35 }}
-            onClick={() => { setShowModal(true) }}
-          >Create Presale</Button>
+            onClick={() => { window.location.href = '/exchange/launchpad/createpresale' }}
+          >
+            Create Presale
+          </Button>
         </div>
       </div>
       <div className={styles.btmContent}>
