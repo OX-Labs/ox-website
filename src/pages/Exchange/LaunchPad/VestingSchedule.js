@@ -24,28 +24,29 @@ const VestingSchedule = ({ vestingDate, stageData, vestingClick, receivedData })
           </Button>
         </div>
       )
-    } else if (claimType === "project") {
-      return (
-        <>
-          <div>
-            <Button
-              className="claim-btn"
-            >
-              {receivedData.distributionLink ?
-                <a href={receivedData.distributionLink} target="_blank" rel="noreferrer">
-                  Distributed by Project
-                </a>
-                :
-                <span>Distributed by Project</span>
-              }
-            </Button>
-          </div>
+    } 
+    // else if (claimType === "project") {
+    //   return (
+    //     <>
+    //       <div>
+    //         <Button
+    //           className="claim-btn"
+    //         >
+    //           {receivedData.distributionLink ?
+    //             <a href={receivedData.distributionLink} target="_blank" rel="noreferrer">
+    //               Distributed by Project
+    //             </a>
+    //             :
+    //             <span>Distributed by Project</span>
+    //           }
+    //         </Button>
+    //       </div>
 
-        </>
-      )
-    }
+    //     </>
+    //   )
+    // }
     return (
-      <div style={{ width: 80 }}>
+      <div>
         <Button
           className="claim-btn"
           onClick={vestingClick}

@@ -14,7 +14,7 @@ const TokenomicsPieChart = (props) => {
     },
     {
       type: 'Team Vesting',
-      value: 0,
+      value: 5.5,
     },
     {
       type: 'Locked',
@@ -26,7 +26,7 @@ const TokenomicsPieChart = (props) => {
     },
     {
       type: 'Burnt',
-      value: 56.5,
+      value: 51,
     },
   ];
   const config = {
@@ -34,6 +34,21 @@ const TokenomicsPieChart = (props) => {
     data,
     angleField: 'value',
     colorField: 'type',
+    color: (e) => {
+      if(e.type == 'Presale') {
+        return "#C6224E"
+      } else if(e.type == 'Liquidity') {
+        return "#1C9965"
+      } else if(e.type == 'Team Vesting') {
+        return "#E29227"
+      } else if(e.type == 'Locked') {
+        return "#1E5D91"
+      } else if(e.type == 'Unlocked') {
+        return "#70BA33"
+      } else {
+        return "#0030d4"
+      }
+    },
     style: {
       height: '200px',
     },

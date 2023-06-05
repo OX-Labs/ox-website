@@ -809,3 +809,71 @@ export function FeesTable(props) {
     </div>
   );
 }
+
+export function SalesTable(props) {
+  const [isHover, setIsHover] = useState(false)
+
+  function columnsCoin() {
+    return [
+      {
+        title: <div className={styles.tableHeaderFirst}>Time</div>,
+        className: 'leftAlignTableHeader',
+        render: (text, entry) => {
+          return (
+            <div className={styles.tableData} style={{fontSize: 16, color: 'white'}}>
+              {entry.time}
+            </div >
+          );
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>Address</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: 16, color: 'white'}}>{entry.address}</span>
+          </div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>Amount</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: 16, color: 'white'}}>${entry.amount}</span>
+          </div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>Value</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: 16, color: 'white'}}>{entry.tokens}</span>
+          </div>;
+        },
+      },
+      {
+        title: <div className={styles.tableHeader}>Price</div>,
+        render: (text, entry) => {
+          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
+            <span style={{fontSize: 16, color: 'white'}}>${entry.price}</span>
+          </div>;
+        },
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={props.dataSource}
+        columns={columnsCoin()}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}

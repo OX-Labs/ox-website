@@ -40,6 +40,8 @@ import whitepaperIcon from '@/assets/launchpad/icon_file_white.svg';
 import deckIcon from '@/assets/launchpad/icon_ppt.svg';
 import tokenEconomicsIcon from '@/assets/launchpad/icon_googlesheets.svg';
 import TokenomicsPieChart from './components/PieChart';
+import YoutubePlayer from './components/YoutubePlayer';
+import { SalesTable } from '@/components/TableComponents';
 
 const InputGroup = Input.Group;
 const logoObj = {
@@ -300,6 +302,7 @@ const CardArea = ({
             poolMainCoinAddress={poolMainCoinAddress}
           />
         </div>
+        <SaleList />
         <ProjectDescription receivedData={receivedData} />
         {/* { !comparesaleDate || compareAlloDate ? "" : <ChartCard className="launchpad-chart" /> } */}
         {/* <ChartCard className="launchpad-chart" /> */}
@@ -484,13 +487,6 @@ const KeyInformation = ({ projectToken, totalSale, tokenPrice, receivedData, poo
       </div>
 
       <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
-        <div className="keyinfoName">Rate</div>
-        <div>
-          1 {projectToken} = {tokenPrice} {receivedData.mainCoin}
-        </div>
-      </div>
-
-      <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
         <div className="keyinfoName">Initial Price</div>
         <div>
           1 {projectToken} = {tokenPrice} {receivedData.mainCoin}
@@ -498,7 +494,7 @@ const KeyInformation = ({ projectToken, totalSale, tokenPrice, receivedData, poo
       </div>
 
       <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
-        <div className="keyinfoName">24H Rise</div>
+        <div className="keyinfoName">24H Price Rise</div>
         <div>
           + 10 %
         </div>
@@ -542,6 +538,10 @@ const ProjectDescription = ({ receivedData }) => {
                 .slice(1)
                 .map(desc => <p style={{ paddingTop: '2rem' }}>{desc}</p>)}
           </div>
+        </div>
+
+        <div>
+          <YoutubePlayer src="https://www.youtube.com/embed/jGapW1fej3k" />
         </div>
       </div>
     </div>
@@ -992,6 +992,23 @@ const Allocation = ({
         <form className="sales-container">
           <div className="sale-vesting-title">
             <label for="sale-number" >
+              Price
+            </label>
+          </div>
+          <div className={styles.priceRadioGroup} style={{ width: '85%' }}>
+            <Radio.Group defaultValue="0.0035">
+              <Radio.Button value="0.0030">0.0030 USDT</Radio.Button>
+              <Radio.Button value="0.0035">0.0035 USDT</Radio.Button>
+              <Radio.Button value="0.0040">0.0040 USDT</Radio.Button>
+              <Radio.Button value="0.0045">0.0045 USDT</Radio.Button>
+              <Radio.Button value="0.0050">0.0050 USDT</Radio.Button>
+            </Radio.Group>
+          </div>
+        </form>
+
+        <form className="sales-container">
+          <div className="sale-vesting-title">
+            <label for="sale-number" >
               Sale
             </label>
           </div>
@@ -1007,9 +1024,15 @@ const Allocation = ({
               />
               <div className="unit-max-group">
                 <div className="token-logo">
-                  <img src={mainCoinLogoURI} alt="token-logo" className="token-image" />
+                  <img
+                    src={mainCoinLogoURI || 'https://storageapi2.fleek.co/chwizdo-team-bucket/ACY Token List/USDT.svg'}
+                    alt="token-logo"
+                    className="token-image"
+                  />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '2rem', fontWeight: '700' }}>{receivedData.mainCoin}</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '2rem', fontWeight: '700' }}>
+                  {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}
+                </div>
               </div>
             </InputGroup>
           </div>
@@ -1028,15 +1051,48 @@ const Allocation = ({
   );
 };
 
-const Tokenomics = ({}) => {
+const SaleList = ({ }) => {
+
+  const data = [
+    {
+      time: 'Jun 05 2023 14:30:07',
+      address: '0xf5be...6cb2',
+      amount: '2.37',
+      tokens: '2.35',
+      price: '1.01',
+    },
+    {
+      time: 'Jun 05 2023 13:12:55',
+      address: '0x0754...9bA5',
+      amount: '43.22',
+      tokens: '44.19',
+      price: '0.98',
+    },
+    {
+      time: 'Jun 05 2023 13:08:40',
+      address: '0xad52...826b',
+      amount: '17.60',
+      tokens: '16.98',
+      price: '0.99',
+    },
+  ]
 
   return (
     <div className="circleBorderCard cardContent">
-      <div style={{textAlign: 'center', fontSize: 16, fontWeight: 'bold', marginBottom: 10}}>Tokenomics - Supply Distribution</div>
-      <div style={{textAlign: 'center', color: '#b3b4b7', marginBottom: 15}}>
+      <SalesTable dataSource={data} />
+    </div>
+  )
+}
+
+const Tokenomics = ({ }) => {
+
+  return (
+    <div className="circleBorderCard cardContent">
+      <div style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold', marginBottom: 10 }}>Tokenomics - Supply Distribution</div>
+      <div style={{ textAlign: 'center', color: '#b3b4b7', marginBottom: 15 }}>
         <div>Diluted Market Cap: 8,872 $</div>
         <div>Circulating Market Cap: 6,220 $</div>
-        <div>Total: <span style={{color: 'white', fontWeight: 'bold'}}>1B</span></div>
+        <div>Total: <span style={{ color: 'white', fontWeight: 'bold' }}>1B</span></div>
       </div>
       <TokenomicsPieChart />
     </div>
