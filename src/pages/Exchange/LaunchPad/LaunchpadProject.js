@@ -445,7 +445,7 @@ const TokenProcedure = ({ receivedData, poolBaseData, comparesaleDate, compareve
         padding: 0,
       }}
     >
-      <Procedure />
+      {/* <Procedure /> */}
       {poolBaseData && procedure_status === 'open' &&
         <ProgressBar
           alreadySale={poolBaseData[1]}
@@ -578,7 +578,7 @@ const VestingCard = ({
     <div className="circleBorderCard cardContent">
       <div className="vesting-open-container">
         <div className="vesting-container">
-          <p className="sale-vesting-title vesting">Vesting</p>
+          {/* <p className="sale-vesting-title vesting">Vesting</p> */}
 
           <div className='vesting-trigger-container'>
             <div className="text-line-container">

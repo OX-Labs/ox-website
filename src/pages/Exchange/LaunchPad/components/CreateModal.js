@@ -207,7 +207,7 @@ const CreateModal = (props) => {
             </Select>
           </Form.Item>
           <Form.Item>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Soft Cap(MATIC)</div>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Soft Cap</div>
             <Input
               value={softCap}
               onChange={(e) => { setSoftCap(e.target.value) }}
@@ -215,7 +215,7 @@ const CreateModal = (props) => {
             />
           </Form.Item>
           <Form.Item>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Hard Cap(MATIC)</div>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Hard Cap</div>
             <Input
               value={hardCap}
               onChange={(e) => { setHardCap(e.target.value) }}
@@ -223,7 +223,7 @@ const CreateModal = (props) => {
             />
           </Form.Item>
           <Form.Item>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Minimum Buy(MATIC)</div>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Minimum Buy</div>
             <Input
               value={minimumBuy}
               onChange={(e) => { setMinimumBuy(e.target.value) }}
@@ -231,7 +231,7 @@ const CreateModal = (props) => {
             />
           </Form.Item>
           <Form.Item>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Maximum Buy(MATIC)</div>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Maximum Buy</div>
             <Input
               value={maximumBuy}
               onChange={(e) => { setMaximumBuy(e.target.value) }}

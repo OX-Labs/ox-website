@@ -40,6 +40,11 @@ export default defineConfig({
           component: '@/pages/Exchange/LaunchPad/LaunchpadProject'
         },
         {
+          path: '/exchange/launchpad/createpresale',
+          title: 'Launchpad',
+          component: '@/pages/Exchange/LaunchPad/CreatePresale'
+        },
+        {
           path: '/exchange/mm',
           title: 'Market Making',
           component: '@/pages/Exchange/MM'
