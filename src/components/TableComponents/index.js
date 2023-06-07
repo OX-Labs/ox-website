@@ -283,6 +283,490 @@ export function PairsTable(props) {
   );
 }
 
+export function OpenOrdersTable(props) {
+  const [tokenSortAscending, setTokenSortAscending] = useState(true)
+  const [currentKey, setCurrentKey] = useState('');
+  const [isHover, setIsHover] = useState(false);
+
+  function columnsCoin(isAscending, onSortChange) {
+    return [
+      {
+        title: (
+          <div
+            className={styles.tableHeaderFirst}
+            onClick={() => {
+              setCurrentKey('name')
+              onSortChange()
+            }}
+          >
+            Pair
+            {currentKey == 'name' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'name',
+        key: 'name',
+        className: 'leftAlignTableHeader',
+        render: (text, entry) => {
+          return (
+            <div className={styles.tableHeader}>
+              {/* <AcyTokenIcon symbol={entry.logoURI} /> */}
+              <span style={{ marginLeft: '10px' }}>{entry.name}</span>
+            </div>
+          );
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('date')
+              onSortChange()
+            }}
+          >
+            Date
+            {currentKey == 'date' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'date',
+        key: 'date',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.date}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('type')
+              onSortChange()
+            }}
+          >
+            Type
+            {currentKey == 'type' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'type',
+        key: 'type',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.type}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('side')
+              onSortChange()
+            }}
+          >
+            Side
+            {currentKey == 'side' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'side',
+        key: 'side',
+        render: (text, entry) => {
+          return entry.side == 'Buy'
+            ? <div className={styles.tableData} style={{ color: "green" }}>Buy</div>
+            : <div className={styles.tableData} style={{ color: "red" }}>Sell</div>
+
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('price')
+              onSortChange()
+            }}
+          >
+            Order Price
+            {currentKey == 'price' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'price',
+        key: 'price',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>$ {entry.price}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('filled')
+              onSortChange()
+            }}
+          >
+            Filled / All
+            {currentKey == 'filled' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'filled',
+        key: 'filled',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>
+            <span style={{ color: "green" }}>{entry.filled}</span>
+            / {entry.all}
+          </div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('total')
+              onSortChange()
+            }}
+          >
+            Total
+            {currentKey == 'total' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'total',
+        key: 'total',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.total}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: <div className={styles.tableHeader}>Action</div>,
+        dataIndex: 'action',
+        key: 'action',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>
+            <Button type='link'>Cancel</Button>
+          </div>;
+        },
+        visible: true,
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={sortPairsTable(props.dataSource, currentKey, tokenSortAscending)}
+        columns={columnsCoin(tokenSortAscending, () => { setTokenSortAscending(!tokenSortAscending) }).filter(item => item.visible == true)}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}
+
+export function OrderHistoryTable(props) {
+  const [tokenSortAscending, setTokenSortAscending] = useState(true)
+  const [currentKey, setCurrentKey] = useState('');
+  const [isHover, setIsHover] = useState(false);
+
+  function columnsCoin(isAscending, onSortChange) {
+    return [
+      {
+        title: (
+          <div
+            className={styles.tableHeaderFirst}
+            onClick={() => {
+              setCurrentKey('name')
+              onSortChange()
+            }}
+          >
+            Pair
+            {currentKey == 'name' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'name',
+        key: 'name',
+        className: 'leftAlignTableHeader',
+        render: (text, entry) => {
+          return (
+            <div className={styles.tableHeader}>
+              {/* <AcyTokenIcon symbol={entry.logoURI} /> */}
+              <span style={{ marginLeft: '10px' }}>{entry.name}</span>
+            </div>
+          );
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('date')
+              onSortChange()
+            }}
+          >
+            Date
+            {currentKey == 'date' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'date',
+        key: 'date',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.date}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('type')
+              onSortChange()
+            }}
+          >
+            Type
+            {currentKey == 'type' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'type',
+        key: 'type',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.type}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('side')
+              onSortChange()
+            }}
+          >
+            Side
+            {currentKey == 'side' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'side',
+        key: 'side',
+        render: (text, entry) => {
+          return entry.side == 'Buy'
+            ? <div className={styles.tableData} style={{ color: "green" }}>Buy</div>
+            : <div className={styles.tableData} style={{ color: "red" }}>Sell</div>
+
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('price')
+              onSortChange()
+            }}
+          >
+            Order Price
+            {currentKey == 'price' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'price',
+        key: 'price',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>$ {entry.price}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('filled')
+              onSortChange()
+            }}
+          >
+            Filled / All
+            {currentKey == 'filled' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'filled',
+        key: 'filled',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>
+            <span style={{ color: "green" }}>{entry.filled}</span>
+            / {entry.all}
+          </div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('avg')
+              onSortChange()
+            }}
+          >
+            Avg. Price
+            {currentKey == 'avg' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'avg',
+        key: 'avg',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.avg}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: (
+          <div
+            className={styles.tableHeader}
+            onClick={() => {
+              setCurrentKey('filledAmount')
+              onSortChange()
+            }}
+          >
+            Filled Amount
+            {currentKey == 'filledAmount' && (
+              <Icon
+                type={!isAscending ? 'arrow-up' : 'arrow-down'}
+                style={{ fontSize: '14px', marginLeft: '4px' }}
+              />
+            )}
+          </div>
+        ),
+        dataIndex: 'filledAmount',
+        key: 'filledAmount',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>{entry.filledAmount}</div>;
+        },
+        visible: true,
+      },
+      {
+        title: <div className={styles.tableHeader}>Status</div>,
+        dataIndex: 'status',
+        key: 'status',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>Completed</div>;
+        },
+        visible: true,
+      },
+      {
+        title: <div className={styles.tableHeader}>Action</div>,
+        dataIndex: 'action',
+        key: 'action',
+        render: (text, entry) => {
+          return <div className={styles.tableData}>
+            <Button type='link'>Detail</Button>
+          </div>;
+        },
+        visible: true,
+      },
+    ];
+  }
+
+  return (
+    <div className={styles.nobgTable}>
+      <Table
+        dataSource={sortPairsTable(props.dataSource, currentKey, tokenSortAscending)}
+        columns={columnsCoin(tokenSortAscending, () => { setTokenSortAscending(!tokenSortAscending) }).filter(item => item.visible == true)}
+        pagination={false}
+        style={{
+          marginBottom: '20px',
+          cursor: isHover ? 'pointer' : 'default',
+        }}
+        onRowMouseEnter={() => setIsHover(true)}
+        onRowMouseLeave={() => setIsHover(false)}
+      />
+    </div>
+  );
+}
+
 export function MarketsTable(props) {
   const [tokenSortAscending, setTokenSortAscending] = useState(true)
   const [currentKey, setCurrentKey] = useState('');
@@ -769,7 +1253,7 @@ export function FeesTable(props) {
         className: 'leftAlignTableHeader',
         render: (text, entry) => {
           return (
-            <div className={styles.tableData} style={{fontSize: 16}}>
+            <div className={styles.tableData} style={{ fontSize: 16 }}>
               Protocol Fee
             </div >
           );
@@ -778,16 +1262,16 @@ export function FeesTable(props) {
       {
         title: <div className={styles.tableHeader}>SETTINGS</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 16}}>Rate</span>
-            <span style={{fontSize: 16, color: 'white'}}>{entry.rate}</span>
+          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 16 }}>Rate</span>
+            <span style={{ fontSize: 16, color: 'white' }}>{entry.rate}</span>
           </div>;
         },
       },
       {
         title: <div className={styles.tableHeader}>RECIPENT</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{fontSize: 16}}>Protocol Fee contract</div>;
+          return <div className={styles.tableData} style={{ fontSize: 16 }}>Protocol Fee contract</div>;
         },
       },
     ];
@@ -820,7 +1304,7 @@ export function SalesTable(props) {
         className: 'leftAlignTableHeader',
         render: (text, entry) => {
           return (
-            <div className={styles.tableData} style={{fontSize: 14, color: 'white'}}>
+            <div className={styles.tableData} style={{ fontSize: 14, color: 'white' }}>
               {entry.time}
             </div >
           );
@@ -829,32 +1313,32 @@ export function SalesTable(props) {
       {
         title: <div className={styles.tableHeader}>Address</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 14, color: 'white'}}>{entry.address}</span>
+          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 14, color: 'white' }}>{entry.address}</span>
           </div>;
         },
       },
       {
         title: <div className={styles.tableHeader}>Amount</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 14, color: 'white'}}>${entry.amount}</span>
+          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 14, color: 'white' }}>${entry.amount}</span>
           </div>;
         },
       },
       {
         title: <div className={styles.tableHeader}>Value</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 14, color: 'white'}}>{entry.tokens}</span>
+          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 14, color: 'white' }}>{entry.tokens}</span>
           </div>;
         },
       },
       {
         title: <div className={styles.tableHeader}>Price</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 14, color: 'white'}}>${entry.price}</span>
+          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 14, color: 'white' }}>${entry.price}</span>
           </div>;
         },
       },
