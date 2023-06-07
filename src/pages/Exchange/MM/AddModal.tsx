@@ -17,6 +17,7 @@ const AddModal = (props: any) => {
   const [eachOrderAmount, setEachOrderAmount] = useState(0)
   const [sellOnlyPrice, setSellOnlyPrice] = useState(0)
   const [editable, setEditable] = useState(false)
+  const [mode, setMode] = useState('taker')
 
   return (
     <Modal
@@ -25,7 +26,21 @@ const AddModal = (props: any) => {
       onCancel={() => { setShowModal(false) }}
       className={styles.myModal}
     >
-      <Form style={{ marginTop: 30 }}>
+      <div style={{ marginTop: 30, fontSize: 16 }}>
+        <span
+          style={{ cursor: 'pointer', color: mode == 'taker' ? 'white' : '#b6b6b5' }}
+          onClick={() => { setMode('taker') }}
+        >
+          Taker
+        </span>
+        <span
+          style={{ marginLeft: 10, cursor: 'pointer', color: mode == 'maker' ? 'white' : '#b6b6b5' }}
+          onClick={() => { setMode('maker') }}
+        >
+          Maker
+        </span>
+      </div>
+      <Form style={{ marginTop: 10 }}>
         <Form.Item>
           <div style={{ fontSize: 15, color: '#b6b6b5' }}>Name</div>
           <Input
@@ -97,7 +112,7 @@ const AddModal = (props: any) => {
           />
         </Form.Item>
         <Form.Item>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Editable</div>
             <Radio.Group
               onChange={(e) => setEditable(e.target.value)}

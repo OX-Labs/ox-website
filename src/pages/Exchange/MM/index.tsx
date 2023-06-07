@@ -53,6 +53,33 @@ const MM = (props: any) => {
       }
     },
     {
+      title: 'Strategy',
+      dataIndex: 'strategy',
+      render: (_, entry) => {
+        return (
+          <div>{entry.name}</div>
+        )
+      },
+    },
+    {
+      title: 'Exchange',
+      dataIndex: 'exchange',
+      render: (_, entry) => {
+        return (
+          <div>{entry.exchange}</div>
+        )
+      },
+    },
+    {
+      title: 'Coin',
+      dataIndex: 'coin',
+      render: (_, entry) => {
+        return (
+          <div>{entry.coin}</div>
+        )
+      },
+    },
+    {
       title: 'Status',
       dataIndex: 'status',
       render: (_, entry) => {
@@ -112,8 +139,12 @@ const MM = (props: any) => {
       <div style={{ padding: '60px 250px 20px 250px', display: 'grid' }}>
         <div style={{ borderBottom: '1px solid #333333' }}>
           <h3 style={{ float: 'left' }}>Market Making</h3>
-          <Button style={{ float: 'right', marginLeft: 10 }} size="small" type="primary" onClick={() => { setShowAddModal(true) }}>
-            New
+          <Button
+            type='primary' 
+            style={{float: 'right', marginLeft: 10, marginBottom: 10, borderRadius: 15, height: 35 }}
+            onClick={() => { setShowAddModal(true) }}
+          >
+            Create Strategy
           </Button>
         </div>
       </div>
