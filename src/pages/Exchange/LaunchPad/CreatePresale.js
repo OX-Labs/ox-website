@@ -10,11 +10,26 @@ const ApproveToken = ({ setCurrent, setCreateToken }) => {
   }
 
   return (
-    <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 0' }}>
+    <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 10rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -20 }}>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80, background: 'transparent', border: '1px solid #333333', color: '#333333' }}
+          disabled={true}
+          onClick={() => { }}
+        >
+          Back
+        </Button>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCurrent(1) }}
+        >
+          Next
+        </Button>
+      </div>
       <Form style={{ marginTop: 10 }}>
         <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Approve Token</div>
         <Form.Item>
-          <div style={{ textAlign: 'left', padding: '0 10rem' }}>
+          <div style={{ textAlign: 'left' }}>
             <div style={{ fontSize: 16, marginBottom: 5, color: '#b6b6b5' }}>Approve Token</div>
             <Input
               value={approveToken}
@@ -52,6 +67,20 @@ const CreateToken = ({ setCurrent, setCreateToken }) => {
 
   return (
     <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 10rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -20 }}>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCreateToken(false) }}
+        >
+          Back
+        </Button>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCurrent(1) }}
+        >
+          Next
+        </Button>
+      </div>
       <Form style={{ marginTop: 10, textAlign: 'left' }}>
         <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Create Token</div>
         <Form.Item>
@@ -129,8 +158,8 @@ const CreateToken = ({ setCurrent, setCreateToken }) => {
 
 const PresaleInformation = ({ setCurrent }) => {
   const [saleTitle, setSaleTitle] = useState('')
-  const [totalSupply, setTotalSupply] = useState('')
-  const [fundRaisingToken, setFundRaisingToken] = useState('MATIC')
+  const [totalRaise, setTotalRaise] = useState('')
+  const [fundRaisingToken, setFundRaisingToken] = useState('USDT')
   const [presaleRate, setPresaleRate] = useState('')
   const [dexListingRate, setDexListingRate] = useState('')
   const [dexLiquidity, setDexLiquidity] = useState('')
@@ -140,7 +169,7 @@ const PresaleInformation = ({ setCurrent }) => {
   const [hardCap, setHardCap] = useState('')
   const [minimumBuy, setMinimumBuy] = useState('')
   const [maximumBuy, setMaximumBuy] = useState('')
-  const [unsoldTokens, setUnsoldTokens] = useState('Burn')
+  const [unsoldTokens, setUnsoldTokens] = useState('Refund')
   const [presaleType, setPresaleType] = useState('Public')
   const [stealthWallet, setStealthWallet] = useState('')
   const [antiSniperProtection, setAntiSniperProtection] = useState(false)
@@ -153,6 +182,20 @@ const PresaleInformation = ({ setCurrent }) => {
 
   return (
     <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 10rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -20 }}>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCurrent(0) }}
+        >
+          Back
+        </Button>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCurrent(2) }}
+        >
+          Next
+        </Button>
+      </div>
       <Form style={{ marginTop: 10, textAlign: 'left' }}>
         <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Presale Information</div>
         <Form.Item>
@@ -166,12 +209,12 @@ const PresaleInformation = ({ setCurrent }) => {
         <Form.Item>
           <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Supply</div>
           <Input
-            value={totalSupply}
-            onChange={(e) => { setTotalSupply(e.target.value) }}
+            value={totalRaise}
+            onChange={(e) => { setTotalRaise(e.target.value) }}
             style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
           />
         </Form.Item>
-        <Form.Item>
+        {/* <Form.Item>
           <div style={{ fontSize: 15, color: '#b6b6b5' }}>Fund Rasing Token</div>
           <Select
             value={fundRaisingToken}
@@ -185,6 +228,28 @@ const PresaleInformation = ({ setCurrent }) => {
               </Select.Option>
             ))}
           </Select>
+        </Form.Item> */}
+        <Form.Item>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Fund Rasing Token</div>
+            <Radio.Group
+              onChange={(e) => setFundRaisingToken(e.target.value)}
+              value={fundRaisingToken}
+            >
+              <Radio value={'USDT'}>USDT</Radio>
+              <Radio value={'USDC'}>USDC</Radio>
+              <Radio value={'BNB'}>BNB</Radio>
+              <Radio value={'ETH'}>ETH</Radio>
+            </Radio.Group>
+          </div>
+        </Form.Item>
+        <Form.Item style={{ marginRight: 20 }}>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
+          <Input
+            value={totalRaise}
+            onChange={(e) => { setTotalRaise(e.target.value) }}
+            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+          />
         </Form.Item>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
@@ -237,24 +302,6 @@ const PresaleInformation = ({ setCurrent }) => {
             ))}
           </Select>
         </Form.Item>
-        <div style={{ display: 'flex' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Soft Cap</div>
-            <Input
-              value={softCap}
-              onChange={(e) => { setSoftCap(e.target.value) }}
-              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-            />
-          </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Hard Cap</div>
-            <Input
-              value={hardCap}
-              onChange={(e) => { setHardCap(e.target.value) }}
-              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-            />
-          </Form.Item>
-        </div>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Minimum Buy</div>
@@ -374,6 +421,21 @@ const ProjectInformation = ({ setCurrent }) => {
 
   return (
     <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 10rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -20 }}>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80 }}
+          onClick={() => { setCurrent(1) }}
+        >
+          Back
+        </Button>
+        <Button
+          type='primary' style={{ borderRadius: 10, height: 35, width: 80, background: 'transparent', border: '1px solid #333333', color: '#333333' }}
+          disabled={true}
+          onClick={() => { }}
+        >
+          Next
+        </Button>
+      </div>
       <Form style={{ marginTop: 10, textAlign: 'left' }}>
         <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Project Information</div>
         <div style={{ display: 'flex' }}>

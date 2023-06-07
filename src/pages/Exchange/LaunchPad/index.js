@@ -7,7 +7,6 @@ import "./css/seemore.css";
 import OngoingProjects from './components/OngoingProjects.js';
 import IncomingProjects from './components/IncomingProjects.js';
 import EndedProjects from './components/EndedProjects.js';
-import CreateModal from './components/CreateModal';
 import { getProjects } from '@/services/api';
 import { useConnectWallet } from '@/components/ConnectWallet';
 import { useWeb3React } from '@web3-react/core';
@@ -21,7 +20,6 @@ const Pool = props => {
   const [endedData, setEndedData] = useState([]);
   const [isActive, setIsActive] = useState(true); // is see more ended projects
   const [searchValue, setSearchValue] = useState('')
-  const [showModal, setShowModal] = useState(false)
 
   // wallet connect
   const { account, chainId, library, activate } = useWeb3React();
@@ -76,6 +74,8 @@ const Pool = props => {
       })
       .catch(e => console.error(e));
   }, [account, chainId]);
+
+  const removedProjects = ['WarX Game', 'ACADEX', 'My Universe', 'MetaBlaze', 'OBELISK', 'Hoglympics', 'STRT', 'Arknights', 'OWL Analytics', 'Bunny Girl Universe', 'Cryptobanks', 'PixelSQUID', 'Metaverse Lab']
 
   return (
     <div className={styles.launchRoot}>
@@ -153,7 +153,7 @@ const Pool = props => {
                   }
                 >
                   <div className='content'>
-                    <EndedProjects data={endedData} />
+                    <EndedProjects data={endedData.filter(item=>!removedProjects.includes(item.projectName))} />
                   </div>
                   <a className="more" onClick={() => setIsActive(!isActive)}></a>
                 </div>
@@ -161,7 +161,6 @@ const Pool = props => {
             </div>}
         </section>
       </div>
-      <CreateModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 };
