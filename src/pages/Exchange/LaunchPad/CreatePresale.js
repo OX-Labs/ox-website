@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, Form, Input, Select, Radio, Steps } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Radio, Steps } from 'antd'
+import dayjs from 'dayjs'
 import styles from './styles.less'
 
 const ApproveToken = ({ setCurrent, setCreateToken }) => {
@@ -180,6 +181,14 @@ const PresaleInformation = ({ setCurrent }) => {
     setCurrent(2)
   }
 
+  const range = (start, end) => {
+    const result = [];
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
+  }
+
   return (
     <div style={{ background: '#0e1118', borderRadius: '1rem', padding: '3rem 10rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: -20 }}>
@@ -207,7 +216,7 @@ const PresaleInformation = ({ setCurrent }) => {
           />
         </Form.Item>
         <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Supply</div>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
           <Input
             value={totalRaise}
             onChange={(e) => { setTotalRaise(e.target.value) }}
@@ -320,21 +329,58 @@ const PresaleInformation = ({ setCurrent }) => {
             />
           </Form.Item>
         </div>
-        <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Select what happens to Unsold Tokens.</div>
-          <Select
-            value={unsoldTokens}
-            onChange={e => { setUnsoldTokens(e) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['Burn', 'Refund'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Start Date (UTC)</div>
+            <DatePicker
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+              }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+              popupClassName={styles.datepicker}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>End Date (UTC)</div>
+            <DatePicker
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+              }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+              popupClassName={styles.datepicker}
+            />
+          </Form.Item>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Estimated Dex Listing Date (UTC)</div>
+            <DatePicker
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+              }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+              popupClassName={styles.datepicker}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, color: '#b6b6b5' }}>Select what happens to Unsold Tokens.</div>
+            <Select
+              value={unsoldTokens}
+              onChange={e => { setUnsoldTokens(e) }}
+              className={styles.mySelect}
+              dropdownClassName={styles.dropDownMenu}
+            >
+              {['Burn', 'Refund'].map(e => (
+                <Select.Option className={styles.optionItem} value={e}>
+                  {e}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
         <Form.Item>
           <div style={{ fontSize: 15, color: '#b6b6b5' }}>Presale Type</div>
           <Select
