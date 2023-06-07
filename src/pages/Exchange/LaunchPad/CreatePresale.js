@@ -99,38 +99,42 @@ const CreateToken = ({ setCurrent, setCreateToken }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Name</div>
-          <Input
-            value={tokenName}
-            onChange={(e) => { setTokenName(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Symbol</div>
-          <Input
-            value={tokenSymbol}
-            onChange={(e) => { setTokenSymbol(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Decimals</div>
-          <Input
-            value={tokenDecimals}
-            onChange={(e) => { setTokenDecimals(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Supply</div>
-          <Input
-            value={tokenSupply}
-            onChange={(e) => { setTokenSupply(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Name</div>
+            <Input
+              value={tokenName}
+              onChange={(e) => { setTokenName(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Symbol</div>
+            <Input
+              value={tokenSymbol}
+              onChange={(e) => { setTokenSymbol(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Decimals</div>
+            <Input
+              value={tokenDecimals}
+              onChange={(e) => { setTokenDecimals(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Supply</div>
+            <Input
+              value={tokenSupply}
+              onChange={(e) => { setTokenSupply(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </div>
         <Form.Item>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Implement Anti-Bot</div>
@@ -450,6 +454,7 @@ const PresaleInformation = ({ setCurrent }) => {
 
 const ProjectInformation = ({ setCurrent }) => {
   const [logoUrl, setLogoUrl] = useState('')
+  const [banner, setBanner] = useState('')
   const [website, setWebsite] = useState('')
   const [telegram, setTelegram] = useState('')
   const [github, setGithub] = useState('')
@@ -457,7 +462,6 @@ const ProjectInformation = ({ setCurrent }) => {
   const [discord, setDiscord] = useState('')
   const [youtube, setYoutube] = useState('')
   const [whitelistContest, setWhitelistContest] = useState('')
-  const [reddit, setReddit] = useState('')
   const [description, setDescription] = useState('')
   const [selectTier, setSelectTier] = useState('GOLD')
 
@@ -494,6 +498,16 @@ const ProjectInformation = ({ setCurrent }) => {
             />
           </Form.Item>
           <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Banner</div>
+            <Input
+              value={banner}
+              onChange={(e) => { setBanner(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Website</div>
             <Input
               value={website}
@@ -501,9 +515,7 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-        </div>
-        <div style={{ display: 'flex' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Telegram</div>
             <Input
               value={telegram}
@@ -511,7 +523,9 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Github</div>
             <Input
               value={github}
@@ -519,9 +533,7 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-        </div>
-        <div style={{ display: 'flex' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Twitter</div>
             <Input
               value={twitter}
@@ -529,7 +541,9 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Discord</div>
             <Input
               value={discord}
@@ -537,9 +551,7 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-        </div>
-        <div style={{ display: 'flex' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Youtube Presentation Video</div>
             <Input
               value={youtube}
@@ -547,23 +559,25 @@ const ProjectInformation = ({ setCurrent }) => {
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Whitelist Contest</div>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Whitelist</div>
             <Input
               value={whitelistContest}
               onChange={(e) => { setWhitelistContest(e.target.value) }}
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Description</div>
+            <Input
+              value={description}
+              onChange={(e) => { setDescription(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
         </div>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Description</div>
-          <Input
-            value={description}
-            onChange={(e) => { setDescription(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
         <Form.Item>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Select Tier</div>

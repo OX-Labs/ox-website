@@ -820,7 +820,7 @@ export function SalesTable(props) {
         className: 'leftAlignTableHeader',
         render: (text, entry) => {
           return (
-            <div className={styles.tableData} style={{fontSize: 16, color: 'white'}}>
+            <div className={styles.tableData} style={{fontSize: 14, color: 'white'}}>
               {entry.time}
             </div >
           );
@@ -830,7 +830,7 @@ export function SalesTable(props) {
         title: <div className={styles.tableHeader}>Address</div>,
         render: (text, entry) => {
           return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 16, color: 'white'}}>{entry.address}</span>
+            <span style={{fontSize: 14, color: 'white'}}>{entry.address}</span>
           </div>;
         },
       },
@@ -838,7 +838,7 @@ export function SalesTable(props) {
         title: <div className={styles.tableHeader}>Amount</div>,
         render: (text, entry) => {
           return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 16, color: 'white'}}>${entry.amount}</span>
+            <span style={{fontSize: 14, color: 'white'}}>${entry.amount}</span>
           </div>;
         },
       },
@@ -846,7 +846,7 @@ export function SalesTable(props) {
         title: <div className={styles.tableHeader}>Value</div>,
         render: (text, entry) => {
           return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 16, color: 'white'}}>{entry.tokens}</span>
+            <span style={{fontSize: 14, color: 'white'}}>{entry.tokens}</span>
           </div>;
         },
       },
@@ -854,7 +854,7 @@ export function SalesTable(props) {
         title: <div className={styles.tableHeader}>Price</div>,
         render: (text, entry) => {
           return <div className={styles.tableData} style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{fontSize: 16, color: 'white'}}>${entry.price}</span>
+            <span style={{fontSize: 14, color: 'white'}}>${entry.price}</span>
           </div>;
         },
       },

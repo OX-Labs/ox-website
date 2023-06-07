@@ -909,19 +909,11 @@ const Allocation = ({
   return (
     <div>
       <div className='cardContent allocation-content allocation-content-active' style={{ borderRadius: '1rem' }}>
-        <div className="allocation-title-container">
+        {/* <div className="allocation-title-container">
           <div className='title-tooltip-container'>
             <div style={{ height: 24 }}></div>
             <div className="allocation-title">Allocation</div>
-            {/* <div className='bonus-instruction-title' onClick={(e) => SetIsShowingBonusInstruction(!isShowingBonusInstrution)}>
-              How to Increase
-            </div> */}
-
-            {/* <Tooltip title={tooltipTitle} mouseEnterDelay={0} mouseLeaveDelay={0.25}>
-              <Icon type="info-circle" className='tool-tip-icon' />
-            </Tooltip> */}
           </div>
-
           <div className='allocation-cards'>
             <div className="allocationContainer">
               {
@@ -945,20 +937,11 @@ const Allocation = ({
           </div>
 
           <div style={{ width: 75, height: 66 }}></div>
-          {/* Next row */}
           {isShowingBonusInstrution &&
             <BonusInstruction></BonusInstruction>
           }
-        </div>
+        </div> */}
 
-        {/* {allocationInfo && allocationInfo.allocationAmount &&
-          <div className="allocation-info-container">
-            <div>Allocation Amount: <span>{allocationInfo.allocationAmount}</span></div>
-            <div>Allocation Bonus: <span>{calcAllocBonus(allocationInfo.allocationBonus)}</span></div>
-            <div>Allocation Used: <span>{allocationInfo.allocationUsed}</span></div>
-            <div>Allocation Left: <span>{allocationInfo.allocationLeft}</span></div>
-          </div>
-        } */}
         {receivedData && receivedData.actualChain &&
           <>
             <form className="sales-container" style={{ marginBottom: "12px" }}>
@@ -1080,6 +1063,14 @@ const SaleList = ({ }) => {
   return (
     <div className="circleBorderCard cardContent">
       <SalesTable dataSource={data} />
+      <div style={{ padding: '0 1rem', textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span>35K / 100K CRIC</span>
+          <span>35%</span>
+        </div>
+        <Progress percent={70} showInfo={false} strokeColor="#0030d4" />
+        <div style={{ marginTop: 20 }}>Sale Ends In: 2:03:17:46</div>
+      </div>
     </div>
   )
 }
