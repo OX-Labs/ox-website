@@ -89,8 +89,8 @@ const TopBar = () => {
 
   const walletItems = [
     {
-      label: 'Assets',
-      key: 'wallet/assets',
+      label: 'Account',
+      key: 'wallet/account',
     },
     {
       label: 'Swap',
@@ -133,7 +133,7 @@ const TopBar = () => {
               window.location.href = '/investment'
             }
             if (e == 'Wallet') {
-              window.location.href = '/wallet/swap'
+              window.location.href = '/wallet/account'
             }
           }}
           block

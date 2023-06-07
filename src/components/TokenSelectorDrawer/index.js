@@ -1,12 +1,29 @@
 import { useState, useEffect } from "react";
 import { Input, Icon, Drawer, Button } from "antd";
-import mockTokenList from '@/constants/mockTokenList.json'
+// import mockTokenList from '@/constants/mockTokenList.json'
 import AcyCoinItem from "@/components/AcyCoinItem";
 import AcyTabs from '@/components/AcyTabs';
 
 import styles from "./styles.less";
 
 const { AcyTabPane } = AcyTabs;
+
+const mockTokenList = [
+  {
+    name: "Bitcoin",
+    address: "0xb4e6cca0b5c518dbedac874c242fbcd6e0400eb4",
+    symbol: "BTC",
+    decimals: 18,
+    logoURI: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+  },
+  {
+    name: "Ethereum",
+    address: "0x072710dcedce97327f6586d284a1857b1b69bba2",
+    symbol: "ETH",
+    decimals: 18,
+    logoURI: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+  },
+]
 
 const TokenSelectorDrawer = ({ chainId, onCancel, visible, onCoinClick, coinList, placement = 'right', setFavTokens }) => {
 

@@ -2,7 +2,6 @@ import { useWeb3React } from '@web3-react/core';
 import { Layout, Row, Col, Button, Modal, Input, Select, Divider, Table } from 'antd';
 import React from 'react';
 import { useEffect, useState } from 'react';
-import mockTokenList from '@/constants/mockTokenList'
 import styles from './styles.less'
 
 const Assets = props => {
@@ -127,15 +126,16 @@ const Assets = props => {
                 <span style={{ marginRight: '5px', fontSize: "1.2rem" }}>{account}</span>
                 <svg height={15} style={{ marginTop: "12px" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" onClick={() => { copy(account) }}><path d="M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z" /></svg>
               </div>
-              : <div style={{ fontSize: "1.5rem", marginLeft: 10 }}>Assets</div>
+              : <div style={{ fontSize: "1.5rem", marginLeft: 10 }}>Account</div>
             }
-            {account && <div>
+            <div>
               <Button className={styles.button}>Deposit</Button>
               <Button className={styles.button}>Withdraw</Button>
               <Button className={styles.button}>Transfer</Button>
               <Button className={styles.button}>Send</Button>
+              <Button className={styles.button}>Transaction History</Button>
             </div>
-            }
+
           </div>
           <div className={styles.totalBalance}>
             <div >
