@@ -47,3 +47,24 @@
     color: #656872;
   }
 }
+
+.priceRadioGroup {
+  :global {
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      color: white;
+      background: #0030D4;
+      margin: 0 2px;
+    }
+
+    .ant-radio-button-wrapper {
+      background: #010101;
+      color: #b5b5b6;
+      border: unset;
+      margin: 0 2px;
+    }
+
+    .ant-radio-button-wrapper:not(:first-child)::before {
+      width: 0;
+    }
+  }
+}

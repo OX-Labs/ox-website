@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import { Button, Radio } from 'antd'
 import { Area } from '@ant-design/charts';
 import { BankOutlined, BarChartOutlined, LineChartOutlined } from '@ant-design/icons'
 import OxTabs from '@/components/OxTabs'
@@ -7,356 +8,206 @@ import { YearTable, TokenHoldingTable, FeesTable } from '@/components/TableCompo
 import eth from '@/assets/eth.svg'
 import styles from './styles.less'
 
+const areaData = [
+  {
+    "Date": "2020-01",
+    "scales": 1998
+  },
+  {
+    "Date": "2020-02",
+    "scales": 1850
+  },
+  {
+    "Date": "2020-03",
+    "scales": 1720
+  },
+  {
+    "Date": "2020-04",
+    "scales": 1818
+  },
+  {
+    "Date": "2020-05",
+    "scales": 1920
+  },
+  {
+    "Date": "2020-06",
+    "scales": 1802
+  },
+  {
+    "Date": "2020-07",
+    "scales": 1945
+  },
+  {
+    "Date": "2020-08",
+    "scales": 1856
+  },
+  {
+    "Date": "2020-09",
+    "scales": 2107
+  },
+  {
+    "Date": "2020-10",
+    "scales": 2140
+  },
+  {
+    "Date": "2020-11",
+    "scales": 2311
+  },
+  {
+    "Date": "2020-12",
+    "scales": 1972
+  },
+  {
+    "Date": "2021-01",
+    "scales": 1760
+  },
+  {
+    "Date": "2021-02",
+    "scales": 1824
+  },
+  {
+    "Date": "2021-03",
+    "scales": 1801
+  },
+  {
+    "Date": "2021-04",
+    "scales": 2001
+  },
+  {
+    "Date": "2021-05",
+    "scales": 1640
+  },
+  {
+    "Date": "2021-06",
+    "scales": 1502
+  },
+  {
+    "Date": "2021-07",
+    "scales": 1621
+  },
+  {
+    "Date": "2021-08",
+    "scales": 1480
+  },
+  {
+    "Date": "2021-09",
+    "scales": 1549
+  },
+  {
+    "Date": "2021-10",
+    "scales": 1390
+  },
+  {
+    "Date": "2021-11",
+    "scales": 1325
+  },
+  {
+    "Date": "2021-12",
+    "scales": 1250
+  },
+  {
+    "Date": "2022-01",
+    "scales": 1394
+  },
+  {
+    "Date": "2022-02",
+    "scales": 1406
+  },
+  {
+    "Date": "2022-03",
+    "scales": 1578
+  },
+  {
+    "Date": "2022-04",
+    "scales": 1465
+  },
+  {
+    "Date": "2022-05",
+    "scales": 1689
+  },
+  {
+    "Date": "2022-06",
+    "scales": 1755
+  },
+  {
+    "Date": "2022-07",
+    "scales": 1495
+  },
+  {
+    "Date": "2022-08",
+    "scales": 1508
+  },
+  {
+    "Date": "2022-09",
+    "scales": 1433
+  },
+  {
+    "Date": "2022-10",
+    "scales": 1344
+  },
+  {
+    "Date": "2022-11",
+    "scales": 1201
+  },
+  {
+    "Date": "2022-12",
+    "scales": 1065
+  },
+  {
+    "Date": "2023-01",
+    "scales": 1255
+  },
+  {
+    "Date": "2023-02",
+    "scales": 1429
+  },
+  {
+    "Date": "2023-03",
+    "scales": 1398
+  },
+  {
+    "Date": "2023-04",
+    "scales": 1678
+  },
+  {
+    "Date": "2023-05",
+    "scales": 1524
+  },
+  {
+    "Date": "2023-06",
+    "scales": 1688
+  },
+  {
+    "Date": "2023-07",
+    "scales": 1500
+  },
+  {
+    "Date": "2023-08",
+    "scales": 1670
+  },
+  {
+    "Date": "2023-09",
+    "scales": 1734
+  },
+  {
+    "Date": "2023-10",
+    "scales": 1699
+  },
+  {
+    "Date": "2023-11",
+    "scales": 1508
+  },
+  {
+    "Date": "2023-12",
+    "scales": 1680
+  },
+]
+
 const Investment = props => {
 
-  const manager = '0xf5be8b4c82b8a681bacf357cfb712ab9e9296cb2'
+  const [priceType, setPriceType] = useState('Share Price')
 
-  const areaData = [
-    {
-      "Date": "2010-01",
-      "scales": 1998
-    },
-    {
-      "Date": "2010-02",
-      "scales": 1850
-    },
-    {
-      "Date": "2010-03",
-      "scales": 1720
-    },
-    {
-      "Date": "2010-04",
-      "scales": 1818
-    },
-    {
-      "Date": "2010-05",
-      "scales": 1920
-    },
-    {
-      "Date": "2010-06",
-      "scales": 1802
-    },
-    {
-      "Date": "2010-07",
-      "scales": 1945
-    },
-    {
-      "Date": "2010-08",
-      "scales": 1856
-    },
-    {
-      "Date": "2010-09",
-      "scales": 2107
-    },
-    {
-      "Date": "2010-10",
-      "scales": 2140
-    },
-    {
-      "Date": "2010-11",
-      "scales": 2311
-    },
-    {
-      "Date": "2010-12",
-      "scales": 1972
-    },
-    {
-      "Date": "2011-01",
-      "scales": 1760
-    },
-    {
-      "Date": "2011-02",
-      "scales": 1824
-    },
-    {
-      "Date": "2011-03",
-      "scales": 1801
-    },
-    {
-      "Date": "2011-04",
-      "scales": 2001
-    },
-    {
-      "Date": "2011-05",
-      "scales": 1640
-    },
-    {
-      "Date": "2011-06",
-      "scales": 1502
-    },
-    {
-      "Date": "2011-07",
-      "scales": 1621
-    },
-    {
-      "Date": "2011-08",
-      "scales": 1480
-    },
-    {
-      "Date": "2011-09",
-      "scales": 1549
-    },
-    {
-      "Date": "2011-10",
-      "scales": 1390
-    },
-    {
-      "Date": "2011-11",
-      "scales": 1325
-    },
-    {
-      "Date": "2011-12",
-      "scales": 1250
-    },
-    {
-      "Date": "2012-01",
-      "scales": 1394
-    },
-    {
-      "Date": "2012-02",
-      "scales": 1406
-    },
-    {
-      "Date": "2012-03",
-      "scales": 1578
-    },
-    {
-      "Date": "2012-04",
-      "scales": 1465
-    },
-    {
-      "Date": "2012-05",
-      "scales": 1689
-    },
-    {
-      "Date": "2012-06",
-      "scales": 1755
-    },
-    {
-      "Date": "2012-07",
-      "scales": 1495
-    },
-    {
-      "Date": "2012-08",
-      "scales": 1508
-    },
-    {
-      "Date": "2012-09",
-      "scales": 1433
-    },
-    {
-      "Date": "2012-10",
-      "scales": 1344
-    },
-    {
-      "Date": "2012-11",
-      "scales": 1201
-    },
-    {
-      "Date": "2012-12",
-      "scales": 1065
-    },
-    {
-      "Date": "2013-01",
-      "scales": 1255
-    },
-    {
-      "Date": "2013-02",
-      "scales": 1429
-    },
-    {
-      "Date": "2013-03",
-      "scales": 1398
-    },
-    {
-      "Date": "2013-04",
-      "scales": 1678
-    },
-    {
-      "Date": "2013-05",
-      "scales": 1524
-    },
-    {
-      "Date": "2013-06",
-      "scales": 1688
-    },
-    {
-      "Date": "2013-07",
-      "scales": 1500
-    },
-    {
-      "Date": "2013-08",
-      "scales": 1670
-    },
-    {
-      "Date": "2013-09",
-      "scales": 1734
-    },
-    {
-      "Date": "2013-10",
-      "scales": 1699
-    },
-    {
-      "Date": "2013-11",
-      "scales": 1508
-    },
-    {
-      "Date": "2013-12",
-      "scales": 1680
-    },
-    {
-      "Date": "2014-01",
-      "scales": 1750
-    },
-    {
-      "Date": "2014-02",
-      "scales": 1602
-    },
-    {
-      "Date": "2014-03",
-      "scales": 1834
-    },
-    {
-      "Date": "2014-04",
-      "scales": 1722
-    },
-    {
-      "Date": "2014-05",
-      "scales": 1430
-    },
-    {
-      "Date": "2014-06",
-      "scales": 1280
-    },
-    {
-      "Date": "2014-07",
-      "scales": 1367
-    },
-    {
-      "Date": "2014-08",
-      "scales": 1155
-    },
-    {
-      "Date": "2014-09",
-      "scales": 1289
-    },
-    {
-      "Date": "2014-10",
-      "scales": 1104
-    },
-    {
-      "Date": "2014-11",
-      "scales": 1246
-    },
-    {
-      "Date": "2014-12",
-      "scales": 1098
-    },
-    {
-      "Date": "2015-01",
-      "scales": 1189
-    },
-    {
-      "Date": "2015-02",
-      "scales": 1276
-    },
-    {
-      "Date": "2015-03",
-      "scales": 1033
-    },
-    {
-      "Date": "2015-04",
-      "scales": 956
-    },
-    {
-      "Date": "2015-05",
-      "scales": 845
-    },
-    {
-      "Date": "2015-06",
-      "scales": 1089
-    },
-    {
-      "Date": "2015-07",
-      "scales": 944
-    },
-    {
-      "Date": "2015-08",
-      "scales": 1043
-    },
-    {
-      "Date": "2015-09",
-      "scales": 893
-    },
-    {
-      "Date": "2015-10",
-      "scales": 840
-    },
-    {
-      "Date": "2015-11",
-      "scales": 934
-    },
-    {
-      "Date": "2015-12",
-      "scales": 810
-    },
-    {
-      "Date": "2016-01",
-      "scales": 782
-    },
-    {
-      "Date": "2016-02",
-      "scales": 1089
-    },
-    {
-      "Date": "2016-03",
-      "scales": 745
-    },
-    {
-      "Date": "2016-04",
-      "scales": 680
-    },
-    {
-      "Date": "2016-05",
-      "scales": 802
-    },
-    {
-      "Date": "2016-06",
-      "scales": 697
-    },
-    {
-      "Date": "2016-07",
-      "scales": 583
-    },
-    {
-      "Date": "2016-08",
-      "scales": 456
-    },
-    {
-      "Date": "2016-09",
-      "scales": 524
-    },
-    {
-      "Date": "2016-10",
-      "scales": 398
-    },
-    {
-      "Date": "2016-11",
-      "scales": 278
-    },
-    {
-      "Date": "2016-12",
-      "scales": 195
-    },
-    {
-      "Date": "2017-01",
-      "scales": 145
-    },
-    {
-      "Date": "2017-02",
-      "scales": 207
-    }
-  ]
+  const manager = '0xf5be8b4c82b8a681bacf357cfb712ab9e9296cb2'
 
   const yearData = [
     {
@@ -449,7 +300,37 @@ const Investment = props => {
         </div>
 
         <div className={styles.cardContent}>
-          <div className={styles.mainTitle} style={{ paddingLeft: '1rem' }}>$1,976.07</div>
+          <div style={{ paddingLeft: '1rem' }}>
+            <div>
+              <span
+                style={{ color: priceType == 'Share Price' ? 'white' : '#656872', cursor: 'pointer', marginRight: 10 }}
+                onClick={() => { setPriceType('Share Price') }}
+              >
+                Share Price
+              </span>
+              <span
+                style={{ color: priceType == 'Assets Under Management' ? 'white' : '#656872', cursor: 'pointer' }}
+                onClick={() => { setPriceType('Assets Under Management') }}
+              >
+                Assets Under Management
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <div className={styles.mainTitle}>{priceType == 'Share Price' ? '$1,976.07' : '$642,564.63'}</div>
+                <div style={{ fontSize: 16, color: '#ef4444', marginLeft: 12 }}>-1.80%</div>
+              </div>
+              <div className={styles.priceRadioGroup} style={{ marginRight: '3rem' }}>
+                <Radio.Group defaultValue="1m">
+                  <Radio.Button value="1m">1M</Radio.Button>
+                  <Radio.Button value="3m">3M</Radio.Button>
+                  <Radio.Button value="6m">6M</Radio.Button>
+                  <Radio.Button value="1y">1Y</Radio.Button>
+                  <Radio.Button value="all">ALL</Radio.Button>
+                </Radio.Group>
+              </div>
+            </div>
+          </div>
           <div style={{ paddingRight: '2rem' }}>
             <Area
               data={areaData}
@@ -457,6 +338,7 @@ const Investment = props => {
               yField={'scales'}
               xAxis={{ tickCount: 5 }}
               yAxis={{ visible: false, grid: { visible: false } }}
+              line={{ style: { stroke: '#0030d4' } }}
             />
           </div>
         </div>
@@ -523,24 +405,158 @@ const Investment = props => {
       </div>
     )
   }
- 
+
   return (
     <div className={styles.mainContainer}>
-      <div style={{ display: 'flex', marginBottom: '2rem' }}>
-        <img src={eth} width={30} />
-        <div className={styles.mainTitle} style={{ marginLeft: 10 }}>USF Fund I</div>
+      <div className={styles.gridContainer}>
+        <div className={styles.cardContent}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
+                src='https://app.enzyme.finance/vault/ethereum/0x1b83ba4527c837d462d5b78d65a097dabae5ea89/icon?size=40'
+              />
+              Civa
+            </div>
+            <img style={{ borderRadius: 20, height: 25, width: 25 }}
+              src='https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707'
+            />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Anualized Return</span>
+            <span>34.56%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>AUM</span>
+            <span>$1.35M</span>
+          </div>
+          <Area
+            style={{ height: 300, width: 350, margin: '0px -20px -130px -50px' }}
+            data={areaData}
+            xField={'Date'}
+            yField={'scales'}
+            xAxis={{ visible: false }}
+            yAxis={{ visible: false, grid: { visible: false } }}
+            line={{ style: { stroke: '#0030d4' } }}
+            areaStyle={{ fill: 'transparent' }}
+          />
+        </div>
+        <div className={styles.cardContent}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
+                src='https://app.enzyme.finance/vault/ethereum/0x4819ac09e4619748b1cdf657283a948731fa6ab6/icon?size=40'
+              />
+              ARCrypto MV
+            </div>
+            <img style={{ borderRadius: 20, height: 25, width: 25 }}
+              src='https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'
+            />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Anualized Return</span>
+            <span>22.83%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>AUM</span>
+            <span>$661.57K</span>
+          </div>
+          <Area
+            style={{ height: 300, width: 350, margin: '0px -20px -130px -50px' }}
+            data={areaData}
+            xField={'Date'}
+            yField={'scales'}
+            xAxis={{ visible: false }}
+            yAxis={{ visible: false, grid: { visible: false } }}
+            line={{ style: { stroke: '#0030d4' } }}
+            areaStyle={{ fill: 'transparent' }}
+          />
+        </div>
+        <div className={styles.cardContent}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
+                src='https://app.enzyme.finance/vault/ethereum/0xe0f1a74b6f340d1dfefe4b0268f04b23cc665f27/icon?size=40'
+              />
+              Defiable Mid
+            </div>
+            <img style={{ borderRadius: 20, height: 25, width: 25 }}
+              src='https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389'
+            />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Anualized Return</span>
+            <span>41.90%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>AUM</span>
+            <span>$608.91K</span>
+          </div>
+          <Area
+            style={{ height: 300, width: 350, margin: '0px -20px -130px -50px' }}
+            data={areaData}
+            xField={'Date'}
+            yField={'scales'}
+            xAxis={{ visible: false }}
+            yAxis={{ visible: false, grid: { visible: false } }}
+            line={{ style: { stroke: '#0030d4' } }}
+            areaStyle={{ fill: 'transparent' }}
+          />
+        </div>
+        <div className={styles.cardContent}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
+                src='	https://app.enzyme.finance/vault/ethereum/0xea2c32c03575433d04898deb28db2f17d710b60a/icon?size=40'
+              />
+              Mojomix
+            </div>
+            <img style={{ borderRadius: 20, height: 25, width: 25 }}
+              src='https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880'
+            />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Anualized Return</span>
+            <span>53.78%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>AUM</span>
+            <span>$166.72K</span>
+          </div>
+          <Area
+            style={{ height: 300, width: 350, margin: '0px -20px -130px -50px' }}
+            data={areaData}
+            xField={'Date'}
+            yField={'scales'}
+            xAxis={{ visible: false }}
+            yAxis={{ visible: false, grid: { visible: false } }}
+            line={{ style: { stroke: '#0030d4' } }}
+            areaStyle={{ fill: 'transparent' }}
+          />
+        </div>
       </div>
-      <OxTabs>
-        <div tab="Overview" key="1">
-          <Overview />
+      <div>
+        <div style={{ display: 'flex', marginBottom: '2rem', marginTop: '2rem' }}>
+          <img src={eth} width={30} />
+          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>USF Fund I</div>
         </div>
-        <div tab="Orders" key="2">
-          <Orders />
-        </div>
-        <div tab="Fees" key="3">
-          <Fees />
-        </div>
-      </OxTabs>
+        <Button
+          type='primary' style={{ marginRight: 30, borderRadius: 15, height: 35, float: 'right', padding: '0 30px' }}
+          onClick={() => { window.location.href = '/investment/invest' }}
+        >
+          INVEST
+        </Button>
+        <OxTabs>
+          <div tab="Overview" key="1">
+            <Overview />
+          </div>
+          <div tab="Orders" key="2">
+            <Orders />
+          </div>
+          <div tab="Fees" key="3">
+            <Fees />
+          </div>
+        </OxTabs>
+      </div>
     </div>
   )
 }
