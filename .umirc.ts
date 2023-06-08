@@ -45,6 +45,11 @@ export default defineConfig({
           component: '@/pages/Exchange/LaunchPad/CreatePresale'
         },
         {
+          path: '/exchange/launchpad/locktoken',
+          title: 'Launchpad',
+          component: '@/pages/Exchange/LaunchPad/LockToken'
+        },
+        {
           path: '/exchange/mm',
           title: 'Market Making',
           component: '@/pages/Exchange/MM'
