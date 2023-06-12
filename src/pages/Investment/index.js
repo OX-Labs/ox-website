@@ -425,7 +425,7 @@ const Investment = props => {
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: USDT
             </div>
-            <img style={{ height: 25, width: 25 }} src={tokenLogo['USDT']} />
+            {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDT']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -452,7 +452,7 @@ const Investment = props => {
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: USDC
             </div>
-            <img style={{ height: 25, width: 25 }} src={tokenLogo['USDC']} />
+            {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDC']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -479,7 +479,7 @@ const Investment = props => {
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: BNB
             </div>
-            <img style={{ height: 25, width: 25 }} src={tokenLogo['BNB']} />
+            {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['BNB']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -506,7 +506,7 @@ const Investment = props => {
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: ETH
             </div>
-            <img style={{ height: 25, width: 25 }} src={tokenLogo['ETH']} />
+            {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['ETH']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -530,15 +530,14 @@ const Investment = props => {
       </div>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem', marginTop: '2rem' }}>
-          <img src={tokenLogo[selectedVault]} style={{ width: 30, height: 30 }} />
+          <img src={investIcon} style={{ width: 30, height: 30 }} />
           <div className={styles.mainTitle} style={{ marginLeft: 10 }}>Flash Arbitrage: {selectedVault}</div>
         </div>
         <div style={{display: 'flex', float: 'right', marginRight: 30}}>
-          <Input
-            value={tokenAmount}
-            onChange={(e) => { setTokenAmount(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
+          <div style={{ display: 'flex', background: 'transparent', border: '1px solid #333333', borderRadius: 5, alignItems: 'center' }}>
+            <input value={tokenAmount} onChange={(e) => { setTokenAmount(e.target.value) }} style={{ width: 200, height: 40 }} />
+            <img src={tokenLogo[selectedVault]} style={{ width: 23, height: 23, marginRight: 10 }} />
+          </div>
           <Button
             type='primary' style={{ marginLeft: 20, borderRadius: 15, height: 35, padding: '0 30px' }}
             onClick={() => {  }}

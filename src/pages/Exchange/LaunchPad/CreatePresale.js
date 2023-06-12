@@ -549,18 +549,6 @@ const ProjectInformation = ({ setCurrent }) => {
             />
           </Form.Item>
         </div>
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Select Tier</div>
-            <Radio.Group
-              onChange={(e) => setSelectTier(e.target.value)}
-              value={selectTier}
-            >
-              <Radio value={'COMMON'}>COMMON</Radio>
-              <Radio value={'GOLD'}>GOLD</Radio>
-            </Radio.Group>
-          </div>
-        </Form.Item>
       </Form>
       <Button className={styles.confirmButton} onClick={() => { onClickPrimary() }}>
         Submit
@@ -583,7 +571,7 @@ const LockToken = ({ }) => {
     <Form style={{ marginTop: 10, textAlign: 'left' }}>
       <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Create Your Lock</div>
       <Form.Item>
-        <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token or LP Token Address</div>
+        <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token Address</div>
         <Input
           value={tokenAddress}
           onChange={(e) => { setTokenAddress(e.target.value) }}

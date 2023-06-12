@@ -489,14 +489,14 @@ const KeyInformation = ({ projectToken, totalSale, tokenPrice, receivedData, poo
       <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
         <div className="keyinfoName">Initial Price</div>
         <div>
-          1 {projectToken} = {tokenPrice} {receivedData.mainCoin}
+          1 {projectToken} = {tokenPrice} {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}
         </div>
       </div>
 
       <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
         <div className="keyinfoName">Final Price</div>
         <div>
-          + 10 %
+        1 {projectToken} = {(tokenPrice * 10).toFixed(2)} {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}
         </div>
       </div>
     </div>
@@ -980,11 +980,11 @@ const Allocation = ({
           </div>
           <div className={styles.priceRadioGroup} style={{ width: '85%' }}>
             <Radio.Group defaultValue="0.0035">
-              <Radio.Button value="0.0030">0.0030 USDT</Radio.Button>
-              <Radio.Button value="0.0035">0.0035 USDT</Radio.Button>
-              <Radio.Button value="0.0040">0.0040 USDT</Radio.Button>
-              <Radio.Button value="0.0045">0.0045 USDT</Radio.Button>
-              <Radio.Button value="0.0050">0.0050 USDT</Radio.Button>
+              <Radio.Button value="0.0030">0.0030 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
+              <Radio.Button value="0.0035">0.0035 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
+              <Radio.Button value="0.0040">0.0040 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
+              <Radio.Button value="0.0045">0.0045 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
+              <Radio.Button value="0.0050">0.0050 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
             </Radio.Group>
           </div>
         </form>
