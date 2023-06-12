@@ -494,7 +494,7 @@ const KeyInformation = ({ projectToken, totalSale, tokenPrice, receivedData, poo
       </div>
 
       <div className="keyinfoRow" style={{ marginTop: '1rem' }}>
-        <div className="keyinfoName">24H Price Rise</div>
+        <div className="keyinfoName">Final Price</div>
         <div>
           + 10 %
         </div>
@@ -517,11 +517,11 @@ const ProjectDescription = ({ receivedData }) => {
             {
               receivedData.social && receivedData.social[0] &&
               <div className="socialmedia-link-container">
-                <a href={receivedData.social[0].Website} target="_blank" rel="noreferrer" style={{ width: '30%', alignSelf: 'center', fontSize: '16px' }}>{receivedData.social[0].Website}</a>
+                {/* <a href={receivedData.social[0].Website} target="_blank" rel="noreferrer" style={{ width: '30%', alignSelf: 'center', fontSize: '16px' }}>{receivedData.social[0].Website}</a> */}
                 <div id='social container' className='social-container'>
                   {Object.entries(receivedData.social[0]).map((item) => {
                     if (item[1] !== null) {
-                      if (item[0] === "Website" || item[0] === "Polyaddress" || item[0] === "Etheraddress" || item[0] === "Confluxaddress") return null
+                      if (item[0] === "Polyaddress" || item[0] === "Etheraddress" || item[0] === "Confluxaddress") return null
                       return (
                         <SocialMedia url={logoObj[item[0]]} link={item[1]} socialText={item[0]} />
                       )

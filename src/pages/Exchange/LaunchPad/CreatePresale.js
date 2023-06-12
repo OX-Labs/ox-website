@@ -162,13 +162,15 @@ const CreateToken = ({ setCurrent, setCreateToken }) => {
 }
 
 const PresaleInformation = ({ setCurrent }) => {
-  const [totalRaise, setTotalRaise] = useState('')
+  const [totalSale, setTotalSale] = useState('')
   const [fundRaisingToken, setFundRaisingToken] = useState('USDT')
+  const [totalRaise, setTotalRaise] = useState('')
   const [presaleRate, setPresaleRate] = useState('')
+  const [finalPrice, setFinalPrice] = useState('')
   const [dexListingRate, setDexListingRate] = useState('')
   const [dexLiquidity, setDexLiquidity] = useState('')
   const [liquidityLockup, setLiquidityLockup] = useState('')
-  const [dexAddLiquidity, setDexAddLiquidity] = useState('OXEXCHANGE')
+  const [dexAddLiquidity, setDexAddLiquidity] = useState('OX EXCHANGE')
   const [minimumBuy, setMinimumBuy] = useState('')
   const [maximumBuy, setMaximumBuy] = useState('')
   const [addPresaleVesting, setAddPresaleVesting] = useState(false)
@@ -223,10 +225,28 @@ const PresaleInformation = ({ setCurrent }) => {
         </div>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Presale Price</div>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Sale</div>
+            <Input
+              value={totalSale}
+              onChange={(e) => { setTotalSale(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Initial Price</div>
             <Input
               value={presaleRate}
               onChange={(e) => { setPresaleRate(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </div>
+        <div style={{ display: 'flex' }}>
+        <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Final Price</div>
+            <Input
+              value={finalPrice}
+              onChange={(e) => { setFinalPrice(e.target.value) }}
               style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
             />
           </Form.Item>
@@ -266,7 +286,7 @@ const PresaleInformation = ({ setCurrent }) => {
               className={styles.mySelect}
               dropdownClassName={styles.dropDownMenu}
             >
-              {['OXEXCHANGE', 'Uniswap', 'Pancakeswap'].map(e => (
+              {['OX EXCHANGE', 'Uniswap', 'Pancakeswap'].map(e => (
                 <Select.Option className={styles.optionItem} value={e}>
                   {e}
                 </Select.Option>
