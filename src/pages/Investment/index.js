@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { Button, Radio } from 'antd'
+import { Button, Radio, Input } from 'antd'
 import { Area } from '@ant-design/charts';
 import { BankOutlined, BarChartOutlined, LineChartOutlined } from '@ant-design/icons'
 import OxTabs from '@/components/OxTabs'
 import { YearTable, TokenHoldingTable, FeesTable } from '@/components/TableComponents'
 import eth from '@/assets/eth.svg'
+import investIcon from '@/assets/invest_icon.png'
 import styles from './styles.less'
 
 const areaData = [
@@ -206,7 +207,15 @@ const areaData = [
 const Investment = props => {
 
   const [priceType, setPriceType] = useState('Share Price')
+  const [selectedVault, setSelectedVault] = useState('ETH')
+  const [tokenAmount, setTokenAmount] = useState('0')
 
+  const tokenLogo = {
+    USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+    USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+    BNB: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
+    ETH: eth,
+  }
   const manager = '0xf5be8b4c82b8a681bacf357cfb712ab9e9296cb2'
 
   const yearData = [
@@ -291,10 +300,10 @@ const Investment = props => {
           <div className={styles.cardContent}>
             <div className={styles.row}>
               <div className={styles.title}>
-                <img src={eth} width={25} className={styles.logo} />
-                WETH
+                <img src={tokenLogo[selectedVault]} width={25} className={styles.logo} />
+                {selectedVault}
               </div>
-              <span className={styles.content}>Denomination Asset</span>
+              <span className={styles.content}>Invested Asset</span>
             </div>
           </div>
         </div>
@@ -339,6 +348,7 @@ const Investment = props => {
               xAxis={{ tickCount: 5 }}
               yAxis={{ visible: false, grid: { visible: false } }}
               line={{ style: { stroke: '#0030d4' } }}
+              areaStyle={{ fill: 'l(270) 0:#0e1118 1:#0030d4' }}
             />
           </div>
         </div>
@@ -411,15 +421,11 @@ const Investment = props => {
       <div className={styles.gridContainer}>
         <div className={styles.cardContent}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
-              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
-                src='https://app.enzyme.finance/vault/ethereum/0x1b83ba4527c837d462d5b78d65a097dabae5ea89/icon?size=40'
-              />
-              Civa
+            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('USDT') }} >
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
+              Flash Arbitrage: USDT
             </div>
-            <img style={{ borderRadius: 20, height: 25, width: 25 }}
-              src='https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707'
-            />
+            <img style={{ height: 25, width: 25 }} src={tokenLogo['USDT']} />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -442,15 +448,11 @@ const Investment = props => {
         </div>
         <div className={styles.cardContent}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
-              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
-                src='https://app.enzyme.finance/vault/ethereum/0x4819ac09e4619748b1cdf657283a948731fa6ab6/icon?size=40'
-              />
-              ARCrypto MV
+            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('USDC') }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
+              Flash Arbitrage: USDC
             </div>
-            <img style={{ borderRadius: 20, height: 25, width: 25 }}
-              src='https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579'
-            />
+            <img style={{ height: 25, width: 25 }} src={tokenLogo['USDC']} />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -473,15 +475,11 @@ const Investment = props => {
         </div>
         <div className={styles.cardContent}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
-              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
-                src='https://app.enzyme.finance/vault/ethereum/0xe0f1a74b6f340d1dfefe4b0268f04b23cc665f27/icon?size=40'
-              />
-              Defiable Mid
+            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('BNB') }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
+              Flash Arbitrage: BNB
             </div>
-            <img style={{ borderRadius: 20, height: 25, width: 25 }}
-              src='https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389'
-            />
+            <img style={{ height: 25, width: 25 }} src={tokenLogo['BNB']} />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -504,15 +502,11 @@ const Investment = props => {
         </div>
         <div className={styles.cardContent}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
-              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }}
-                src='	https://app.enzyme.finance/vault/ethereum/0xea2c32c03575433d04898deb28db2f17d710b60a/icon?size=40'
-              />
-              Mojomix
+            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('ETH') }}>
+              <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
+              Flash Arbitrage: ETH
             </div>
-            <img style={{ borderRadius: 20, height: 25, width: 25 }}
-              src='https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880'
-            />
+            <img style={{ height: 25, width: 25 }} src={tokenLogo['ETH']} />
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
@@ -535,16 +529,23 @@ const Investment = props => {
         </div>
       </div>
       <div>
-        <div style={{ display: 'flex', marginBottom: '2rem', marginTop: '2rem' }}>
-          <img src={eth} width={30} />
-          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>USF Fund I</div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem', marginTop: '2rem' }}>
+          <img src={tokenLogo[selectedVault]} style={{ width: 30, height: 30 }} />
+          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>Flash Arbitrage: {selectedVault}</div>
         </div>
-        <Button
-          type='primary' style={{ marginRight: 30, borderRadius: 15, height: 35, float: 'right', padding: '0 30px' }}
-          onClick={() => { window.location.href = '/investment/invest' }}
-        >
-          INVEST
-        </Button>
+        <div style={{display: 'flex', float: 'right', marginRight: 30}}>
+          <Input
+            value={tokenAmount}
+            onChange={(e) => { setTokenAmount(e.target.value) }}
+            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+          />
+          <Button
+            type='primary' style={{ marginLeft: 20, borderRadius: 15, height: 35, padding: '0 30px' }}
+            onClick={() => {  }}
+          >
+            INVEST
+          </Button>
+        </div>
         <OxTabs>
           <div tab="Overview" key="1">
             <Overview />
