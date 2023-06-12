@@ -113,12 +113,12 @@ const Pool = props => {
           >
             Create Presale
           </Button>
-          <Button
+          {/* <Button
             type='primary' style={{ marginLeft: 15, borderRadius: 15, height: 35 }}
             onClick={() => { window.location.href = '/exchange/launchpad/locktoken' }}
           >
-            Lock Token
-          </Button>
+            Create Lock
+          </Button> */}
         </div>
       </div>
       <div className={styles.btmContent}>

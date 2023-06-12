@@ -45,11 +45,6 @@ export default defineConfig({
           component: '@/pages/Exchange/LaunchPad/CreatePresale'
         },
         {
-          path: '/exchange/launchpad/locktoken',
-          title: 'Launchpad',
-          component: '@/pages/Exchange/LaunchPad/LockToken'
-        },
-        {
           path: '/exchange/mm',
           title: 'Market Making',
           component: '@/pages/Exchange/MM'
@@ -68,11 +63,6 @@ export default defineConfig({
           path: '/investment',
           title: 'OX EXCHANGE',
           component: '@/pages/Investment'
-        },
-        {
-          path: '/investment/invest',
-          title: 'OX EXCHANGE',
-          component: '@/pages/Investment/Invest'
         },
       ],
     },

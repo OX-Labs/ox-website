@@ -162,7 +162,6 @@ const CreateToken = ({ setCurrent, setCreateToken }) => {
 }
 
 const PresaleInformation = ({ setCurrent }) => {
-  const [saleTitle, setSaleTitle] = useState('')
   const [totalRaise, setTotalRaise] = useState('')
   const [fundRaisingToken, setFundRaisingToken] = useState('USDT')
   const [presaleRate, setPresaleRate] = useState('')
@@ -170,27 +169,16 @@ const PresaleInformation = ({ setCurrent }) => {
   const [dexLiquidity, setDexLiquidity] = useState('')
   const [liquidityLockup, setLiquidityLockup] = useState('')
   const [dexAddLiquidity, setDexAddLiquidity] = useState('OXEXCHANGE')
-  const [softCap, setSoftCap] = useState('')
-  const [hardCap, setHardCap] = useState('')
   const [minimumBuy, setMinimumBuy] = useState('')
   const [maximumBuy, setMaximumBuy] = useState('')
-  const [unsoldTokens, setUnsoldTokens] = useState('Refund')
-  const [presaleType, setPresaleType] = useState('Public')
-  const [stealthWallet, setStealthWallet] = useState('')
-  const [antiSniperProtection, setAntiSniperProtection] = useState(false)
-  const [addTeamTokenVesting, setAddTeamTokenVesting] = useState(false)
   const [addPresaleVesting, setAddPresaleVesting] = useState(false)
+  const [addTokenLock, setAddTokenLock] = useState(false)
+  const [tgePercent, setTgePercent] = useState('')
+  const [cycle, setCycle] = useState('')
+  const [cycleReleasePercent, setCycleReleasePercent] = useState('')
 
   const onClickPrimary = () => {
     setCurrent(2)
-  }
-
-  const range = (start, end) => {
-    const result = [];
-    for (let i = start; i < end; i++) {
-      result.push(i);
-    }
-    return result;
   }
 
   return (
@@ -211,40 +199,9 @@ const PresaleInformation = ({ setCurrent }) => {
       </div>
       <Form style={{ marginTop: 10, textAlign: 'left' }}>
         <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Presale Information</div>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Sale Title</div>
-          <Input
-            value={saleTitle}
-            onChange={(e) => { setSaleTitle(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
-          <Input
-            value={totalRaise}
-            onChange={(e) => { setTotalRaise(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        {/* <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Fund Rasing Token</div>
-          <Select
-            value={fundRaisingToken}
-            onChange={e => { setFundRaisingToken(e) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['MATIC', 'USDT', 'Custom'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item> */}
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Fund Rasing Token</div>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, marginBottom: 10, color: '#b6b6b5' }}>Fund Rasing Token</div>
             <Radio.Group
               onChange={(e) => setFundRaisingToken(e.target.value)}
               value={fundRaisingToken}
@@ -254,16 +211,16 @@ const PresaleInformation = ({ setCurrent }) => {
               <Radio value={'BNB'}>BNB</Radio>
               <Radio value={'ETH'}>ETH</Radio>
             </Radio.Group>
-          </div>
-        </Form.Item>
-        <Form.Item style={{ marginRight: 20 }}>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
-          <Input
-            value={totalRaise}
-            onChange={(e) => { setTotalRaise(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
+            <Input
+              value={totalRaise}
+              onChange={(e) => { setTotalRaise(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>
+        </div>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Presale Price</div>
@@ -300,21 +257,34 @@ const PresaleInformation = ({ setCurrent }) => {
             />
           </Form.Item>
         </div>
-        <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Select what DEX will be used to add liquidity.</div>
-          <Select
-            value={dexAddLiquidity}
-            onChange={e => { setDexAddLiquidity(e) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['OXEXCHANGE', 'Uniswap', 'Pancakeswap'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        <div style={{ display: 'flex' }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+            <div style={{ fontSize: 15, color: '#b6b6b5' }}>Select what DEX will be used to add liquidity.</div>
+            <Select
+              value={dexAddLiquidity}
+              onChange={e => { setDexAddLiquidity(e) }}
+              className={styles.mySelect}
+              dropdownClassName={styles.dropDownMenu}
+            >
+              {['OXEXCHANGE', 'Uniswap', 'Pancakeswap'].map(e => (
+                <Select.Option className={styles.optionItem} value={e}>
+                  {e}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item style={{ width: '-webkit-fill-available' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Estimated Dex Listing Date (UTC)</div>
+            <DatePicker
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+              }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+              popupClassName={styles.datepicker}
+            />
+          </Form.Item>
+        </div>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Minimum Buy</div>
@@ -357,81 +327,6 @@ const PresaleInformation = ({ setCurrent }) => {
             />
           </Form.Item>
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Estimated Dex Listing Date (UTC)</div>
-            <DatePicker
-              format="YYYY-MM-DD HH:mm:ss"
-              showTime={{
-                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
-              }}
-              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
-              popupClassName={styles.datepicker}
-            />
-          </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
-            <div style={{ fontSize: 15, color: '#b6b6b5' }}>Select what happens to Unsold Tokens.</div>
-            <Select
-              value={unsoldTokens}
-              onChange={e => { setUnsoldTokens(e) }}
-              className={styles.mySelect}
-              dropdownClassName={styles.dropDownMenu}
-            >
-              {['Burn', 'Refund'].map(e => (
-                <Select.Option className={styles.optionItem} value={e}>
-                  {e}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </div>
-        <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Presale Type</div>
-          <Select
-            value={presaleType}
-            onChange={e => { setPresaleType(e) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['Tiered Whitelist', 'Whitelist', 'Public'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Stealth Wallet</div>
-          <Input
-            value={stealthWallet}
-            onChange={(e) => { setStealthWallet(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Anti Sniper Protection</div>
-            <Radio.Group
-              onChange={(e) => setAntiSniperProtection(e.target.value)}
-              value={antiSniperProtection}
-            >
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
-            </Radio.Group>
-          </div>
-        </Form.Item>
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Add Team Token Vesting</div>
-            <Radio.Group
-              onChange={(e) => setAddTeamTokenVesting(e.target.value)}
-              value={addTeamTokenVesting}
-            >
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
-            </Radio.Group>
-          </div>
-        </Form.Item>
         <Form.Item>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Add Presale Vesting</div>
@@ -444,6 +339,62 @@ const PresaleInformation = ({ setCurrent }) => {
             </Radio.Group>
           </div>
         </Form.Item>
+        {addPresaleVesting &&
+          <>
+            <div style={{ display: 'flex' }}>
+              <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>TGE Date (UTC)</div>
+                <DatePicker
+                  format="YYYY-MM-DD HH:mm:ss"
+                  showTime={{
+                    defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+                  }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+                  popupClassName={styles.datepicker}
+                />
+              </Form.Item>
+              <Form.Item style={{ width: '-webkit-fill-available' }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>TGE Percent</div>
+                <Input
+                  value={tgePercent}
+                  onChange={(e) => { setTgePercent(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Cycle (days)</div>
+                <Input
+                  value={cycle}
+                  onChange={(e) => { setCycle(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+              <Form.Item style={{ width: '-webkit-fill-available' }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Cycle Release Percent</div>
+                <Input
+                  value={cycleReleasePercent}
+                  onChange={(e) => { setCycleReleasePercent(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+            </div>
+          </>
+        }
+        <Form.Item>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Add Token Lock</div>
+            <Radio.Group
+              onChange={(e) => setAddTokenLock(e.target.value)}
+              value={addTokenLock}
+            >
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
+            </Radio.Group>
+          </div>
+        </Form.Item>
+        {addTokenLock && <LockToken />}
       </Form>
       <Button className={styles.confirmButton} onClick={() => { onClickPrimary() }}>
         Next
@@ -595,6 +546,116 @@ const ProjectInformation = ({ setCurrent }) => {
         Submit
       </Button>
     </div>
+  )
+}
+
+const LockToken = ({ }) => {
+
+  const [tokenAddress, setTokenAddress] = useState('')
+  const [title, setTitle] = useState('')
+  const [amount, setAmount] = useState('')
+  const [useVesting, setUseVesting] = useState(false)
+  const [tgePercent, setTgePercent] = useState('')
+  const [cycle, setCycle] = useState('')
+  const [cycleReleasePercent, setCycleReleasePercent] = useState('')
+
+  return (
+    <Form style={{ marginTop: 10, textAlign: 'left' }}>
+      <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Create Your Lock</div>
+      <Form.Item>
+        <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Token or LP Token Address</div>
+        <Input
+          value={tokenAddress}
+          onChange={(e) => { setTokenAddress(e.target.value) }}
+          style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+        />
+      </Form.Item>
+      <Form.Item>
+        <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Title</div>
+        <Input
+          value={title}
+          onChange={(e) => { setTitle(e.target.value) }}
+          style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+        />
+      </Form.Item>
+      <Form.Item>
+        <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Amount</div>
+        <Input
+          value={amount}
+          onChange={(e) => { setAmount(e.target.value) }}
+          style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+        />
+      </Form.Item>
+      <Form.Item>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Add Presale Vesting</div>
+          <Radio.Group
+            onChange={(e) => setUseVesting(e.target.value)}
+            value={useVesting}
+          >
+            <Radio value={true}>Yes</Radio>
+            <Radio value={false}>No</Radio>
+          </Radio.Group>
+        </div>
+      </Form.Item>
+      {
+        useVesting
+          ?
+          <>
+            <div style={{ display: 'flex' }}>
+              <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>TGE Date (UTC)</div>
+                <DatePicker
+                  format="YYYY-MM-DD HH:mm:ss"
+                  showTime={{
+                    defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+                  }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+                  popupClassName={styles.datepicker}
+                />
+              </Form.Item>
+              <Form.Item style={{ width: '-webkit-fill-available' }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>TGE Percent</div>
+                <Input
+                  value={tgePercent}
+                  onChange={(e) => { setTgePercent(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Cycle (days)</div>
+                <Input
+                  value={cycle}
+                  onChange={(e) => { setCycle(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+              <Form.Item style={{ width: '-webkit-fill-available' }}>
+                <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Cycle Release Percent</div>
+                <Input
+                  value={cycleReleasePercent}
+                  onChange={(e) => { setCycleReleasePercent(e.target.value) }}
+                  style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+                />
+              </Form.Item>
+            </div>
+          </>
+          :
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Lock until (UTC)</div>
+            <DatePicker
+              format="YYYY-MM-DD HH:mm:ss"
+              showTime={{
+                defaultValue: dayjs('00:00:00', 'HH:mm:ss'),
+              }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333', width: '100%' }}
+              popupClassName={styles.datepicker}
+            />
+          </Form.Item>
+      }
+    </Form>
   )
 }
 
