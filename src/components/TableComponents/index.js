@@ -1179,12 +1179,12 @@ export function TokenHoldingTable(props) {
   function columnsCoin() {
     return [
       {
-        title: <div className={styles.tableHeaderFirst}>ASSET</div>,
+        title: <div className={styles.tableHeaderFirst}>Asset</div>,
         className: 'leftAlignTableHeader',
         render: (text, entry) => {
           return (
             <div className={styles.tableHeader} style={{ display: 'flex', alignItems: 'center' }}>
-              <img src={entry.logo} />
+              <img src={entry.logo} style={{width: 30, height: 30}} />
               <div style={{ marginLeft: 10, display: 'flex', flexDirection: 'column' }}>
                 <span style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginBottom: -5 }}>{entry.symbol}</span>
                 <span>{entry.name}</span>
@@ -1194,31 +1194,31 @@ export function TokenHoldingTable(props) {
         },
       },
       {
-        title: <div className={styles.tableHeader}>BALANCE</div>,
+        title: <div className={styles.tableHeader}>Time</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.balance}</div>;
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.time}</div>;
         },
       },
       {
-        title: <div className={styles.tableHeader}>PRICE</div>,
+        title: <div className={styles.tableHeader}>Balance In</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.price}</div>;
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.balancein}</div>;
         },
       },
       {
-        title: <div className={styles.tableHeader}>CHANGE 24H</div>,
+        title: <div className={styles.tableHeader}>Balance Out</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ color: entry.change24h < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}>{entry.change24h}%</div>;
+          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.balanceout}</div>;
         },
       },
       {
-        title: <div className={styles.tableHeader}>VALUE</div>,
+        title: <div className={styles.tableHeader}>Profit</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.value}</div>;
+          return <div className={styles.tableData} style={{ color: entry.change24h < 0 ? '#ef4444' : '#34d399', fontSize: 16 }}>{entry.profit}%</div>;
         },
       },
       {
-        title: <div className={styles.tableHeader}>ALLOCATION</div>,
+        title: <div className={styles.tableHeader}>Allocation</div>,
         render: (text, entry) => {
           return <div className={styles.tableData} style={{ color: 'white', fontSize: 16 }}>{entry.allocation}</div>;
         },
@@ -1249,29 +1249,28 @@ export function FeesTable(props) {
   function columnsCoin() {
     return [
       {
-        title: <div className={styles.tableHeaderFirst}>FEE TYPE</div>,
+        title: <div className={styles.tableHeaderFirst}>Fee Type</div>,
         className: 'leftAlignTableHeader',
         render: (text, entry) => {
           return (
             <div className={styles.tableData} style={{ fontSize: 16 }}>
-              Protocol Fee
+              {entry.feeType}
             </div >
           );
         },
       },
       {
-        title: <div className={styles.tableHeader}>SETTINGS</div>,
+        title: <div className={styles.tableHeader}>Rate</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: 16 }}>Rate</span>
-            <span style={{ fontSize: 16, color: 'white' }}>{entry.rate}</span>
+          return <div className={styles.tableData} style={{ fontSize: 16, color: 'white' }}>
+            {entry.rate}
           </div>;
         },
       },
       {
-        title: <div className={styles.tableHeader}>RECIPENT</div>,
+        title: <div className={styles.tableHeader}>Recipent</div>,
         render: (text, entry) => {
-          return <div className={styles.tableData} style={{ fontSize: 16 }}>Protocol Fee contract</div>;
+          return <div className={styles.tableData} style={{ fontSize: 16 }}>Fund Manager</div>;
         },
       },
     ];

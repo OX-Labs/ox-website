@@ -204,35 +204,24 @@ const areaData = [
   },
 ]
 
-const Investment = props => {
-
+const Overview = ({ sharePrice, aum, anualizedReturn }) => {
   const [priceType, setPriceType] = useState('Share Price')
-  const [selectedVault, setSelectedVault] = useState('ETH')
-  const [tokenAmount, setTokenAmount] = useState('0')
-
-  const tokenLogo = {
-    USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
-    USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
-    BNB: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
-    ETH: eth,
-  }
-  const manager = '0xf5be8b4c82b8a681bacf357cfb712ab9e9296cb2'
 
   const yearData = [
     {
-      year: 2021,
-      jan: '-',
-      feb: '-',
-      mar: '-',
-      apr: '-',
-      may: -10.01,
-      jun: -13.30,
-      jul: 8.32,
-      aug: 39.60,
-      sep: -11.74,
-      oct: 43.29,
-      nov: 6.32,
-      dec: -20.44,
+      year: 2023,
+      jan: 34.29,
+      feb: 1.72,
+      mar: 13.87,
+      apr: 3.67,
+      may: -1.04,
+      jun: '-',
+      jul: '-',
+      aug: '-',
+      sep: '-',
+      oct: '-',
+      nov: '-',
+      dec: '-',
     },
     {
       year: 2022,
@@ -250,186 +239,230 @@ const Investment = props => {
       dec: -7.41,
     },
     {
-      year: 2023,
-      jan: 34.29,
-      feb: 1.72,
-      mar: 13.87,
-      apr: 3.67,
-      may: -1.04,
-      jun: '-',
-      jul: '-',
-      aug: '-',
-      sep: '-',
-      oct: '-',
-      nov: '-',
-      dec: '-',
+      year: 2021,
+      jan: '-',
+      feb: '-',
+      mar: '-',
+      apr: '-',
+      may: -10.01,
+      jun: -13.30,
+      jul: 8.32,
+      aug: 39.60,
+      sep: -11.74,
+      oct: 43.29,
+      nov: 6.32,
+      dec: -20.44,
     },
   ]
 
-  const Overview = ({ }) => {
-    return (
-      <div className={styles.mainContainer}>
-        <div className={styles.gridContainer}>
-          <div className={styles.cardContent}>
-            <div className={styles.row}>
-              <div className={styles.title}>
-                <BankOutlined className={styles.logo} />
-                $32,797,648.05
-              </div>
-              <span className={styles.content}>Assets Under Management</span>
-            </div>
-          </div>
-          <div className={styles.cardContent}>
-            <div className={styles.row}>
-              <div className={styles.title}>
-                <LineChartOutlined className={styles.logo} style={{ color: '#34d399' }} />
-                +35.35%
-              </div>
-              <span className={styles.content}>Annualized Return</span>
-            </div>
-          </div>
-          <div className={styles.cardContent}>
-            <div className={styles.row}>
-              <div className={styles.title} style={{ color: '#34d399' }}>
-                <BarChartOutlined className={styles.logo} />
-                +238.76%
-              </div>
-              <span className={styles.content}>Accumulated Return</span>
-            </div>
-          </div>
-          <div className={styles.cardContent}>
-            <div className={styles.row}>
-              <div className={styles.title}>
-                <img src={tokenLogo[selectedVault]} width={25} className={styles.logo} />
-                {selectedVault}
-              </div>
-              <span className={styles.content}>Invested Asset</span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.cardContent}>
-          <div style={{ paddingLeft: '1rem' }}>
-            <div>
-              <span
-                style={{ color: priceType == 'Share Price' ? 'white' : '#656872', cursor: 'pointer', marginRight: 10 }}
-                onClick={() => { setPriceType('Share Price') }}
-              >
-                Share Price
-              </span>
-              <span
-                style={{ color: priceType == 'Assets Under Management' ? 'white' : '#656872', cursor: 'pointer' }}
-                onClick={() => { setPriceType('Assets Under Management') }}
-              >
-                Assets Under Management
-              </span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                <div className={styles.mainTitle}>{priceType == 'Share Price' ? '$1,976.07' : '$642,564.63'}</div>
-                <div style={{ fontSize: 16, color: '#ef4444', marginLeft: 12 }}>-1.80%</div>
-              </div>
-              <div className={styles.priceRadioGroup} style={{ marginRight: '3rem' }}>
-                <Radio.Group defaultValue="1m">
-                  <Radio.Button value="1m">1M</Radio.Button>
-                  <Radio.Button value="3m">3M</Radio.Button>
-                  <Radio.Button value="6m">6M</Radio.Button>
-                  <Radio.Button value="1y">1Y</Radio.Button>
-                  <Radio.Button value="all">ALL</Radio.Button>
-                </Radio.Group>
-              </div>
-            </div>
-          </div>
-          <div style={{ paddingRight: '2rem' }}>
-            <Area
-              data={areaData}
-              xField={'Date'}
-              yField={'scales'}
-              xAxis={{ tickCount: 5 }}
-              yAxis={{ visible: false, grid: { visible: false } }}
-              line={{ style: { stroke: '#0030d4' } }}
-              areaStyle={{ fill: 'l(270) 0:#0e1118 1:#0030d4' }}
-            />
-          </div>
-        </div>
-
-        <div className={styles.cardContent} style={{ marginTop: '2rem' }}>
-          <YearTable dataSource={yearData} />
-        </div>
-
-        <div className={styles.cardContent} style={{ marginTop: '2rem', marginBottom: '4rem', display: 'flex', alignItems: 'center' }}>
-          <div className={styles.mainTitle}>Manager</div>
-          <div style={{ marginLeft: 20 }}>
-            <span style={{ marginRight: 5, fontSize: "1.2rem", color: '#656872' }}>{manager}</span>
-            <svg height={15} style={{ marginTop: 12, cursor: 'pointer' }} fill="#656872" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" onClick={() => { cnavigator.clipboard.writeText(manager) }}><path d="M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z" /></svg>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  const Orders = ({ }) => {
-
-    const tokenHoldings = [
-      {
-        name: 'Liquid staked Ether 2.0',
-        symbol: 'stETH',
-        logo: 'https://app.enzyme.finance/asset/ethereum/0xae7ab96520de3a18e5e111b5eaab095312d7fe84/icon?size=40',
-        balance: '17,869.5625288',
-        price: '$1,847.46',
-        change24h: 1.03,
-        value: '$33,013,346.27',
-        allocation: '99.95%',
-      },
-      {
-        name: 'Wrapped Ether',
-        symbol: 'WETH',
-        logo: 'https://app.enzyme.finance/asset/ethereum/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2/icon?size=40',
-        balance: '13.5423613563',
-        price: '$1,847.66',
-        change24h: 1.03,
-        value: '$25,021.68',
-        allocation: '0.08%',
-      },
-    ]
-
-    return (
-      <div className={styles.mainContainer}>
-        <div className={styles.mainTitle} style={{ marginBottom: '2rem' }}>Token Holdings</div>
-        <div className={styles.cardContent}>
-          <TokenHoldingTable dataSource={tokenHoldings} />
-        </div>
-      </div>
-    )
-  }
-
-  const Fees = ({ }) => {
-
-    const fees = [{ rate: '0.25%' }]
-
-    return (
-      <div className={styles.mainContainer}>
-        <div className={styles.cardContent}>
-          <FeesTable dataSource={fees} />
-        </div>
-      </div>
-    )
-  }
+  const manager = '0xf5be8b4c82b8a681bacf357cfb712ab9e9296cb2'
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.gridContainer}>
         <div className={styles.cardContent}>
+          <div className={styles.row}>
+            <div className={styles.title}>
+              {/* <BankOutlined className={styles.logo} /> */}
+              {aum}
+            </div>
+            <span className={styles.content}>Assets Under Management</span>
+          </div>
+        </div>
+        <div className={styles.cardContent}>
+          <div className={styles.row}>
+            <div className={styles.title} style={{ color: '#34d399' }}>
+              {/* <BarChartOutlined className={styles.logo} /> */}
+              +238.76%
+            </div>
+            <span className={styles.content}>Accumulated Return</span>
+          </div>
+        </div>
+        <div className={styles.cardContent}>
+          <div className={styles.row}>
+            <div className={styles.title} style={{ color: '#34d399' }}>
+              {/* <LineChartOutlined className={styles.logo} style={{ color: '#34d399' }} /> */}
+              {anualizedReturn}
+            </div>
+            <span className={styles.content}>Annualized Return</span>
+          </div>
+        </div>
+        <div className={styles.cardContent}>
+          <div className={styles.row}>
+            <div className={styles.title} style={{ color: '#34d399' }}>
+              +18.62%
+            </div>
+            <span className={styles.content}>2023 Return</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardContent}>
+        <div style={{ paddingLeft: '1rem' }}>
+          <div>
+            <span
+              style={{ color: priceType == 'Share Price' ? 'white' : '#656872', cursor: 'pointer', marginRight: 10 }}
+              onClick={() => { setPriceType('Share Price') }}
+            >
+              Share Price
+            </span>
+            <span
+              style={{ color: priceType == 'Assets Under Management' ? 'white' : '#656872', cursor: 'pointer' }}
+              onClick={() => { setPriceType('Assets Under Management') }}
+            >
+              Assets Under Management
+            </span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <div className={styles.mainTitle}>{priceType == 'Share Price' ? sharePrice : aum}</div>
+              <div style={{ fontSize: 16, color: '#ef4444', marginLeft: 12 }}>-1.80%</div>
+            </div>
+            <div className={styles.priceRadioGroup} style={{ marginRight: '3rem' }}>
+              <Radio.Group defaultValue="1m">
+                <Radio.Button value="1m">1M</Radio.Button>
+                <Radio.Button value="3m">3M</Radio.Button>
+                <Radio.Button value="6m">6M</Radio.Button>
+                <Radio.Button value="1y">1Y</Radio.Button>
+                <Radio.Button value="all">ALL</Radio.Button>
+              </Radio.Group>
+            </div>
+          </div>
+        </div>
+        <div style={{ paddingRight: '2rem' }}>
+          <Area
+            data={areaData}
+            xField={'Date'}
+            yField={'scales'}
+            xAxis={{ tickCount: 5 }}
+            yAxis={{ visible: false, grid: { visible: false } }}
+            line={{ style: { stroke: '#0030d4' } }}
+            areaStyle={{ fill: 'l(270) 0:#0e1118 1:#0030d4' }}
+          />
+        </div>
+      </div>
+
+      <div className={styles.cardContent} style={{ marginTop: '2rem' }}>
+        <YearTable dataSource={yearData} />
+      </div>
+
+      <div className={styles.cardContent} style={{ marginTop: '2rem', marginBottom: '4rem', display: 'flex', alignItems: 'center' }}>
+        <div className={styles.mainTitle}>Manager</div>
+        <div style={{ marginLeft: 20 }}>
+          <span style={{ marginRight: 5, fontSize: "1.2rem", color: '#656872' }}>{manager}</span>
+          <svg height={15} style={{ marginTop: 12, cursor: 'pointer' }} fill="#656872" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" onClick={() => { cnavigator.clipboard.writeText(manager) }}><path d="M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z" /></svg>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const Orders = ({ }) => {
+
+  const tokenHoldings = [
+    {
+      name: 'Liquid staked Ether 2.0',
+      symbol: 'stETH',
+      logo: eth,
+      time: '2023-06-12 20:29',
+      balancein: '$17,869.5628',
+      balanceout: '$1,847.4636',
+      profit: 1.03,
+      allocation: '28.47%',
+    },
+    {
+      name: 'Wrapped Ether',
+      symbol: 'WETH',
+      logo: eth,
+      time: '2023-06-12 20:11',
+      balancein: '$13.5423',
+      balanceout: '$1,847.6612',
+      profit: 1.03,
+      allocation: '34.83%',
+    },
+  ]
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.mainTitle} style={{ marginBottom: '2rem' }}>Token Holdings</div>
+      <div className={styles.cardContent}>
+        <TokenHoldingTable dataSource={tokenHoldings} />
+      </div>
+    </div>
+  )
+}
+
+const Fees = ({ }) => {
+
+  const fees = [
+    {
+      feeType: 'Management Fee',
+      rate: '2%',
+    },
+    {
+      feeType: 'Carry',
+      rate: '20%',
+    },
+  ]
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.cardContent}>
+        <FeesTable dataSource={fees} />
+      </div>
+    </div>
+  )
+}
+
+const Investment = props => {
+  const [selectedVault, setSelectedVault] = useState('USDT')
+  const [tokenAmount, setTokenAmount] = useState('')
+  const [anualizedReturn, setAnualizedReturn] = useState('34.56%')
+  const [sharePrice, setSharePrice] = useState('$2.12')
+  const [aum, setAum] = useState('$1.35M')
+
+  const tokenLogo = {
+    USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+    USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+    BNB: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
+    ETH: eth,
+  }
+
+  const onSwitchVault = (_vault, _anualizedReturn, _sharePrice, _aum) => {
+    setSelectedVault(_vault)
+    setSharePrice(_sharePrice)
+    setAum(_aum)
+    setAnualizedReturn(_anualizedReturn)
+  }
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.gridContainer}>
+        <div className={styles.cardContent}
+          style={{ cursor: 'pointer', border: selectedVault == 'USDT' ? '1px solid #cbff00' : 'none' }}
+          onClick={() => { onSwitchVault('USDT', '34.56%', '$2.12', '$1.35M') }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('USDT') }} >
+            <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: USDT
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDT']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Invested Asset</span>
+            <div>
+              <img style={{ height: 18, width: 18, marginRight: 5 }} src={tokenLogo['USDT']} />
+              <span>USDT</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
             <span>34.56%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Share Price</span>
+            <span>$2.12</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>AUM</span>
@@ -444,19 +477,34 @@ const Investment = props => {
             yAxis={{ visible: false, grid: { visible: false } }}
             line={{ style: { stroke: '#0030d4' } }}
             areaStyle={{ fill: 'transparent' }}
+            tooltip={false}
           />
         </div>
-        <div className={styles.cardContent}>
+        <div className={styles.cardContent}
+          style={{ cursor: 'pointer', border: selectedVault == 'USDC' ? '1px solid #cbff00' : 'none' }}
+          onClick={() => { onSwitchVault('USDC', '22.83%', '$1.90', '$661.57K') }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('USDC') }}>
+            <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: USDC
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDC']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Invested Asset</span>
+            <div>
+              <img style={{ height: 18, width: 18, marginRight: 5 }} src={tokenLogo['USDC']} />
+              <span>USDC</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
             <span>22.83%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Share Price</span>
+            <span>$1.90</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>AUM</span>
@@ -471,19 +519,34 @@ const Investment = props => {
             yAxis={{ visible: false, grid: { visible: false } }}
             line={{ style: { stroke: '#0030d4' } }}
             areaStyle={{ fill: 'transparent' }}
+            tooltip={false}
           />
         </div>
-        <div className={styles.cardContent}>
+        <div className={styles.cardContent}
+          style={{ cursor: 'pointer', border: selectedVault == 'BNB' ? '1px solid #cbff00' : 'none' }}
+          onClick={() => { onSwitchVault('BNB', '41.90%', '$1.87', '$608.91K') }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('BNB') }}>
+            <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: BNB
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['BNB']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Invested Asset</span>
+            <div>
+              <img style={{ height: 18, width: 18, marginRight: 5 }} src={tokenLogo['BNB']} />
+              <span>BNB</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
             <span>41.90%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Share Price</span>
+            <span>$1.87</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>AUM</span>
@@ -498,19 +561,34 @@ const Investment = props => {
             yAxis={{ visible: false, grid: { visible: false } }}
             line={{ style: { stroke: '#0030d4' } }}
             areaStyle={{ fill: 'transparent' }}
+            tooltip={false}
           />
         </div>
-        <div className={styles.cardContent}>
+        <div className={styles.cardContent}
+          style={{ cursor: 'pointer', border: selectedVault == 'ETH' ? '1px solid #cbff00' : 'none' }}
+          onClick={() => { onSwitchVault('ETH', '53.78%', '$2.34', '$166.72K') }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div className={styles.vaultTitle} onClick={() => { setSelectedVault('ETH') }}>
+            <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
               Flash Arbitrage: ETH
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['ETH']} /> */}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Invested Asset</span>
+            <div>
+              <img style={{ height: 18, width: 18, marginRight: 5 }} src={tokenLogo['ETH']} />
+              <span>ETH</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Anualized Return</span>
             <span>53.78%</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Share Price</span>
+            <span>$2.34</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>AUM</span>
@@ -525,29 +603,30 @@ const Investment = props => {
             yAxis={{ visible: false, grid: { visible: false } }}
             line={{ style: { stroke: '#0030d4' } }}
             areaStyle={{ fill: 'transparent' }}
+            tooltip={false}
           />
         </div>
       </div>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem', marginTop: '2rem' }}>
           <img src={investIcon} style={{ width: 30, height: 30 }} />
-          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>Flash Arbitrage: {selectedVault}</div>
+          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>Flash Arbitrage</div>
         </div>
-        <div style={{display: 'flex', float: 'right', marginRight: 30}}>
+        <div style={{ display: 'flex', float: 'right', marginRight: 30 }}>
           <div style={{ display: 'flex', background: 'transparent', border: '1px solid #333333', borderRadius: 5, alignItems: 'center' }}>
             <input value={tokenAmount} onChange={(e) => { setTokenAmount(e.target.value) }} style={{ width: 200, height: 40 }} />
             <img src={tokenLogo[selectedVault]} style={{ width: 23, height: 23, marginRight: 10 }} />
           </div>
           <Button
             type='primary' style={{ marginLeft: 20, borderRadius: 15, height: 35, padding: '0 30px' }}
-            onClick={() => {  }}
+            onClick={() => { }}
           >
             INVEST
           </Button>
         </div>
         <OxTabs>
           <div tab="Overview" key="1">
-            <Overview />
+            <Overview sharePrice={sharePrice} aum={aum} anualizedReturn={anualizedReturn} />
           </div>
           <div tab="Orders" key="2">
             <Orders />
