@@ -127,6 +127,16 @@ const TradeComponent = props => {
                 </div>
               </div>
             </div>
+            <div style={{ marginTop: 15 }}>
+              <div>
+                Available
+                <span style={{color: 'white', marginLeft: 5}}>0.13 USDT</span>
+              </div>
+              <div>
+                Max Buy
+                <span style={{color: 'white', marginLeft: 5}}>0.0000533 BTC</span>
+              </div>
+            </div>
           </div>
 
           <ComponentButton

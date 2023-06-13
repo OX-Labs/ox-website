@@ -1,5 +1,6 @@
 import { useWeb3React } from '@web3-react/core';
-import { Layout, Row, Col, Button, Modal, Input, Select, Divider, Table } from 'antd';
+import { Row, Col, Button, Table, List } from 'antd';
+import { DollarOutlined, LogoutOutlined, LoginOutlined } from '@ant-design/icons'
 import React from 'react';
 import { useEffect, useState } from 'react';
 import styles from './styles.less'
@@ -126,14 +127,14 @@ const Assets = props => {
                 <span style={{ marginRight: '5px', fontSize: "1.2rem" }}>{account}</span>
                 <svg height={15} style={{ marginTop: "12px" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" onClick={() => { copy(account) }}><path d="M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z" /></svg>
               </div>
-              : <div style={{ fontSize: "1.5rem", marginLeft: 10 }}>Account</div>
+              : <div style={{ fontSize: "1.5rem", marginLeft: 10, color: 'white', fontWeight: 'bold' }}>Account</div>
             }
             <div>
               <Button className={styles.button}>Deposit</Button>
               <Button className={styles.button}>Withdraw</Button>
               <Button className={styles.button}>Transfer</Button>
               <Button className={styles.button}>Send</Button>
-              <Button className={styles.button}>Transaction History</Button>
+              {/* <Button className={styles.button}>Transaction History</Button> */}
             </div>
 
           </div>
@@ -149,6 +150,65 @@ const Assets = props => {
               columns={columnData}
               pagination={false}
               dataSource={dataSource}
+            />
+          </div>
+          <div style={{ padding: '3rem 1rem' }}>
+            <div style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>Recent Transactions</div>
+            <Table
+              className={styles.nobgList}
+              columns={[
+                {
+                  title: '',
+                  render: (text, entry) => {
+                    return <div style={{ display: 'flex', alignItems: 'center', paddingLeft: 20 }}>
+                      {entry.title.includes('Transfer') && <DollarOutlined style={{ color: '#b6b6b5', fontSize: 25, marginRight: 15 }} />}
+                      {entry.title.includes('Deposit') && <LoginOutlined style={{ color: '#b6b6b5', fontSize: 25, marginRight: 15 }} rotate={90} />}
+                      {(entry.title.includes('Withdrawal') || entry.title.includes('To')) &&
+                        <LogoutOutlined style={{ color: '#b6b6b5', fontSize: 25, marginRight: 15 }} rotate={270} />}
+                      <div style={{ display: 'flex', flexDirection: 'column', fontSize: 15 }}>
+                        <span style={{ fontWeight: 'bold' }}>{entry.title}</span>
+                        <span style={{ color: '#b6b6b5' }} >{entry.time}</span>
+                      </div>
+                    </div>;
+                  },
+                },
+                {
+                  title: '',
+                  render: (text, entry, record) => {
+                    return <div className={styles.tableData} style={{ float: "right", fontSize: 15 }}>
+                      {entry.value}
+                    </div>
+                  },
+                },
+              ]}
+              pagination={false}
+              dataSource={[
+                {
+                  title: 'To: Trading USDT',
+                  time: '05/29/2023, 08:12:26',
+                  value: '-2.2886 USDT',
+                },
+                {
+                  title: 'Transfer USDT',
+                  time: '05/29/2023, 08:11:56',
+                  value: '1.1432 USDT',
+                },
+                {
+                  title: 'Transfer ETH',
+                  time: '05/29/2023, 08:11:40',
+                  value: '-0.0006 ETH',
+                },
+                {
+                  title: 'Withdrawal USDT',
+                  time: '05/25/2023, 20:33:04',
+                  value: '-4800.0000 USDT',
+                },
+                {
+                  title: 'Deposit USDT',
+                  time: '05/25/2023, 20:28:16',
+                  value: '4800.0000 USDT',
+                },
+              ]}
             />
           </div>
         </div>
