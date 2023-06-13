@@ -204,6 +204,13 @@ const areaData = [
   },
 ]
 
+const tokenLogo = {
+  USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+  USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+  BNB: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
+  ETH: eth,
+}
+
 const Overview = ({ sharePrice, aum, anualizedReturn }) => {
   const [priceType, setPriceType] = useState('Share Price')
 
@@ -357,13 +364,12 @@ const Overview = ({ sharePrice, aum, anualizedReturn }) => {
   )
 }
 
-const Orders = ({ }) => {
+const Orders = ({ vault }) => {
 
   const tokenHoldings = [
     {
-      name: 'Liquid staked Ether 2.0',
-      symbol: 'stETH',
-      logo: eth,
+      symbol: vault,
+      logo: tokenLogo[vault],
       time: '2023-06-12 20:29',
       balancein: '$17,869.5628',
       balanceout: '$1,847.4636',
@@ -371,9 +377,8 @@ const Orders = ({ }) => {
       allocation: '28.47%',
     },
     {
-      name: 'Wrapped Ether',
-      symbol: 'WETH',
-      logo: eth,
+      symbol: vault,
+      logo: tokenLogo[vault],
       time: '2023-06-12 20:11',
       balancein: '$13.5423',
       balanceout: '$1,847.6612',
@@ -420,13 +425,6 @@ const Investment = props => {
   const [anualizedReturn, setAnualizedReturn] = useState('34.56%')
   const [sharePrice, setSharePrice] = useState('$2.12')
   const [aum, setAum] = useState('$1.35M')
-
-  const tokenLogo = {
-    USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
-    USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
-    BNB: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850',
-    ETH: eth,
-  }
 
   const onSwitchVault = (_vault, _anualizedReturn, _sharePrice, _aum) => {
     setSelectedVault(_vault)
@@ -615,7 +613,10 @@ const Investment = props => {
         <div style={{ display: 'flex', float: 'right', marginRight: 30 }}>
           <div style={{ display: 'flex', background: 'transparent', border: '1px solid #333333', borderRadius: 5, alignItems: 'center' }}>
             <input value={tokenAmount} onChange={(e) => { setTokenAmount(e.target.value) }} style={{ width: 200, height: 40 }} />
-            <img src={tokenLogo[selectedVault]} style={{ width: 23, height: 23, marginRight: 10 }} />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img src={tokenLogo[selectedVault]} style={{ width: 23, height: 23, marginRight: 5 }} />
+              <span style={{marginRight: 8}}>{selectedVault}</span>
+            </div>
           </div>
           <Button
             type='primary' style={{ marginLeft: 20, borderRadius: 15, height: 35, padding: '0 30px' }}
@@ -629,7 +630,7 @@ const Investment = props => {
             <Overview sharePrice={sharePrice} aum={aum} anualizedReturn={anualizedReturn} />
           </div>
           <div tab="Orders" key="2">
-            <Orders />
+            <Orders vault={selectedVault} />
           </div>
           <div tab="Fees" key="3">
             <Fees />

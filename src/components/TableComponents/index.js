@@ -1184,11 +1184,8 @@ export function TokenHoldingTable(props) {
         render: (text, entry) => {
           return (
             <div className={styles.tableHeader} style={{ display: 'flex', alignItems: 'center' }}>
-              <img src={entry.logo} style={{width: 30, height: 30}} />
-              <div style={{ marginLeft: 10, display: 'flex', flexDirection: 'column' }}>
-                <span style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginBottom: -5 }}>{entry.symbol}</span>
-                <span>{entry.name}</span>
-              </div>
+              <img src={entry.logo} style={{width: 25, height: 25, marginRight: 8}} />
+              <div style={{ color: 'white', fontWeight: 'bold', fontSize: 18 }}>{entry.symbol}</div>
             </div >
           );
         },
