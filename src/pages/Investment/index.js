@@ -443,7 +443,7 @@ const Investment = props => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
-              Flash Arbitrage: USDT
+              Flash Arbitrage ①
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDT']} /> */}
           </div>
@@ -485,7 +485,7 @@ const Investment = props => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
-              Flash Arbitrage: USDC
+              Flash Arbitrage ②
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['USDC']} /> */}
           </div>
@@ -527,7 +527,7 @@ const Investment = props => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
-              Flash Arbitrage: BNB
+              Flash Arbitrage ③
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['BNB']} /> */}
           </div>
@@ -569,7 +569,7 @@ const Investment = props => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div className={styles.vaultTitle}>
               <img style={{ borderRadius: 20, marginRight: 10, height: 30, width: 30 }} src={investIcon} />
-              Flash Arbitrage: ETH
+              Flash Arbitrage ④
             </div>
             {/* <img style={{ height: 25, width: 25 }} src={tokenLogo['ETH']} /> */}
           </div>
@@ -608,14 +608,20 @@ const Investment = props => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem', marginTop: '2rem' }}>
           <img src={investIcon} style={{ width: 30, height: 30 }} />
-          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>Flash Arbitrage</div>
+          <div className={styles.mainTitle} style={{ marginLeft: 10 }}>
+            Flash Arbitrage
+            {selectedVault == 'USDT' && ' ①'}
+            {selectedVault == 'USDC' && ' ②'}
+            {selectedVault == 'BNB' && ' ③'}
+            {selectedVault == 'ETH' && ' ④'}
+          </div>
         </div>
         <div style={{ display: 'flex', float: 'right', marginRight: 30 }}>
           <div style={{ display: 'flex', background: 'transparent', border: '1px solid #333333', borderRadius: 5, alignItems: 'center' }}>
             <input value={tokenAmount} onChange={(e) => { setTokenAmount(e.target.value) }} style={{ width: 200, height: 40 }} />
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <img src={tokenLogo[selectedVault]} style={{ width: 23, height: 23, marginRight: 5 }} />
-              <span style={{marginRight: 8}}>{selectedVault}</span>
+              <span style={{ marginRight: 8 }}>{selectedVault}</span>
             </div>
           </div>
           <Button
