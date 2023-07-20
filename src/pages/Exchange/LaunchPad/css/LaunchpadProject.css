@@ -693,7 +693,7 @@
   width: 150px;
   height: 40px;
   cursor: pointer;
-  margin-left: 2em;
+  margin: 0 2em;
 }
 
 .sales-container .invalid {

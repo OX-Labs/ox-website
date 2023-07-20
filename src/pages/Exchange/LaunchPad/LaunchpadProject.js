@@ -39,6 +39,7 @@ import linkBIcon from '@/assets/launchpad/icon_open_in_new_window_black.svg'
 import whitepaperIcon from '@/assets/launchpad/icon_file_white.svg';
 import deckIcon from '@/assets/launchpad/icon_ppt.svg';
 import tokenEconomicsIcon from '@/assets/launchpad/icon_googlesheets.svg';
+import websiteIcon from '@/assets/launchpad/icon_website.svg';
 import TokenomicsPieChart from './components/PieChart';
 import YoutubePlayer from './components/YoutubePlayer';
 import { SalesTable } from '@/components/TableComponents';
@@ -47,7 +48,7 @@ const InputGroup = Input.Group;
 const logoObj = {
   "Telegram": telegramWIcon,
   "Twitter": twitterWIcon,
-  "Website": linkWIcon,
+  "Website": websiteIcon,
   "Whitepaper": whitepaperIcon,
   "Deck": deckIcon,
   "Linkedin": linkedinIcon,
@@ -978,7 +979,7 @@ const Allocation = ({
               Price
             </label>
           </div>
-          <div className={styles.priceRadioGroup} style={{ width: '85%' }}>
+          <div className={styles.priceRadioGroup} style={{ width: '100%' }}>
             <Radio.Group defaultValue="0.0035">
               <Radio.Button value="0.0030">0.0030 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>
               <Radio.Button value="0.0035">0.0035 {receivedData.mainCoin == 'BUSD' ? 'USDT' : receivedData.mainCoin}</Radio.Button>

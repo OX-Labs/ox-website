@@ -45,7 +45,7 @@ const ApproveToken = ({ setCurrent, setCreateToken }) => {
       </Button>
       <div
         style={{ textAlign: 'center', cursor: 'pointer', marginTop: 10, marginBottom: 20 }}
-        onClick={() => { setCreateToken(true) }}
+        onClick={() => { window.open('https://create.base.tech/') }}
       >
         Create Token
       </div>
@@ -200,10 +200,10 @@ const PresaleInformation = ({ setCurrent }) => {
         </Button>
       </div>
       <Form style={{ marginTop: 10, textAlign: 'left' }}>
-        <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 20 }}>Presale Information</div>
-        <div style={{ display: 'flex' }}>
-          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
-            <div style={{ fontSize: 15, marginBottom: 10, color: '#b6b6b5' }}>Fund Rasing Token</div>
+        <div style={{ fontSize: '1.5rem', color: 'white', textAlign: 'center', fontWeight: 'bold', marginBottom: 30 }}>Presale Information</div>
+        <Form.Item>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Fund Rasing Token</div>
             <Radio.Group
               onChange={(e) => setFundRaisingToken(e.target.value)}
               value={fundRaisingToken}
@@ -213,16 +213,8 @@ const PresaleInformation = ({ setCurrent }) => {
               <Radio value={'BNB'}>BNB</Radio>
               <Radio value={'ETH'}>ETH</Radio>
             </Radio.Group>
-          </Form.Item>
-          <Form.Item style={{ width: '-webkit-fill-available' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Raise</div>
-            <Input
-              value={totalRaise}
-              onChange={(e) => { setTotalRaise(e.target.value) }}
-              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-            />
-          </Form.Item>
-        </div>
+          </div>
+        </Form.Item>
         <div style={{ display: 'flex' }}>
           <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Total Sale</div>
@@ -242,7 +234,7 @@ const PresaleInformation = ({ setCurrent }) => {
           </Form.Item>
         </div>
         <div style={{ display: 'flex' }}>
-        <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
+          <Form.Item style={{ width: '-webkit-fill-available', marginRight: 20 }}>
             <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Final Price</div>
             <Input
               value={finalPrice}
