@@ -9,18 +9,9 @@ const EditModal = (props: any) => {
     setShowModal,
     row,
     setRow,
+    edit,
   } = props
 
-  const [name, setName] = useState('')
-  const [exchange, setExchange] = useState(row?.exchange)
-  const [coin, setCoin] = useState(row?.coin)
-  const [orderNum, setOrderNum] = useState(row?.orderNum)
-  const [grid, setGrid] = useState(row?.grid)
-  const [eachOrderAmount, setEachOrderAmount] = useState(row?.eachOrderAmount)
-  const [sellOnlyPrice, setSellOnlyPrice] = useState(row?.sellOnlyPrice)
-  const [editable, setEditable] = useState(true)
-
-  console.log('joy', row)
   return (
     <Modal
       open={showModal}
@@ -33,86 +24,61 @@ const EditModal = (props: any) => {
           <div style={{ fontSize: 15, color: '#b6b6b5' }}>Name</div>
           <Input
             value={row?.name}
-            onChange={(e: any) => { setRow({...row, name: e.target.value}) }}
+            onChange={(e: any) => { setRow({ ...row, name: e.target.value }) }}
             style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
           />
         </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Exchange</div>
-          <Select
-            value={row?.exchange}
-            onChange={e => { setRow({...row, exchange: e }) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['Bitmart', 'Deepcoin', 'Kucoin'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Coin</div>
-          <Select
-            value={row?.coin}
-            onChange={e => { setRow({...row, coin: e }) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['QH', 'USDT'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {row?.name != "Maker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Reference Pair</div>
+            <Input
+              value={row?.ref_pair}
+              onChange={(e: any) => { setRow({ ...row, ref_pair: e.target.value }) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
+        {row?.name == "Maker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Grid</div>
+            <Input
+              value={row?.buygrid}
+              onChange={(e: any) => { setRow({ ...row, buygrid: e.target.value, sellgrid: e.target.value }) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
         <Form.Item>
           <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Order Number</div>
           <Input
-            value={row?.orderNum}
-            onChange={(e: any) => { setRow({...row, orderNum: e.target.value}) }}
+            value={row?.BuyOrderNum}
+            onChange={(e: any) => { setRow({ ...row, BuyOrderNum: e.target.value, SellOrderNum: e.target.value }) }}
             style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
           />
         </Form.Item>
         <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Grid</div>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Order Amount</div>
           <Input
-            value={row?.grid}
-            onChange={(e: any) => { setRow({...row, grid: e.target.value}) }}
+            value={row?.OrderAmount}
+            onChange={(e: any) => { setRow({ ...row, OrderAmount: e.target.value }) }}
             style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
           />
         </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Each Order Amount</div>
-          <Input
-            value={row?.eachOrderAmount}
-            onChange={(e: any) => { setRow({...row, eachOrderAmount: e.target.value}) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Sell Only Price</div>
-          <Input
-            value={row?.sellOnlyPrice}
-            onChange={(e: any) => { setRow({...row, sellOnlyPrice: e.target.value}) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Editable</div>
-            <Radio.Group
-              onChange={(e) => setRow({...row, editable: e.target.value})}
-              value={editable}
-            >
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
-            </Radio.Group>
-          </div>
-        </Form.Item>
+        {row?.name != "Maker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Ratio</div>
+            <Input
+              value={row?.buyratio}
+              onChange={(e: any) => { setRow({ ...row, buyratio: e.target.value, sellratio: e.target.value }) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
       </Form>
-      <Button className={styles.confirmButton} onClick={() => { setShowModal(false) }}>
+      <Button
+        className={styles.confirmButton}
+        onClick={() => {
+          edit()
+          setShowModal(false)
+        }}
+      >
         Save
       </Button>
     </Modal>

@@ -11,12 +11,12 @@ const AddModal = (props: any) => {
 
   const [name, setName] = useState('')
   const [exchange, setExchange] = useState('Bitmart')
-  const [coin, setCoin] = useState('QH')
-  const [orderNum, setOrderNum] = useState(0)
-  const [grid, setGrid] = useState(0)
-  const [eachOrderAmount, setEachOrderAmount] = useState(0)
-  const [sellOnlyPrice, setSellOnlyPrice] = useState(0)
-  const [editable, setEditable] = useState(false)
+  const [accountKey, setAccountKey] = useState('')
+  const [refPair, setRefPair] = useState('BTC/USDT')
+  const [grid, setGrid] = useState(0.01)
+  const [ratio, setRatio] = useState(0.5)
+  const [orderNum, setOrderNum] = useState(50)
+  const [OrderAmount, setOrderAmount] = useState(50)
   const [mode, setMode] = useState('taker')
 
   return (
@@ -57,7 +57,7 @@ const AddModal = (props: any) => {
             className={styles.mySelect}
             dropdownClassName={styles.dropDownMenu}
           >
-            {['Bitmart', 'Deepcoin', 'Kucoin'].map(e => (
+            {['Bitmart', 'Deepcoin'].map(e => (
               <Select.Option className={styles.optionItem} value={e}>
                 {e}
               </Select.Option>
@@ -65,20 +65,31 @@ const AddModal = (props: any) => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <div style={{ fontSize: 15, color: '#b6b6b5' }}>Coin</div>
-          <Select
-            value={coin}
-            onChange={e => { setCoin(e) }}
-            className={styles.mySelect}
-            dropdownClassName={styles.dropDownMenu}
-          >
-            {['QH', 'USDT'].map(e => (
-              <Select.Option className={styles.optionItem} value={e}>
-                {e}
-              </Select.Option>
-            ))}
-          </Select>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Accout Api Key</div>
+          <Input
+            value={accountKey}
+            onChange={(e: any) => { setAccountKey(e.target.value) }}
+            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+          />
         </Form.Item>
+        {mode == "taker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Reference Pair</div>
+            <Input
+              value={refPair}
+              onChange={(e: any) => { setRefPair(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
+        {mode == "maker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Grid</div>
+            <Input
+              value={grid}
+              onChange={(e: any) => { setGrid(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
         <Form.Item>
           <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Order Number</div>
           <Input
@@ -88,41 +99,22 @@ const AddModal = (props: any) => {
           />
         </Form.Item>
         <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Grid</div>
+          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Order Amount</div>
           <Input
-            value={grid}
-            onChange={(e: any) => { setGrid(e.target.value) }}
+            value={OrderAmount}
+            onChange={(e: any) => { setOrderAmount(e.target.value) }}
             style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
           />
         </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Each Order Amount</div>
-          <Input
-            value={eachOrderAmount}
-            onChange={(e: any) => { setEachOrderAmount(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Sell Only Price</div>
-          <Input
-            value={sellOnlyPrice}
-            onChange={(e: any) => { setSellOnlyPrice(e.target.value) }}
-            style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Editable</div>
-            <Radio.Group
-              onChange={(e) => setEditable(e.target.value)}
-              value={editable}
-            >
-              <Radio value={true}>Yes</Radio>
-              <Radio value={false}>No</Radio>
-            </Radio.Group>
-          </div>
-        </Form.Item>
+        {mode == "taker" &&
+          <Form.Item>
+            <div style={{ fontSize: 15, marginBottom: 5, color: '#b6b6b5' }}>Ratio</div>
+            <Input
+              value={ratio}
+              onChange={(e: any) => { setRatio(e.target.value) }}
+              style={{ height: 40, background: 'transparent', border: '1px solid #333333' }}
+            />
+          </Form.Item>}
       </Form>
       <Button className={styles.confirmButton} onClick={() => { setShowModal(false) }}>
         Submit
