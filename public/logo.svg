@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300px" height="300px" viewBox="0 0 300 300" version="1.1">
-<g id="surface1">
-<rect x="0" y="0" width="300" height="300" style="fill:rgb(8.235294%,8.627451%,8.627451%);fill-opacity:1;stroke:none;"/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(12.156863%,70.196078%,87.843137%);fill-opacity:1;" d="M 232.511719 252.539062 L 160.722656 150.015625 L 232.523438 47.476562 L 232.5 47.460938 L 190.839844 47.460938 L 119.039062 150.007812 L 119.027344 150.011719 L 119.027344 150.023438 L 119.039062 150.03125 L 190.816406 252.539062 Z M 232.511719 252.539062 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(12.156863%,70.196078%,87.843137%);fill-opacity:1;" d="M 67.476562 86.632812 L 105.484375 140.914062 L 126.335938 111.132812 L 109.171875 86.632812 Z M 67.476562 86.632812 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(12.156863%,70.196078%,87.843137%);fill-opacity:1;" d="M 109.171875 213.367188 L 126.363281 188.820312 L 105.515625 159.046875 L 67.476562 213.367188 Z M 109.171875 213.367188 "/>
-</g>
+<svg id="_图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1fb3e0;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="396.82 431 274.3 256.03 396.84 81.03 396.8 81 325.7 81 203.16 256.01 203.14 256.02 203.14 256.03 203.14 256.04 203.16 256.05 325.66 431 396.82 431"/>
+  <polygon class="cls-1" points="115.16 147.85 180.03 240.49 215.61 189.67 186.32 147.85 115.16 147.85"/>
+  <polygon class="cls-1" points="186.32 364.15 215.66 322.25 180.08 271.44 115.16 364.15 186.32 364.15"/>
 </svg>
